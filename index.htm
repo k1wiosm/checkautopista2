@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>CheckAutopista</title>
+		<meta name="viewport" content="width=device-width, target-densitydpi=high-dpi, user-scalable=no, initial-scale=1, minimum-scale=1, maximum-scale=1" /> <!-- iOS: Fill screen -->
+		<meta http-equiv="Content-Type" content="application/vnd.wap.xhtml+xml; charset=utf-8" />
+		<meta name="HandheldFriendly" content="true" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />  <!--iOS: Capable of running fullscreen as an app-->
+		<meta name="apple-mobile-web-app-status-bar-style" content="black"> <!--iOS: Black status bar-->
+		<link rel="stylesheet" href="lib/jquery/jquery-ui.css">
+		<link rel="stylesheet" href="lib/font-awesome/css/font-awesome.css">
+		<link rel="stylesheet" href="lib/leaflet/leaflet.css" />
+		<link rel="stylesheet"  href="lib/sidebar/leaflet-sidebar.min.css">
+		<link rel="stylesheet" href="css/style.css">
+		<link rel="stylesheet" type="text/css" href="css/MyFontsWebfontsKit.css">
+		<script src="lib/jquery/jquery.min.js"></script>
+		<script src="lib/jquery/jquery-ui.min.js"></script>
+		<script src="lib/jquery/jquery.ui.touch-punch.min.js"></script>
+		<script src="lib/purl/purl.js"></script>
+		<script src="lib/cookie/js.cookie-2.0.2.min.js"></script>
+		<script>L_PREFER_CANVAS = true;</script>
+		<script src="js/style.js"></script>
+		<script src="js/getdata.js"></script>
+		<script src="js/viewdata.js"></script>
+	</head>
+	<body>
+		<div class="font_preload" style="opacity: 0"><span style="font-family: TrafficTypSpaD, Arial, sans-serif;"></span></div>
+		<div id="sidebar" class="sidebar collapsed">
+			<!-- Nav tabs -->
+			<ul class="sidebar-tabs" role="tablist">
+				<li id="search"><a href="#search" role="tab"><i class="fa fa-search"></i></a></li>
+				<li id="stats"><a href="#stats" role="tab"><i class="fa fa-bar-chart"></i></a></li>
+				<li id="info"><a href="#info" role="tab"><i class="fa fa-info"></i></a></li>
+				<li id="settings"><a href="#settings" role="tab"><i class="fa fa-gear"></i></a></li>
+			</ul>
+
+			<!-- Tab panes -->
+			<div class="sidebar-content active">
+				<div class="sidebar-pane" id="search">
+					<div class="section">
+						<table><tr>
+							<td class="fit"><span>relation ID:</span></td>
+							<td><input type="number" pattern="\d*" id="relID"></input></td>
+							<td class="fit"><button onClick="getFreeway($('input#relID').val())"><i class="fa fa-cloud-download"></i></button></td>
+						</tr></table>
+					</div>
+					<div class="section">
+						<table><tr>
+							<td class="fit"><button onClick="searchInMap()"><i class="fa fa-map-o"></i> <i class="fa fa-search"></i></button></td>
+							<td><select id="visible"></select></td>
+							<td class="fit"><button onClick="getFreeway($('select#visible').val())"><i class="fa fa-cloud-download"></i></button></td>
+						</tr></table>
+					</div>
+				</div>
+				<div class="sidebar-pane" id="stats"><h2>Stats</h2><p id="buttons"></p>
+					<div class="section">
+						<table class="stats">
+							<tr id="tolls">
+								<td class="fit"><input class="chk" type="checkbox" checked></td>
+								<td class="fit"><div id="circle"></div></td>
+								<td class="code">barrier&#8203;=&#8203;toll_booth</td><td id="data" class="fit">-</td></tr>
+						</table>
+					</div>
+					<div class="section"><table class="stats">
+						<tr id="exDest">
+							<td class="fit"><input class="chk" type="checkbox" checked></td><td class="fit"><div id="circle"></div></td>
+							<td class="code">destination=*</td><td id="data" class="fit">-</td>
+						</tr>
+						<tr id="exExitTo">
+							<td class="fit"><input class="chk" type="checkbox" checked></td><td class="fit"><div id="circle"></div></td>
+							<td class="code">exit_to=*</td><td id="data" class="fit">-</td>
+						</tr>
+						<tr id="exName">
+							<td class="fit"><input class="chk" type="checkbox" checked></td><td class="fit"><div id="circle"></div></td>
+							<td class="code">name=*</td><td id="data" class="fit">-</td>
+						</tr>
+						<tr id="exNone">
+							<td class="fit"><input class="chk" type="checkbox" checked></td><td class="fit"><div id="circle"></div></td>
+							<td class="code strk">destination=* </br> exit_to=* </br> name=* </td><td id="data" class="fit">-</td>
+						</tr>
+					</table></div>
+					<div class="section"><table class="stats">
+						<tr id="exUnmarked">
+							<td class="fit"><input class="chk" type="checkbox" checked></td><td class="fit"><div id="circle"></div></td>
+							<td class="code strk">highway&#8203;=&#8203;motorway_&#8203;junction</br></td><td id="data" class="fit">-</td>
+						</tr>
+					</table></div>
+					<div class="section"><table class="stats">
+						<tr id="exRef">
+							<td class="fit"><input class="chk" type="checkbox"></td><td class="fit"><div id="circle"></div></td>
+							<td class="code">ref=*</td><td id="data" class="fit">-</td>
+						</tr>
+						<tr id="exNoRef">
+							<td class="fit"><input class="chk" type="checkbox"></td><td class="fit"><div id="circle"></div></td>
+							<td class="code strk">ref=*</td><td id="data" class="fit">-</td>
+						</tr>
+					</table></div>
+					<div class="section"><table class="stats">
+						<tr id="areas">
+							<td class="fit"><input class="chk" type="checkbox" checked></td><td class="fit"><div id="circle"></div></td>
+							<td class="code">highway&#8203;=&#8203;services </br> highway&#8203;=&#8203;rest_area</td>
+							<td id="data" class="fit">-</td>
+						</tr>
+					</table></div>
+					<div class="section"><table class="stats">
+						<tr id="wAll">
+							<td class="fit"><input class="chk" type="checkbox" checked></td><td class="fit"><div id="line"></div></td>
+							<td class="code">lanes=*</br> maxspeed=*</td><td id="data" class="fit">-</td>
+						</tr>
+						<tr id="wNoLanes">
+							<td class="fit"><input class="chk" type="checkbox" checked></td><td class="fit"><div id="line"></div></td>
+							<td class="code"><span class="code strk">lanes=*</span></td><td id="data" class="fit">-</td>
+						</tr>
+						<tr id="wNoMaxspeed">
+							<td class="fit"><input class="chk" type="checkbox" checked></td><td class="fit"><div id="line"></div></td>
+							<td class="code"><span class="code strk"> maxspeed=*</span></td><td id="data" class="fit">-</td>
+						</tr>
+						<tr id="wNone">
+							<td class="fit"><input class="chk" type="checkbox" checked></td><td class="fit"><div id="line"></div></td>
+							<td class="code"><span class="code strk">lanes=*</br> maxspeed=*</span></td><td id="data" class="fit">-</td>
+						</tr>
+					</table></div>
+					<p id="timestamp"></p>
+				</div>
+				<div class="sidebar-pane" id="info">
+					<div id="tags">
+					</div>
+				</div>
+				<div class="sidebar-pane" id="settings">
+					<div class="section"><table><tr>
+						<td class="fit"><div id="small_circle"></div></td>
+						<td><div id="sliderRadius" class="slider"></div></td>
+						<td class="fit"><div id="big_circle"></div></td>
+					</tr></table></div>
+					<div class="section"><table><tr>
+						<td class="fit"><div id="invisible_circle"></div></td>
+						<td><div id="sliderOpacity" class="slider"></div></td>
+						<td class="fit"><div id="visible_circle"></div></td>
+					</tr></table></div>
+
+				</div>
+			</div>
+		</div>
+		<div id="map" class="sidebar-map">
+		</div>
+		<script src="lib/leaflet/leaflet.js"></script>
+		<script src="lib/sidebar/leaflet-sidebar.min.js"></script>
+		<script src="js/main.js"></script>
+	</body>
+</html>
