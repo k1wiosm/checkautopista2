@@ -60,6 +60,7 @@ function getFreeway (relID) {
     fw[relID].relID = relID;
     fw[relID].getFreewayData();
     updatePermalink(relID);
+    ga('send', 'pageview', document.URL.split('/')[3]);
    $('li#stats i').attr('class', 'fa fa-spinner fa-spin'); $('li#stats').show();
     return fw[relID];
 }
@@ -83,6 +84,7 @@ function searchInMap () {
     });
 
     function searchInMap2 (response1) {
+        ga('send', 'event', 'Ver', 'click');
         var query = '[out:json][timeout:10];(';
         for (var i = 0; i < response1.elements.length; i++) {
             if (response1.elements[i].members[0].type=='way') {
