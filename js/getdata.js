@@ -134,9 +134,11 @@ Freeway.prototype.getDestinationUnmarked = function() {
 				for (var j = 0; j < fw.exits.length; j++) {
 					// Searching for the exit corresponding to fw destination tag
 					if(fw.exits[j].nodeID==response.elements[i].nodes[0] || fw.exits[j].nodeID==response.elements[i].nodes[response.elements[i].nodes.length-1]){
-						way[response.elements[i].id] = new Way(response.elements[i]);
-						fw.exits[j].destination=response.elements[i].tags.destination;
-						fw.exits[j].wayID=response.elements[i].id;
+						if (fw.exits[j].destination==undefined || response.elements[i].tags.highway=='motorway_link') {
+							way[response.elements[i].id] = new Way(response.elements[i]);
+							fw.exits[j].destination=response.elements[i].tags.destination;
+							fw.exits[j].wayID=response.elements[i].id;
+						};
 					};
 				};
 			};
