@@ -149,15 +149,47 @@ div.subPanel {
 	font-size: 20px;
 }
 
-div.subPanel#ref {
+div.subPanel.ref {
 	text-align: right;
 }
 
-div.panel img {
+div.subPanel img {
 	margin-right: 10px;
 	float: left;
 	margin-top: 2px;
 }
+
+div.subPanel.destination {
+	overflow: hidden;
+}
+
+div.subPanel table {
+	width: 100%;
+}
+
+div.subPanel table tr td {
+	color: white;
+	font-family: TrafficTypSpaD;
+	font-size: 20px;
+}
+
+div.subPanel table tr td.ref {
+	text-align: right;
+}
+
+div .panelText.ref {
+	margin: 1px;
+	font-size: 18px;
+	display: inline-block;
+}
+
+.red {background-color: red;}
+.green {background-color: green;}
+.blue {background-color: blue;}
+.greenE {background-color: #00cc00;}
+.es1 {background-color: #ff9900; color:black;}
+.es2 {background-color: #009900;}
+.es3 {background-color: #ffff00; color:black;}
 
 img.icon {
 	width: 20px;

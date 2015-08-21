@@ -174,7 +174,7 @@ Node.prototype.zoom = function () {
 function getHtml(element) {
 	var t_html = '';
 	if (element.subtype=='exit') {
-		t_html += htmlPanel(element.destination || element.exit_to || element.name || '&nbsp;', element.ref || '&nbsp;');
+		t_html += htmlPanel(element);
 	}
 	if (element.nodeID!=undefined) {
 		t_html += '<h3>Node : ' + element.nodeID +
