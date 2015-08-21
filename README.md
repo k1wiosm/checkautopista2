@@ -10,19 +10,24 @@ CheckAutopista is a quality assurance tool for motorways in OpenStreetMap. This 
 
 ##Quality Assurance
 
-You can choose a motorway by relationID or from the map and it checks the following information:
+You can choose a motorway by relationID or from the map and it shows:
 
-* name
-* ref
-* maxspeed
-* lanes
+* Ways
+  * maxspeed
+  * lanes
+* Exit nodes
+  * highway=motorway_junction 
+  * ref
+  * destination
+    * destination:ref
+    * destination:int_ref
+  * exit_to
+  * name
+* Tollbooths
+* Service and Rest Areas
 
-On the exits it checks:
+##Examples
 
-* ref
-* destination
-* exit_to
-* name
-
-Also it shows information about the tollbooths and the service and rest areas.
-
+* [London M25](http://checkautopista.hol.es/?id=106164&lat=51.5049&lon=-0.3948&z=10)
+* [Interstate 15 in California](http://checkautopista.hol.es/?id=2211488&lat=34.1868&lon=-117.8146&z=8)
+* [Autovía Cantabria - Meseta (A-67) in Spain](http://checkautopista.hol.es/?id=4071813&lat=42.8629&lon=-4.4206&z=9)
