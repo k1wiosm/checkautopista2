@@ -7,7 +7,7 @@ var map = L.map('map', {
 if (options.lat==undefined && options.lon==undefined && options.z== undefined) {
 	map.locate({
 		setView:true,
-		maxZoom:9});
+		maxZoom:12});
 }
 
 a=L.tileLayer(
