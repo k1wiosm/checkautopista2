@@ -52,8 +52,7 @@ if (options.country=='es') {
 map.on('moveend', function(e) { updatePermalink(undefined, map.getCenter().lat, map.getCenter().lng, map.getZoom()); });
 
 function getFreeway (relID) {
-    if (typeof rqM1 !== 'undefined') {rqM1.abort(); };
-    if (typeof rqM2 !== 'undefined') {rqM2.abort(); };
+    if (typeof rq0 !== 'undefined') {rq0.abort(); };
     $('li#search i').attr('class', 'fa fa-search');
     console.log('\nLoading freeway relID='+relID);
     fw[relID] = new Freeway();
