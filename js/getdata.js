@@ -53,11 +53,12 @@ Exit.prototype = new Node();
 
 rq1 = [];
 Freeway.prototype.getFreewayData = function() {
-	var query = '[out:json][timeout:4];(relation('+this.relID+');way(r);node(w););out bb body;';
+	console.log('Loading freeway data');
+	var query = '[out:json][timeout:4];(relation('+this.relID+');way(r);node(w););out bb body qt;';
 	var fw = this;
 	rq1[this.relID] = $.getJSON('http://overpass-api.de/api/interpreter?data=' + query,
 		function (response) {
-			if(response.remark!=undefined){ console.log('ERROR TIMEOUT getting freeway data in '+fw.relID); fw.getFreewayData(); return; }
+			if(response.remark!=undefined){ console.log('ERROR: Timeout when loading freeway data in '+fw.relID); fw.getFreewayData(); return; }
 			fw.timestamp = new Date(response.osm3s.timestamp_osm_base);
 			for (var i = 0; i < response.elements.length; i++) {
 				// Get info from relation
@@ -111,22 +112,22 @@ Freeway.prototype.getFreewayData = function() {
 			fw.loaded++;
 			fw.getAnalysis();
 			fw.getDestinationUnmarked();
-			fw.getAreas();
 		}
 	)
 	.fail( function (response) {
-		if (response.statusText!=='abort') { fw.getFreewayData(); } else { console.log("Abort"); };
-		console.log('ERROR getting freeway data in '+fw.relID);
+		if (response.statusText!=='abort') { searchInMap(); console.log('ERROR: Unknown error when loading freeway data in '+fw.relID);
+		} else { console.log('ERROR: Abort when loading freeway data in '+fw.relID); };
 	});
 }
 
 rq2 = [];
 Freeway.prototype.getDestinationUnmarked = function() {
-	var query = '[out:json][timeout:5];relation('+this.relID+');way(r);node(w);way(bn);out body;';
+	console.log('Loading destination & unmarked');
+	var query = '[out:json][timeout:5];relation('+this.relID+');way(r);node(w);way(bn);out body qt;';
 	var fw = this;
 	rq2[this.relID] = $.getJSON('http://overpass-api.de/api/interpreter?data=' + query,
 		function (response) {
-			if(response.remark!=undefined){ console.log('ERROR TIMEOUT getting destination & unmarked in '+fw.relID); fw.getDestinationUnmarked(); return; }
+			if(response.remark!=undefined){ console.log('ERROR: Timeout when loading destination & unmarked in '+fw.relID); fw.getDestinationUnmarked(); return; }
 			// get Destination tags
 			for (var i = 0; i < response.elements.length; i++) {
 				if(!response.elements[i].tags) { continue; };
@@ -163,22 +164,24 @@ Freeway.prototype.getDestinationUnmarked = function() {
 			};
 			fw.loaded++;
 			fw.getAnalysis();
+			fw.getAreas();
 		}
 	)
 	.fail( function (response) {
-		if (response.statusText!=='abort') { fw.getDestinationUnmarked(); } else { console.log("Abort"); };
-		console.log('ERROR getting destination & unmarked in '+fw.relID);
+		if (response.statusText!=='abort') { searchInMap(); console.log('ERROR: Unknown error when loading destination & unmarked in '+fw.relID);
+		} else { console.log('ERROR: Abort when loading destination & unmarked in '+fw.relID); };
 	});
 }
 
 rq3 = [];
 Freeway.prototype.getAreas = function() {
+	console.log('Loading areas');
 	var query = '[out:json][timeout:25];relation(' + this.relID + ');way(r);node(w);(node(around:500)["highway"~"services|rest_' +
-		'area"]->.x;way(around:1000)["highway"~"services|rest_area"];);(._;>;);out center;';
+		'area"]->.x;way(around:1000)["highway"~"services|rest_area"];);(._;>;);out center qt;';
 	var fw = this;
 	rq3[this.relID] = $.getJSON('http://overpass-api.de/api/interpreter?data=' + query,
 		function (response) {
-			if(response.remark!=undefined){ console.log('ERROR TIMEOUT getting areas in '+fw.relID); fw.getAreas(); return; }
+			if(response.remark!=undefined){ console.log('ERROR: Timeout when loading areas in '+fw.relID); fw.getAreas(); return; }
 			for (var i = 0; i < response.elements.length; i++) {
 				if(!response.elements[i].tags) { continue; };
 				if(!response.elements[i].tags.highway) { continue; };
@@ -201,7 +204,7 @@ Freeway.prototype.getAreas = function() {
 		}
 	)
 	.fail( function (response) {
-		if (response.statusText!=='abort') { fw.getAreas(); } else { console.log("Abort"); };
-		console.log('ERROR getting areas in '+fw.relID);
+		if (response.statusText!=='abort') { searchInMap(); console.log('ERROR: Unknown error when loading areas in '+fw.relID);
+		} else { console.log('ERROR: Abort when loading areas in '+fw.relID); };
 	});
 }

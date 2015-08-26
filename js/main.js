@@ -55,7 +55,7 @@ function getFreeway (relID) {
     if (typeof rqM1 !== 'undefined') {rqM1.abort(); };
     if (typeof rqM2 !== 'undefined') {rqM2.abort(); };
     $('li#search i').attr('class', 'fa fa-search');
-    console.log('Getting Freeway relation ID: '+relID);
+    console.log('\nLoading freeway relID='+relID);
     fw[relID] = new Freeway();
     fw[relID].relID = relID;
     fw[relID].getFreewayData();
@@ -69,18 +69,18 @@ function searchInMap () {
     if (typeof rqM1 !== 'undefined') {rqM1.abort(); };
     if (typeof rqM2 !== 'undefined') {rqM2.abort(); };
     $('li#search i').attr('class', 'fa fa-spin fa-spinner');
-    var query = '[out:json][timeout:60];relation["route"="road"]('+
-        map.getBounds().getSouth()+','+map.getBounds().getWest()+','+map.getBounds().getNorth()+','+map.getBounds().getEast()+');out body;';
+    console.log('\nSearching in map');
+    var query = '[out:json][timeout:60];relation[route=road]('+
+        map.getBounds().getSouth()+','+map.getBounds().getWest()+','+map.getBounds().getNorth()+','+map.getBounds().getEast()+');out body qt;';
     rqM1 = $.getJSON('http://overpass-api.de/api/interpreter?data=' + query,
         function (response) {
-            if(response.remark!=undefined){ console.log('ERROR TIMEOUT getting from map 1'); searchInMap(); return; };
+            if(response.remark!=undefined){ console.log('ERROR: Timeout when searching in map'); searchInMap(); return; };
             searchInMap2(response);
         }
     )
     .fail( function (response) {
-        if (response.statusText!=='abort') {searchInMap();
-        } else { console.log("Abort"); };
-        console.log('ERROR getting from map 1');
+        if (response.statusText!=='abort') { searchInMap(); console.log('ERROR: Unknown error when searching in map');
+        } else { console.log('ERROR: Abort when searching in map'); };
     });
 
     function searchInMap2 (response1) {
@@ -91,10 +91,10 @@ function searchInMap () {
                 query += 'way('+response1.elements[i].members[0].ref+');';
             };
         };
-        query += ');out tags;';
+        query += ');out tags qt;';
         rqM2 = $.getJSON('http://overpass-api.de/api/interpreter?data=' + query,
             function (response2) {
-                if(response2.remark!=undefined){ console.log('ERROR TIMEOUT getting from map 2'); searchInMap(); return; };
+                if(response2.remark!=undefined){ console.log('ERROR: Timeout when validating motorway status after searching in map'); searchInMap2(response1); return; };
                 $('li#search i').attr('class', ''); // IE/Edge Spinning Magnifying glass fix
                 $('li#search i').attr('class', 'fa fa-search');
                 fwVisible = [];
@@ -109,12 +109,12 @@ function searchInMap () {
                 fwVisible.sort( function (a,b) { return a.ref > b.ref ? +1 : -1; });
                 $("select#visible").html('');
                 for (var i = 0; i < fwVisible.length; i++) { $("select#visible").append('<option value="'+fwVisible[i].relID+'">'+fwVisible[i].ref+'</option>'); };
+            	console.log('Done');
             }
         )
         .fail( function (response) {
-            if (response.statusText!=='abort') {searchInMap();
-            } else { console.log("Abort"); };
-            console.log('ERROR getting from map 2');
+            if (response.statusText!=='abort') { searchInMap(); console.log('ERROR: Unknown error when validating motorway status after searching in map');
+            } else { console.log('ERROR: Abort when validating motorway status after searching in map'); };
         });
     }
 }

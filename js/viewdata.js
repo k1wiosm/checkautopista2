@@ -109,6 +109,7 @@ Freeway.prototype.addToSidebar = function () {
 	if (this.loaded==3) {
 		$('li#stats i').attr('class', 'fa fa-bar-chart');
 		sidebar.open('stats');
+		console.log('Done');
 		ga('send','event','Cargar','click',this.relID);
 	};
 	mapDataLayer.eachLayer( function (layer) {
