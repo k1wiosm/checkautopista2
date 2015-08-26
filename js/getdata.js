@@ -52,9 +52,10 @@ function Exit() {
 Exit.prototype = new Node();
 
 rq1 = [];
-Freeway.prototype.getFreewayData = function() {
+Freeway.prototype.getFreewayData = function(timeout) {
+	var timeout = timeout || 4;
 	console.log('Loading freeway data');
-	var query = '[out:json][timeout:4];(relation('+this.relID+');way(r);node(w););out bb body qt;';
+	var query = '[out:json][timeout:'+timeout+'];(relation('+this.relID+');way(r);node(w););out bb body qt;';
 	var fw = this;
 	rq1[this.relID] = $.getJSON('http://overpass-api.de/api/interpreter?data=' + query,
 		function (response) {
@@ -121,9 +122,10 @@ Freeway.prototype.getFreewayData = function() {
 }
 
 rq2 = [];
-Freeway.prototype.getDestinationUnmarked = function() {
+Freeway.prototype.getDestinationUnmarked = function(timeout) {
+	var timeout = timeout || 5;
 	console.log('Loading destination & unmarked');
-	var query = '[out:json][timeout:5];relation('+this.relID+');way(r);node(w);way(bn);out body qt;';
+	var query = '[out:json][timeout:'+timeout+'];relation('+this.relID+');way(r);node(w);way(bn);out body qt;';
 	var fw = this;
 	rq2[this.relID] = $.getJSON('http://overpass-api.de/api/interpreter?data=' + query,
 		function (response) {
@@ -174,9 +176,10 @@ Freeway.prototype.getDestinationUnmarked = function() {
 }
 
 rq3 = [];
-Freeway.prototype.getAreas = function() {
+Freeway.prototype.getAreas = function(timeout) {
+	var timeout = timeout || 25;
 	console.log('Loading areas');
-	var query = '[out:json][timeout:25];relation(' + this.relID + ');way(r);node(w);(node(around:500)["highway"~"services|rest_' +
+	var query = '[out:json][timeout:'+timeout+'];relation(' + this.relID + ');way(r);node(w);(node(around:500)["highway"~"services|rest_' +
 		'area"]->.x;way(around:1000)["highway"~"services|rest_area"];);(._;>;);out center qt;';
 	var fw = this;
 	rq3[this.relID] = $.getJSON('http://overpass-api.de/api/interpreter?data=' + query,

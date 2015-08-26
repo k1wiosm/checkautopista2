@@ -65,11 +65,12 @@ function getFreeway (relID) {
     return fw[relID];
 }
 
-function searchInMap () {
+function searchInMap (timeout) {
+	var timeout = timeout || 60;
     if (typeof rq0 !== 'undefined') {rq0.abort(); };
     $('li#search i').attr('class', 'fa fa-spin fa-spinner');
     console.log('\nSearching in map');
-    var query = '[out:json][timeout:60];relation[route=road]('+
+    var query = '[out:json][timeout:'+timeout+'];relation[route=road]('+
         map.getBounds().getSouth()+','+map.getBounds().getWest()+','+map.getBounds().getNorth()+','+map.getBounds().getEast()+');foreach(out tags; way(r); out tags 1 qt;);';
     rq0 = $.getJSON('http://overpass-api.de/api/interpreter?data=' + query,
         function (response) {
