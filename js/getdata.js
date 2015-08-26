@@ -115,7 +115,7 @@ Freeway.prototype.getFreewayData = function() {
 		}
 	)
 	.fail( function (response) {
-		if (response.statusText!=='abort') { searchInMap(); console.log('ERROR: Unknown error when loading freeway data in '+fw.relID);
+		if (response.statusText!=='abort') { fw.getFreewayData(); console.log('ERROR: Unknown error when loading freeway data in '+fw.relID);
 		} else { console.log('ERROR: Abort when loading freeway data in '+fw.relID); };
 	});
 }
@@ -168,7 +168,7 @@ Freeway.prototype.getDestinationUnmarked = function() {
 		}
 	)
 	.fail( function (response) {
-		if (response.statusText!=='abort') { searchInMap(); console.log('ERROR: Unknown error when loading destination & unmarked in '+fw.relID);
+		if (response.statusText!=='abort') { fw.getDestinationUnmarked(); console.log('ERROR: Unknown error when loading destination & unmarked in '+fw.relID);
 		} else { console.log('ERROR: Abort when loading destination & unmarked in '+fw.relID); };
 	});
 }
@@ -204,7 +204,7 @@ Freeway.prototype.getAreas = function() {
 		}
 	)
 	.fail( function (response) {
-		if (response.statusText!=='abort') { searchInMap(); console.log('ERROR: Unknown error when loading areas in '+fw.relID);
+		if (response.statusText!=='abort') { fw.getAreas(); console.log('ERROR: Unknown error when loading areas in '+fw.relID);
 		} else { console.log('ERROR: Abort when loading areas in '+fw.relID); };
 	});
 }

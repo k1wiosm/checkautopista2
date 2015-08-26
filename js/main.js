@@ -66,57 +66,33 @@ function getFreeway (relID) {
 }
 
 function searchInMap () {
-    if (typeof rqM1 !== 'undefined') {rqM1.abort(); };
-    if (typeof rqM2 !== 'undefined') {rqM2.abort(); };
+    if (typeof rq0 !== 'undefined') {rq0.abort(); };
     $('li#search i').attr('class', 'fa fa-spin fa-spinner');
     console.log('\nSearching in map');
-    var query = '[out:json][timeout:60];relation[route=road]('+
-        map.getBounds().getSouth()+','+map.getBounds().getWest()+','+map.getBounds().getNorth()+','+map.getBounds().getEast()+');out body qt;';
-    rqM1 = $.getJSON('http://overpass-api.de/api/interpreter?data=' + query,
+    var query = '[out:json][timeout:40];relation[route=road]('+
+        map.getBounds().getSouth()+','+map.getBounds().getWest()+','+map.getBounds().getNorth()+','+map.getBounds().getEast()+');foreach(out tags; way(r); out tags 1 qt;);';
+    rq0 = $.getJSON('http://overpass-api.de/api/interpreter?data=' + query,
         function (response) {
             if(response.remark!=undefined){ console.log('ERROR: Timeout when searching in map'); searchInMap(); return; };
-            searchInMap2(response);
+            var fwVisible = [];
+            for (var i = 0; i < response.elements.length; i++) {
+            	if (response.elements[i].type!=='relation') {continue; };
+            	if (response.elements[i+1].type!=='way') {continue; };
+            	if (response.elements[i+1].tags.highway=='motorway'||response.elements[i+1].tags.highway=='motorway_link'||
+            		response.elements[i+1].tags.construction=='motorway'||response.elements[i+1].tags.construction=='motorway_link') {
+            		fwVisible.push({relID:response1.elements[i].id, ref:response1.elements[i].tags.ref});
+            	};
+            };
+            fwVisible.sort( function (a,b) { return a.ref > b.ref ? +1 : -1; });
+            $("select#visible").html('');
+            for (var i = 0; i < fwVisible.length; i++) { $("select#visible").append('<option value="'+fwVisible[i].relID+'">'+fwVisible[i].ref+'</option>'); };
+        	console.log('Done');
         }
     )
     .fail( function (response) {
         if (response.statusText!=='abort') { searchInMap(); console.log('ERROR: Unknown error when searching in map');
         } else { console.log('ERROR: Abort when searching in map'); };
     });
-
-    function searchInMap2 (response1) {
-        ga('send', 'event', 'Ver', 'click');
-        var query = '[out:json][timeout:10];(';
-        for (var i = 0; i < response1.elements.length; i++) {
-            if (response1.elements[i].members[0].type=='way') {
-                query += 'way('+response1.elements[i].members[0].ref+');';
-            };
-        };
-        query += ');out tags qt;';
-        rqM2 = $.getJSON('http://overpass-api.de/api/interpreter?data=' + query,
-            function (response2) {
-                if(response2.remark!=undefined){ console.log('ERROR: Timeout when validating motorway status after searching in map'); searchInMap2(response1); return; };
-                $('li#search i').attr('class', ''); // IE/Edge Spinning Magnifying glass fix
-                $('li#search i').attr('class', 'fa fa-search');
-                fwVisible = [];
-                for (var i = 0; i < response1.elements.length; i++) {
-                    var tempWay = findWithAttr(response2.elements, 'id', response1.elements[i].members[0].ref);
-                    if (tempWay==undefined||tempWay.tags==undefined) { continue; };
-                    if(tempWay.tags.highway=='motorway'||tempWay.tags.highway=='motorway_link'||
-                        tempWay.tags.highway=='construction'&&(tempWay.tags.construction=='motorway'||tempWay.tags.construction=='motorway_link')) {
-                        fwVisible.push({relID:response1.elements[i].id, ref:response1.elements[i].tags.ref});
-                    };
-                };
-                fwVisible.sort( function (a,b) { return a.ref > b.ref ? +1 : -1; });
-                $("select#visible").html('');
-                for (var i = 0; i < fwVisible.length; i++) { $("select#visible").append('<option value="'+fwVisible[i].relID+'">'+fwVisible[i].ref+'</option>'); };
-            	console.log('Done');
-            }
-        )
-        .fail( function (response) {
-            if (response.statusText!=='abort') { searchInMap(); console.log('ERROR: Unknown error when validating motorway status after searching in map');
-            } else { console.log('ERROR: Abort when validating motorway status after searching in map'); };
-        });
-    }
 }
 
 function updatePermalink (relID, lat, lon, z) {
