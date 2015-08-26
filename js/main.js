@@ -74,7 +74,7 @@ function searchInMap (timeout) {
         map.getBounds().getSouth()+','+map.getBounds().getWest()+','+map.getBounds().getNorth()+','+map.getBounds().getEast()+');foreach(out tags; way(r); out tags 1 qt;);';
     rq0 = $.getJSON('http://overpass-api.de/api/interpreter?data=' + query,
         function (response) {
-            if(response.remark!=undefined){ console.log('ERROR: Timeout when searching in map'); searchInMap(); return; };
+            if(response.remark!=undefined){ console.log('ERROR: Timeout when searching in map'); searchInMap(timeout+60); return; };
 			$('li#search i').attr('class', ''); // IE/Edge Spinning Magnifying glass fix
 			$('li#search i').attr('class', 'fa fa-search');
             var fwVisible = [];

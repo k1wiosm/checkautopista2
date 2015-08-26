@@ -59,7 +59,7 @@ Freeway.prototype.getFreewayData = function(timeout) {
 	var fw = this;
 	rq1[this.relID] = $.getJSON('http://overpass-api.de/api/interpreter?data=' + query,
 		function (response) {
-			if(response.remark!=undefined){ console.log('ERROR: Timeout when loading freeway data in '+fw.relID); fw.getFreewayData(); return; }
+			if(response.remark!=undefined){ console.log('ERROR: Timeout when loading freeway data in '+fw.relID); fw.getFreewayData(timeout+5); return; }
 			fw.timestamp = new Date(response.osm3s.timestamp_osm_base);
 			for (var i = 0; i < response.elements.length; i++) {
 				// Get info from relation
@@ -129,7 +129,7 @@ Freeway.prototype.getDestinationUnmarked = function(timeout) {
 	var fw = this;
 	rq2[this.relID] = $.getJSON('http://overpass-api.de/api/interpreter?data=' + query,
 		function (response) {
-			if(response.remark!=undefined){ console.log('ERROR: Timeout when loading destination & unmarked in '+fw.relID); fw.getDestinationUnmarked(); return; }
+			if(response.remark!=undefined){ console.log('ERROR: Timeout when loading destination & unmarked in '+fw.relID); fw.getDestinationUnmarked(timeout+5); return; }
 			// get Destination tags
 			for (var i = 0; i < response.elements.length; i++) {
 				if(!response.elements[i].tags) { continue; };
@@ -184,7 +184,7 @@ Freeway.prototype.getAreas = function(timeout) {
 	var fw = this;
 	rq3[this.relID] = $.getJSON('http://overpass-api.de/api/interpreter?data=' + query,
 		function (response) {
-			if(response.remark!=undefined){ console.log('ERROR: Timeout when loading areas in '+fw.relID); fw.getAreas(); return; }
+			if(response.remark!=undefined){ console.log('ERROR: Timeout when loading areas in '+fw.relID); fw.getAreas(timeout+10); return; }
 			for (var i = 0; i < response.elements.length; i++) {
 				if(!response.elements[i].tags) { continue; };
 				if(!response.elements[i].tags.highway) { continue; };
