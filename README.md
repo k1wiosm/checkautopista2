@@ -31,3 +31,4 @@ You can choose a motorway by relationID or from the map and it shows:
 * [London M25](http://checkautopista.hol.es/?id=106164&lat=51.5049&lon=-0.3948&z=10)
 * [Interstate 15 in California](http://checkautopista.hol.es/?id=2211488&lat=34.1868&lon=-117.8146&z=8)
 * [Autovía Cantabria - Meseta (A-67) in Spain](http://checkautopista.hol.es/?id=4071813&lat=42.8629&lon=-4.4206&z=9)
+* [Bundesautobahn 3](http://checkautopista.hol.es/?id=2925465&lat=50.1875&lon=7.5641&z=7)
