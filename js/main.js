@@ -69,18 +69,20 @@ function searchInMap () {
     if (typeof rq0 !== 'undefined') {rq0.abort(); };
     $('li#search i').attr('class', 'fa fa-spin fa-spinner');
     console.log('\nSearching in map');
-    var query = '[out:json][timeout:40];relation[route=road]('+
+    var query = '[out:json][timeout:60];relation[route=road]('+
         map.getBounds().getSouth()+','+map.getBounds().getWest()+','+map.getBounds().getNorth()+','+map.getBounds().getEast()+');foreach(out tags; way(r); out tags 1 qt;);';
     rq0 = $.getJSON('http://overpass-api.de/api/interpreter?data=' + query,
         function (response) {
             if(response.remark!=undefined){ console.log('ERROR: Timeout when searching in map'); searchInMap(); return; };
+			$('li#search i').attr('class', ''); // IE/Edge Spinning Magnifying glass fix
+			$('li#search i').attr('class', 'fa fa-search');
             var fwVisible = [];
             for (var i = 0; i < response.elements.length; i++) {
             	if (response.elements[i].type!=='relation') {continue; };
             	if (response.elements[i+1].type!=='way') {continue; };
             	if (response.elements[i+1].tags.highway=='motorway'||response.elements[i+1].tags.highway=='motorway_link'||
             		response.elements[i+1].tags.construction=='motorway'||response.elements[i+1].tags.construction=='motorway_link') {
-            		fwVisible.push({relID:response1.elements[i].id, ref:response1.elements[i].tags.ref});
+            		fwVisible.push({relID:response.elements[i].id, ref:response.elements[i].tags.ref});
             	};
             };
             fwVisible.sort( function (a,b) { return a.ref > b.ref ? +1 : -1; });
