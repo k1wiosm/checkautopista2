@@ -60,7 +60,7 @@ function getFreeway (relID) {
     fw[relID].relID = relID;
     fw[relID].getFreewayData();
     updatePermalink(relID);
-    ga('send', 'pageview', document.URL.split('/')[3]);
+    ga('send', 'pageview', document.URL.split('/')[document.URL.split('/').length-2]+'/'+document.URL.split('/')[document.URL.split('/').length-1]);
    $('li#stats i').attr('class', 'fa fa-spinner fa-spin'); $('li#stats').show();
     return fw[relID];
 }
