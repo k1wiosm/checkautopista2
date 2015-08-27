@@ -4,7 +4,7 @@ Live demo: http://k1wiosm.github.io/checkautopista/
 
 _For the original CheckAutopista see: http://github.com/k1wiosm/checkautopista_
 
-![](https://raw.githubusercontent.com/k1wiosm/checkautopista2/master/img/example.png)
+![](https://raw.githubusercontent.com/k1wiosm/checkautopista2/master/img/readme/example.png)
 
 CheckAutopista is a quality assurance tool for motorways in OpenStreetMap. This tools can check any motorway in the world. CheckAutopista only works with motorways gathered in a relation tagged as ```type=route``` and ```route=road```. Also the motorway ways need to tagged as ```highway=motorway``` or ```highway=motorway_link```.
 
@@ -13,9 +13,9 @@ CheckAutopista is a quality assurance tool for motorways in OpenStreetMap. This 
 1. Go to http://k1wiosm.github.io/checkautopista/
 2. Zoom in to the motorway you want to analyze
 3. Open search tab
-4. Click on the List visible motorways (magnifying glass and map) button
+4. Click on the Search in map button (![](https://raw.githubusercontent.com/k1wiosm/checkautopista2/master/img/readme/search_in_map.png))
 5. Select desired motorway from dropdown
-6. Click Download (cloud with down arrow) button
+6. Click Download button (![](https://raw.githubusercontent.com/k1wiosm/checkautopista2/master/img/readme/download.png))
 
 ##Quality Assurance
 
