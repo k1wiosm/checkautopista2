@@ -160,6 +160,7 @@ Freeway.prototype.getDestinationUnmarked = function(timeout) {
 						var firstNode = response.elements[i].nodes[0];
 					};
 					if (fw.otherNodesIDs.indexOf(firstNode)!=-1) {
+						if (node[firstNode].tags!=undefined && (node[firstNode].tags.highway=='services' || node[firstNode].tags.highway=='rest_area')) { continue; };
 						fw.unmarked.push(node[firstNode]);
 					};
 				};
@@ -192,7 +193,6 @@ Freeway.prototype.getAreas = function(timeout) {
 				if(response.elements[i].type=='node') {
 					node[response.elements[i].id] = new Node(response.elements[i]);
 					fw.areasNode.push(node[response.elements[i].id]);
-					node[response.elements[i].id].pene='sss';
 				} else if (response.elements[i].type=='way') {
 					way[response.elements[i].id] = new Way(response.elements[i]);
 					way[response.elements[i].id].center = response.elements[i].center;

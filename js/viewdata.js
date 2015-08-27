@@ -93,8 +93,10 @@ Freeway.prototype.addToMap = function() {
 	};
 	// Nodes
 	var nodes = this.exits.concat(this.tolls).concat(this.areasNode).concat(this.unmarked);
+	for (var i = 0; i < nodes.length; i++) { node[nodes[i].nodeID].marker=undefined };
 	nodes.sort(function (a,b) {return a.lat < b.lat ? +1  : -1 ;});
 	for (var i = 0; i < nodes.length; i++) {
+		if (node[nodes[i].nodeID].marker!=undefined) { continue; };
 		var marker = L.circleMarker({lat:nodes[i].lat, lng:nodes[i].lon}, styleNode(nodes[i]));
 		marker.element = node[nodes[i].nodeID];
 		marker.type = 'marker';
