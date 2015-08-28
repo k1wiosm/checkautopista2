@@ -1,7 +1,6 @@
 var options = {
 	radius: 6,
 	opacity: 0.8,
-	country: $.url().param('country'),
 	lat: $.url().param('lat'),
 	lon: $.url().param('lon'),
 	z: $.url().param('z') || $.url().param('zoom'),
