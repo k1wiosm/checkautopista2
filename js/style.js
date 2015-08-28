@@ -113,6 +113,50 @@ function styleWay(tags) {
 	return $.extend(style,{smoothFactor:2, opacity:0.7});
 }
 
+function getHtml(element) {
+	var t_html = '';
+	if (element.subtype=='exit') {
+		t_html += htmlPanel(element);
+	}
+	if (element.nodeID!=undefined) {
+		t_html += '<h3>Node : ' + element.nodeID +
+			' <a href="http://openstreetmap.com/node/'+element.nodeID+'" target="_blank" title ="OpenStreetMap">'+
+			'<button class="icon"><img class="icon" src="img/osm-logo.png"></img></button></a>'+
+			' <a href="http://127.0.0.1:8111/load_object?new_layer=false&objects=node'+element.nodeID+'" target="_blank" title="JOSM editor">'+
+			'<button class="icon"><img class="icon" src="img/josm-logo.png"></img></button></a>'+
+			' <a href="http://www.openstreetmap.org/edit?editor=id&node='+element.nodeID+'" target="_blank" title="ID editor">'+
+			'<button class="icon"><img class="icon" src="img/id-logo.png"></img></button></a>'+
+			' <a href="http://level0.osmz.ru/?url=node/'+element.nodeID+'" target="_blank" title="Level0 editor">'+
+			'<button class="icon">L0</button></a>'+
+			'</h3>';
+		t_html += '<table class="tags">';
+		for (key in element.tags) {
+			t_html += '<tr><td class="code key">'+key+'</td><td class="code">'+element.tags[key].replace('<','&lt;').replace(/;/g,';&#8203;') +'</td></tr>';
+		};
+		if (element.tags==undefined) { t_html += '<p>No tags</p>'};
+		t_html += '</table>';
+	};
+	if (element.wayID!=undefined) {
+		t_html += '<h3>Way : ' + element.wayID +
+			' <a href="http://openstreetmap.com/way/'+element.wayID+'" target="_blank" title ="OpenStreetMap">'+
+			'<button class="icon"><img class="icon" src="img/osm-logo.png"></img></button></a>'+
+			' <a href="http://127.0.0.1:8111/load_object?new_layer=false&objects=way'+element.wayID+'" target="_blank" title="JOSM editor">'+
+			'<button class="icon"><img class="icon" src="img/josm-logo.png"></img></button></a>'+
+			' <a href="http://www.openstreetmap.org/edit?editor=id&way='+element.wayID+'" target="_blank" title="ID editor">'+
+			'<button class="icon"><img class="icon" src="img/id-logo.png"></img></button></a>'+
+			' <a href="http://level0.osmz.ru/?url=way/'+element.wayID+'" target="_blank" title="Level0 editor">'+
+			'<button class="icon">L0</button></a>'+
+			'</h3>';
+		t_html += '<table class="tags">';
+		for (key in way[element.wayID].tags) {
+			t_html += '<tr><td class="code key">'+key+'</td><td class="code">'+way[element.wayID].tags[key].replace('<','&lt;').replace(/;/g,';&#8203;') +'</td></tr>';
+		};
+		if (element.tags==undefined) { t_html += '<p>No tags</p>'};
+		t_html += '</table>';
+	}
+	t_html += '<p id="timestamp">'+fw[options.relID].timestamp+'<p>';
+	return t_html;
+}
 
 function htmlPanel (element) {
 	var ref = element.ref || '&nbsp;';
