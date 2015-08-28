@@ -76,7 +76,7 @@ $('document').ready(function () {
 
 	$('.chk').change(function() {
 		updateVisibility(this);
-    });
+	});
 })
 
 function styleNode(node) {
