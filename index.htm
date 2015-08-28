@@ -52,8 +52,8 @@
 							<td class="fit"><button onClick="searchInMap()" title="Search in map">
 								<i class="fa fa-map-o"></i> <i class="fa fa-search"></i>
 							</button></td>
-							<td><select id="visible"></select></td>
-							<td class="fit"><button onClick="getFreeway($('select#visible').val())" title="Download">
+							<td><select id="visible" disabled></select></td>
+							<td class="fit"><button id="download" onClick="getFreeway($('select#visible').val())" title="Download" disabled>
 								<i class="fa fa-cloud-download"></i>
 							</button></td>
 						</tr></table>

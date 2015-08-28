@@ -86,6 +86,7 @@ function searchInMap (timeout) {
             	};
             };
             fwVisible.sort( function (a,b) { return a.ref > b.ref ? +1 : -1; });
+            if (fwVisible.length > 0) { $('button#download,select#visible').prop('disabled', false); } else { $('button#download,select#visible').prop('disabled', true); };
             $("select#visible").html('');
             for (var i = 0; i < fwVisible.length; i++) { $("select#visible").append('<option value="'+fwVisible[i].relID+'">'+fwVisible[i].ref+'</option>'); };
         	console.log('Done');
