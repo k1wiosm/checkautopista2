@@ -5,7 +5,8 @@ var options = {
 	lat: $.url().param('lat'),
 	lon: $.url().param('lon'),
 	z: $.url().param('z') || $.url().param('zoom'),
-	id: $.url().param('id')
+	id: $.url().param('id'),
+	view: $.url().param('view') || 'tdenxuaALMX'
 }
 
 if (Cookies.get('radius')!==undefined) { options.radius = Number(Cookies.get('radius')); }

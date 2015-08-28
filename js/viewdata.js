@@ -252,6 +252,7 @@ function updateVisibility(clicked) {
 	if ($('#wNoLanes .chk')[0].checked) { mapChange('wNoLanes','addLayer'); } else { mapChange('wNoLanes','removeLayer'); };
 	if ($('#wNoMaxspeed .chk')[0].checked) { mapChange('wNoMaxspeed','addLayer'); } else { mapChange('wNoMaxspeed','removeLayer'); };
 	if ($('#wNone .chk')[0].checked) { mapChange('wNone','addLayer'); } else { mapChange('wNone','removeLayer'); };
+	updatePermalink();
 }
 
 function mapChange(group, action) {

@@ -18,6 +18,8 @@ a=L.tileLayer(
 
 var sidebar = L.control.sidebar('sidebar').addTo(map);
 
+updateLegend();
+
 if (options.id!==undefined) { getFreeway(options.id); }
 
 var ids = [4046477,404438,139852,139869,157375,359074,1297903,79784,1397970,2714593,76946,121011,3297420,4041086,4071872,
@@ -104,13 +106,45 @@ function updatePermalink (relID, lat, lon, z) {
     options.z = z || $.url().param('z');
     options.relID = relID || ($.url().param('id') ? Number($.url().param('id')) : undefined);
     url = '';
-    if (options.relID!==undefined) { url += '&id='+options.relID;}
-    if (options.lat!==undefined) { url += '&lat='+options.lat;}
-    if (options.lon!==undefined) { url += '&lon='+options.lon;}
-    if (options.z!==undefined) { url += '&z='+options.z;}
-    if (options.country=='es') { url += '&country=es'; }
+    options.view = '';
+	if ($('#tolls .chk')[0].checked) { options.view += 't'; };
+	if ($('#exDest .chk')[0].checked) { options.view += 'd'; };
+	if ($('#exExitTo .chk')[0].checked) { options.view += 'e'; };
+	if ($('#exName .chk')[0].checked) { options.view += 'n'; };
+	if ($('#exNone .chk')[0].checked) { options.view += 'x'; };
+	if ($('#exUnmarked .chk')[0].checked) { options.view += 'u'; };
+	if ($('#exRef .chk')[0].checked) { options.view += 'r'; };
+	if ($('#exNoRef .chk')[0].checked) { options.view += 'o'; };
+	if ($('#areas .chk')[0].checked) { options.view += 'a'; };
+	if ($('#wAll .chk')[0].checked) { options.view += 'A' };
+	if ($('#wNoLanes .chk')[0].checked) { options.view += 'L'; };
+	if ($('#wNoMaxspeed .chk')[0].checked) { options.view += 'M' };
+	if ($('#wNone .chk')[0].checked) { options.view += 'X'; };
+	if (options.view=='') { options.view='-' };
+    if (options.relID!==undefined) { url += '&id='+options.relID; };
+    if (options.lat!==undefined) { url += '&lat='+options.lat; };
+    if (options.lon!==undefined) { url += '&lon='+options.lon; };
+    if (options.z!==undefined) { url += '&z='+options.z; };
+	if (options.view!=='tdenxuaALMX') { url += '&view='+options.view; };
+    if (options.country=='es') { url += '&country=es'; };
     url=url.replace('&','?');
     window.history.replaceState('', '', url);
+}
+
+function updateLegend () {
+	if (options.view.indexOf('t')==-1) { $('#tolls .chk').prop('checked', false); } else { $('#tolls .chk').prop('checked', true); };
+	if (options.view.indexOf('d')==-1) { $('#exDest .chk').prop('checked', false); } else { $('#exDest .chk').prop('checked', true); };
+	if (options.view.indexOf('e')==-1) { $('#exExitTo .chk').prop('checked', false); } else { $('#exExitTo .chk').prop('checked', true); };
+	if (options.view.indexOf('n')==-1) { $('#exName .chk').prop('checked', false); } else { $('#exName .chk').prop('checked', true); };
+	if (options.view.indexOf('x')==-1) { $('#exNone .chk').prop('checked', false); } else { $('#exNone .chk').prop('checked', true); };
+	if (options.view.indexOf('u')==-1) { $('#exUnmarked .chk').prop('checked', false); } else { $('#exUnmarked .chk').prop('checked', true); };
+	if (options.view.indexOf('r')==-1) { $('#exRef .chk').prop('checked', false); } else { $('#exRef .chk').prop('checked', true); };
+	if (options.view.indexOf('o')==-1) { $('#exNoRef .chk').prop('checked', false); } else { $('#exNoRef .chk').prop('checked', true); };
+	if (options.view.indexOf('a')==-1) { $('#areas .chk').prop('checked', false); } else { $('#areas .chk').prop('checked', true); };
+	if (options.view.indexOf('A')==-1) { $('#wAll .chk').prop('checked', false); } else { $('#wAll .chk').prop('checked', true); };
+	if (options.view.indexOf('L')==-1) { $('#wNoLanes .chk').prop('checked', false); } else { $('#wNoLanes .chk').prop('checked', true); };
+	if (options.view.indexOf('M')==-1) { $('#wNoMaxspeed .chk').prop('checked', false); } else { $('#wNoMaxspeed .chk').prop('checked', true); };
+	if (options.view.indexOf('X')==-1) { $('#wNone .chk').prop('checked', false); } else { $('#wNone .chk').prop('checked', true); };
 }
 
 function findWithAttr(array, attr, value) {
