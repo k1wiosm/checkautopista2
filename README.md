@@ -10,7 +10,7 @@ CheckAutopista is a quality assurance tool for motorways in OpenStreetMap. This 
 
 ##How to use
 
-1. Go to http://k1wiosm.github.io/checkautopista/
+1. Go to http://k1wiosm.github.io/checkautopista2/
 2. Zoom in to the motorway you want to analyze
 3. Open search tab
 4. Click on the Search in map button (![](https://raw.githubusercontent.com/k1wiosm/checkautopista2/master/img/readme/search_in_map.png))
