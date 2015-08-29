@@ -55,6 +55,7 @@ rq1 = [];
 Freeway.prototype.getFreewayData = function(timeout) {
 	var timeout = timeout || 4;
 	console.log('Loading freeway data');
+	console.time('getFreewayData');
 	var query = '[out:json][timeout:'+timeout+'];(relation('+this.relID+');way(r);node(w););out bb body qt;';
 	var fw = this;
 	rq1[this.relID] = $.getJSON('http://overpass-api.de/api/interpreter?data=' + query,
@@ -111,6 +112,7 @@ Freeway.prototype.getFreewayData = function(timeout) {
 				};
 			};
 			fw.loaded++;
+			console.timeEnd('getFreewayData');
 			fw.getAnalysis();
 			fw.getDestinationUnmarked();
 		}
@@ -125,6 +127,7 @@ rq2 = [];
 Freeway.prototype.getDestinationUnmarked = function(timeout) {
 	var timeout = timeout || 5;
 	console.log('Loading destination & unmarked');
+	console.time('getDestinationUnmarked');
 	var query = '[out:json][timeout:'+timeout+'];relation('+this.relID+');way(r);node(w);way(bn);out body qt;';
 	var fw = this;
 	rq2[this.relID] = $.getJSON('http://overpass-api.de/api/interpreter?data=' + query,
@@ -166,6 +169,7 @@ Freeway.prototype.getDestinationUnmarked = function(timeout) {
 				};
 			};
 			fw.loaded++;
+			console.timeEnd('getDestinationUnmarked');
 			fw.getAnalysis();
 			fw.getAreas();
 		}
@@ -180,6 +184,7 @@ rq3 = [];
 Freeway.prototype.getAreas = function(timeout) {
 	var timeout = timeout || 25;
 	console.log('Loading areas');
+	console.time('getAreas');
 	var query = '[out:json][timeout:'+timeout+'];relation(' + this.relID + ');way(r);node(w);(node(around:500)["highway"~"services|rest_' +
 		'area"]->.x;way(around:500)["highway"~"services|rest_area"];);(._;>;);out center qt;';
 	var fw = this;
@@ -203,6 +208,7 @@ Freeway.prototype.getAreas = function(timeout) {
 				if (node[response.elements[i].id]==undefined) { node[response.elements[i].id] = new Node(response.elements[i]); };
 			};
 			fw.loaded++;
+			console.timeEnd('getAreas');
 			fw.getAnalysis();
 		}
 	)

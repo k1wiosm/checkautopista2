@@ -42,6 +42,7 @@ function searchInMap (timeout) {
 	if (typeof rq0 !== 'undefined') {rq0.abort(); };
 	$('li#search i').attr('class', 'fa fa-spin fa-spinner');
 	console.log('\nSearching in map');
+	console.time('searchInMap');
 	var query = '[out:json][timeout:'+timeout+'];relation[route=road]('+
 		map.getBounds().getSouth()+','+map.getBounds().getWest()+','+map.getBounds().getNorth()+','+map.getBounds().getEast()+');foreach(out tags; way(r); out tags 1 qt;);';
 	rq0 = $.getJSON('http://overpass-api.de/api/interpreter?data=' + query,
@@ -62,6 +63,7 @@ function searchInMap (timeout) {
 			if (fwVisible.length > 0) { $('button#download,select#visible').prop('disabled', false); } else { $('button#download,select#visible').prop('disabled', true); };
 			$("select#visible").html('');
 			for (var i = 0; i < fwVisible.length; i++) { $("select#visible").append('<option value="'+fwVisible[i].relID+'">'+fwVisible[i].ref+'</option>'); };
+			console.timeEnd('searchInMap');
 			console.log('Done');
 		}
 	)
