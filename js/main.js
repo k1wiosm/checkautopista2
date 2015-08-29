@@ -46,9 +46,9 @@ function updatePermalink (relID, lat, lon, z) {
 	if ($('#wNone .chk')[0].checked) { options.view += 'X'; };
 	if (options.view=='') { options.view='-' };
 	if (options.relID) { url += '&id='+options.relID; };
-	if (options.lat) { url += '&lat='+options.lat; };
-	if (options.lon) { url += '&lon='+options.lon; };
-	if (options.z) { url += '&z='+options.z; };
+	if (!isNaN(options.lat)&&options.lat!==undefined) { url += '&lat='+options.lat; };
+	if (!isNaN(options.lon)&&options.lon!==undefined) { url += '&lon='+options.lon; };
+	if (!isNaN(options.z)&&options.z!==undefined) { url += '&z='+options.z; };
 	if (options.view!=='tdenxuaALMX') { url += '&view='+options.view; };
 	url=url.replace('&','?');
 	window.history.replaceState('', '', url);
