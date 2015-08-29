@@ -181,7 +181,7 @@ Freeway.prototype.getAreas = function(timeout) {
 	var timeout = timeout || 25;
 	console.log('Loading areas');
 	var query = '[out:json][timeout:'+timeout+'];relation(' + this.relID + ');way(r);node(w);(node(around:500)["highway"~"services|rest_' +
-		'area"]->.x;way(around:1000)["highway"~"services|rest_area"];);(._;>;);out center qt;';
+		'area"]->.x;way(around:500)["highway"~"services|rest_area"];);(._;>;);out center qt;';
 	var fw = this;
 	rq3[this.relID] = $.getJSON('http://overpass-api.de/api/interpreter?data=' + query,
 		function (response) {
