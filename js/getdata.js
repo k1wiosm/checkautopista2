@@ -217,3 +217,52 @@ Freeway.prototype.getAreas = function(timeout) {
 		} else { console.log('ERROR: Abort when loading areas in '+fw.relID); };
 	});
 }
+
+function getFreeway (relID) {
+	if (typeof rq0 !== 'undefined') {rq0.abort(); };
+	$('li#search i').attr('class', 'fa fa-search');
+	console.log('\nLoading freeway relID='+relID);
+	fw[relID] = new Freeway();
+	fw[relID].relID = relID;
+	fw[relID].getFreewayData();
+	updatePermalink(relID);
+	ga('send', 'pageview', document.URL.split('/')[document.URL.split('/').length-2]+'/'+document.URL.split('/')[document.URL.split('/').length-1]);
+	$('li#stats i').attr('class', 'fa fa-spinner fa-spin'); $('li#stats').show();
+	return fw[relID];
+}
+
+function searchInMap (timeout) {
+	var timeout = timeout || 60;
+	if (typeof rq0 !== 'undefined') {rq0.abort(); };
+	$('li#search i').attr('class', 'fa fa-spin fa-spinner');
+	console.log('\nSearching in map');
+	console.time('searchInMap');
+	var query = '[out:json][timeout:'+timeout+'];relation[route=road]('+
+		map.getBounds().getSouth()+','+map.getBounds().getWest()+','+map.getBounds().getNorth()+','+map.getBounds().getEast()+');foreach(out tags; way(r); out tags 1 qt;);';
+	rq0 = $.getJSON('http://overpass-api.de/api/interpreter?data=' + query,
+		function (response) {
+			if(response.remark!=undefined){ console.log('ERROR: Timeout when searching in map'); searchInMap(timeout+60); return; };
+			$('li#search i').attr('class', ''); // IE/Edge Spinning Magnifying glass fix
+			$('li#search i').attr('class', 'fa fa-search');
+			var fwVisible = [];
+			for (var i = 0; i < response.elements.length; i++) {
+				if (response.elements[i].type!=='relation') {continue; };
+				if (response.elements[i+1].type!=='way') {continue; };
+				if (response.elements[i+1].tags.highway=='motorway'||response.elements[i+1].tags.highway=='motorway_link'||
+					response.elements[i+1].tags.construction=='motorway'||response.elements[i+1].tags.construction=='motorway_link') {
+					fwVisible.push({relID:response.elements[i].id, ref:response.elements[i].tags.ref});
+				};
+			};
+			fwVisible.sort( function (a,b) { return a.ref > b.ref ? +1 : -1; });
+			if (fwVisible.length > 0) { $('button#download,select#visible').prop('disabled', false); } else { $('button#download,select#visible').prop('disabled', true); };
+			$("select#visible").html('');
+			for (var i = 0; i < fwVisible.length; i++) { $("select#visible").append('<option value="'+fwVisible[i].relID+'">'+fwVisible[i].ref+'</option>'); };
+			console.timeEnd('searchInMap');
+			console.log('Done');
+		}
+	)
+	.fail( function (response) {
+		if (response.statusText!=='abort') { searchInMap(); console.log('ERROR: Unknown error when searching in map');
+		} else { console.log('ERROR: Abort when searching in map'); };
+	});
+}
