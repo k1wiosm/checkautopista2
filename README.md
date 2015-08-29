@@ -1,6 +1,6 @@
 # CheckAutopista2
 
-Live demo: http://k1wiosm.github.io/checkautopista/
+Live demo: http://k1wiosm.github.io/checkautopista2/
 
 _For the original CheckAutopista see: http://github.com/k1wiosm/checkautopista_
 
@@ -37,7 +37,7 @@ You can choose a motorway from the map and it shows:
 
 ##Examples
 
-* [London M25](http://k1wiosm.github.io/checkautopista/?id=106164&lat=51.5049&lon=-0.3948&z=10)
-* [Interstate 15 in California](http://k1wiosm.github.io/checkautopista/?id=2211488&lat=34.1868&lon=-117.8146&z=8)
-* [Autovía Cantabria - Meseta (A-67) in Spain](http://k1wiosm.github.io/checkautopista/?id=4071813&lat=42.8629&lon=-4.4206&z=9)
-* [Bundesautobahn 3](http://k1wiosm.github.io/checkautopista/?id=2925465&lat=50.1875&lon=7.5641&z=7)
+* [London M25](http://k1wiosm.github.io/checkautopista2/?id=106164&lat=51.5049&lon=-0.3948&z=10)
+* [Interstate 15 in California](http://k1wiosm.github.io/checkautopista2/?id=2211488&lat=34.1868&lon=-117.8146&z=8)
+* [Autovía Cantabria - Meseta (A-67) in Spain](http://k1wiosm.github.io/checkautopista2/?id=4071813&lat=42.8629&lon=-4.4206&z=9)
+* [Bundesautobahn 3](http://k1wiosm.github.io/checkautopista2/?id=2925465&lat=50.1875&lon=7.5641&z=7)
