@@ -75,6 +75,7 @@ $('document').ready(function () {
 
 	$('.chk').change(function() {
 		updateVisibility(this);
+		updatePermalink();
 	});
 })
 
