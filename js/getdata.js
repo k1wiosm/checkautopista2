@@ -53,7 +53,7 @@ Exit.prototype = new Node();
 
 rq1 = [];
 Freeway.prototype.getFreewayData = function(timeout) {
-	var timeout = timeout || 4;
+	var timeout = timeout || 8;
 	console.log('Loading freeway data');
 	console.time('getFreewayData');
 	var query = '[out:json][timeout:'+timeout+'];(relation('+this.relID+');way(r);node(w););out bb body qt;';
@@ -125,7 +125,7 @@ Freeway.prototype.getFreewayData = function(timeout) {
 
 rq2 = [];
 Freeway.prototype.getDestinationUnmarked = function(timeout) {
-	var timeout = timeout || 5;
+	var timeout = timeout || 8;
 	console.log('Loading destination & unmarked');
 	console.time('getDestinationUnmarked');
 	var query = '[out:json][timeout:'+timeout+'];relation('+this.relID+');way(r);node(w);way(bn);out body qt;';
