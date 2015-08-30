@@ -4,7 +4,7 @@ var map = L.map('map', {
 	center: [options.lat || 40.179, options.lon || -4.482],
 	zoom: options.z || 6});
 
-if (options.lat==undefined && options.lon==undefined && options.z== undefined) {
+if (options.lat==undefined && options.lon==undefined && options.z==undefined && options.id==undefined) {
 	map.locate({
 		setView:true,
 		maxZoom:12});
@@ -22,13 +22,14 @@ updateLegend();
 
 if (options.id!==undefined) { getFreeway(options.id); }
 
-map.on('moveend', function(e) { updatePermalink(undefined, map.getCenter().lat, map.getCenter().lng, map.getZoom()); });
+map.on('dragend', function(e) { updatePermalink(undefined, map.getCenter().lat, map.getCenter().lng, map.getZoom()); });
+map.on('zoomend', function(e) { updatePermalink(undefined, map.getCenter().lat, map.getCenter().lng, map.getZoom()); });
 
 function updatePermalink (relID, lat, lon, z) {
-	options.lat = Number(lat || $.url().param('lat')).toFixed(4);
-	options.lon = Number(lon || $.url().param('lon')).toFixed(4);
-	options.z = z || $.url().param('z');
-	options.relID = relID || ($.url().param('id') ? Number($.url().param('id')) : undefined);
+	options.lat = (lat || options.lat) ? Number(lat || options.lat).toFixed(4) : undefined;
+	options.lon = (lon || options.lon) ? Number(lon || options.lon).toFixed(4) : undefined;
+	options.z = z || options.z;
+	options.relID = relID || options.relID;
 	url = '';
 	options.view = '';
 	if ($('#tolls .chk')[0].checked) { options.view += 't'; };
@@ -46,9 +47,9 @@ function updatePermalink (relID, lat, lon, z) {
 	if ($('#wNone .chk')[0].checked) { options.view += 'X'; };
 	if (options.view=='') { options.view='-' };
 	if (options.relID) { url += '&id='+options.relID; };
-	if (!isNaN(options.lat)&&options.lat!==undefined) { url += '&lat='+options.lat; };
-	if (!isNaN(options.lon)&&options.lon!==undefined) { url += '&lon='+options.lon; };
-	if (!isNaN(options.z)&&options.z!==undefined) { url += '&z='+options.z; };
+	if (options.lat) { url += '&lat='+options.lat; };
+	if (options.lon) { url += '&lon='+options.lon; };
+	if (options.z) { url += '&z='+options.z; };
 	if (options.view!=='tdenxuaALMX') { url += '&view='+options.view; };
 	url=url.replace('&','?');
 	window.history.replaceState('', '', url);

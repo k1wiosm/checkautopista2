@@ -104,16 +104,20 @@ Freeway.prototype.addToMap = function() {
 		mapDataLayer.addLayer(marker);
 	};
 	mapDataLayer.addTo(map);
+	if (options.lat==undefined&&options.lon==undefined&&options.z==undefined) { this.zoom(); };
 	updateVisibility();
+	updatePermalink();
 }
 
 Freeway.prototype.addToSidebar = function () {
+	// Open sidebar if fully loaded
 	if (this.loaded==3) {
 		$('li#stats i').attr('class', 'fa fa-bar-chart');
 		sidebar.open('stats');
 		console.log('Done');
 		ga('send','event','Cargar','click',this.relID);
 	};
+	// Assign click event to map features
 	mapDataLayer.eachLayer( function (layer) {
 		layer.on('click', function (e) {
 			ga('send','event','Info','click',this.element.nodeID ? 'n'+this.element.nodeID : 'w'+this.element.wayID);
@@ -136,7 +140,6 @@ Freeway.prototype.addToSidebar = function () {
 		'<button class="icon">An</button></a>'+
 		' <a href="http://osmrm.openstreetmap.de/relation.jsp?id='+fw.relID+'" target="_blank" title="Relation Manager">'+
 		'<button class="icon">Ma</button></a>');
-
 	$('div#stats p#timestamp').html(fw.timestamp);
 	$('div#stats tr#toll td#data').html();
 	$('div#stats tr#exDest td#data').html(fw.analysis.exDest);
@@ -207,7 +210,6 @@ function updateVisibility(clicked) {
 	if ($('#wNoLanes .chk')[0].checked) { mapChange('wNoLanes','addLayer'); } else { mapChange('wNoLanes','removeLayer'); };
 	if ($('#wNoMaxspeed .chk')[0].checked) { mapChange('wNoMaxspeed','addLayer'); } else { mapChange('wNoMaxspeed','removeLayer'); };
 	if ($('#wNone .chk')[0].checked) { mapChange('wNone','addLayer'); } else { mapChange('wNone','removeLayer'); };
-	updatePermalink();
 }
 
 function mapChange(group, action) {
