@@ -127,34 +127,34 @@ Freeway.prototype.addToSidebar = function () {
 		});
 	});
 	// Stats
-	var fw = this;
-	$('div#stats h2').html(fw.name+' ('+(fw.ref||'').replace('-','&#8209;')+')<br/>');
-	$('div#stats p#buttons').html(' <button class="icon" onClick="fw['+fw.relID+'].zoom()" title="Zoom to motorway"><i class="fa fa-eye icon"></i></button>'+
-		' <a href="http://openstreetmap.com/relation/'+fw.relID+'" target="_blank" title="OpenStreetMap">'+
+	var fwy = this;
+	$('div#stats h2').html(fwy.name+' ('+(fwy.ref||'').replace('-','&#8209;')+')<br/>');
+	$('div#stats p#buttons').html(' <button class="icon" onClick="fw['+fwy.relID+'].zoom()" title="Zoom to motorway"><i class="fa fa-eye icon"></i></button>'+
+		' <a href="http://openstreetmap.com/relation/'+fwy.relID+'" target="_blank" title="OpenStreetMap">'+
 		'<button class="icon"><img class="icon" src="img/osm-logo.png"></img></button></a>'+
-		' <a href="http://127.0.0.1:8111/load_object?new_layer=false&objects=relation'+fw.relID+'" target="_blank" title="JOSM editor">'+
+		' <a href="http://127.0.0.1:8111/load_object?new_layer=false&objects=relation'+fwy.relID+'" target="_blank" title="JOSM editor">'+
 		'<button class="icon"><img class="icon" src="img/josm-logo.png"></img></button></a>'+
-		' <a href="http://www.openstreetmap.org/edit?editor=id&relation='+fw.relID+'" target="_blank" title="ID editor">'+
+		' <a href="http://www.openstreetmap.org/edit?editor=id&relation='+fwy.relID+'" target="_blank" title="ID editor">'+
 		'<button class="icon"><img class="icon" src="img/id-logo.png"></img></button></a>'+
-		' <a href="http://ra.osmsurround.org/analyzeRelation?relationId='+fw.relID+'" target="_blank" title="Relation Analyzer">'+
+		' <a href="http://ra.osmsurround.org/analyzeRelation?relationId='+fwy.relID+'" target="_blank" title="Relation Analyzer">'+
 		'<button class="icon">An</button></a>'+
-		' <a href="http://osmrm.openstreetmap.de/relation.jsp?id='+fw.relID+'" target="_blank" title="Relation Manager">'+
+		' <a href="http://osmrm.openstreetmap.de/relation.jsp?id='+fwy.relID+'" target="_blank" title="Relation Manager">'+
 		'<button class="icon">Ma</button></a>');
-	$('div#stats p#timestamp').html(fw.timestamp);
+	$('div#stats p#timestamp').html(fwy.timestamp);
 	$('div#stats tr#toll td#data').html();
-	$('div#stats tr#exDest td#data').html(fw.analysis.exDest);
-	$('div#stats tr#exExitTo td#data').html(fw.analysis.exExitTo);
-	$('div#stats tr#exName td#data').html(fw.analysis.exName);
-	$('div#stats tr#exNone td#data').html(fw.analysis.exTotal-fw.analysis.exDir);
-	$('div#stats tr#exUnmarked td#data').html(fw.analysis.exUnmarked);
-	$('div#stats tr#exRef td#data').html(fw.analysis.exRef);
-	$('div#stats tr#exNoRef td#data').html(fw.analysis.exTotal-fw.analysis.exRef);
-	$('div#stats tr#tolls td#data').html(fw.analysis.tolls);
-	$('div#stats tr#areas td#data').html(fw.analysis.areas);
-	$('div#stats tr#wAll td#data').html(Math.round(10000*fw.analysis.wAll/fw.analysis.wTotal)/100+' %');
-	$('div#stats tr#wNoLanes td#data').html(Math.round(10000*fw.analysis.wNoLanes/fw.analysis.wTotal)/100+' %');
-	$('div#stats tr#wNoMaxspeed td#data').html(Math.round(10000*fw.analysis.wNoMaxspeed/fw.analysis.wTotal)/100+' %');
-	$('div#stats tr#wNone td#data').html(Math.round(10000*fw.analysis.wNone/fw.analysis.wTotal)/100+' %');
+	$('div#stats tr#exDest td#data').html(fwy.analysis.exDest);
+	$('div#stats tr#exExitTo td#data').html(fwy.analysis.exExitTo);
+	$('div#stats tr#exName td#data').html(fwy.analysis.exName);
+	$('div#stats tr#exNone td#data').html(fwy.analysis.exTotal-fwy.analysis.exDir);
+	$('div#stats tr#exUnmarked td#data').html(fwy.analysis.exUnmarked);
+	$('div#stats tr#exRef td#data').html(fwy.analysis.exRef);
+	$('div#stats tr#exNoRef td#data').html(fwy.analysis.exTotal-fwy.analysis.exRef);
+	$('div#stats tr#tolls td#data').html(fwy.analysis.tolls);
+	$('div#stats tr#areas td#data').html(fwy.analysis.areas);
+	$('div#stats tr#wAll td#data').html(Math.round(10000*fwy.analysis.wAll/fwy.analysis.wTotal)/100+' %');
+	$('div#stats tr#wNoLanes td#data').html(Math.round(10000*fwy.analysis.wNoLanes/fwy.analysis.wTotal)/100+' %');
+	$('div#stats tr#wNoMaxspeed td#data').html(Math.round(10000*fwy.analysis.wNoMaxspeed/fwy.analysis.wTotal)/100+' %');
+	$('div#stats tr#wNone td#data').html(Math.round(10000*fwy.analysis.wNone/fwy.analysis.wTotal)/100+' %');
 }
 
 Freeway.prototype.zoom = function () {
