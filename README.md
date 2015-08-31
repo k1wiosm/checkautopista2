@@ -41,3 +41,16 @@ You can choose a motorway from the map and it shows:
 * [Interstate 15 in California](http://k1wiosm.github.io/checkautopista2/?id=2211488&lat=34.1868&lon=-117.8146&z=8)
 * [Autovía Cantabria - Meseta (A-67) in Spain](http://k1wiosm.github.io/checkautopista2/?id=4071813&lat=42.8629&lon=-4.4206&z=9)
 * [Bundesautobahn 3](http://k1wiosm.github.io/checkautopista2/?id=2925465&lat=50.1875&lon=7.5641&z=7)
+
+##Credits
+
+* Data ODbL from © [OpenStreetMap](http://www.openstreetmap.org/) contributors
+* Data obtained with [Overpass API](http://wiki.openstreetmap.org/wiki/Overpass_API)
+* Background map designed with [Mapbox](http://www.mapbox.com/)
+* [Leaflet](http://leafletjs.com/)
+* [sidebar-v2](http://github.com/turbo87/sidebar-v2/)
+* [font-awesome](http://fortawesome.github.io/Font-Awesome/)
+* [purl](http://github.com/allmarkedup/jQuery-URL-Parser)
+* [js-cookie](https://github.com/js-cookie/js-cookie)
+* [jQuery](http://jquery.com)
+* [jQuery UI](http://jqueryui.com/)
