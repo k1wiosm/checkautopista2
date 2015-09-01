@@ -17,7 +17,7 @@ p {
 	font-size: 15px;
 }
 
-li#stats, li#info {
+li#road, li#stats, li#info {
 	display:none;
 }
 
@@ -129,6 +129,25 @@ input.tag, input#comment {
 	width: 100%;
 }
 
+img.icon {
+	width: 20px;
+	height: 20px;
+}
+
+button.icon {
+	width: 20px;
+	height: 20px;
+	padding: 0px;
+	box-sizing: content-box;
+	vertical-align: top;
+}
+
+i.icon {
+	vertical-align: top;
+}
+
+/* Html Panel */
+
 div.panel {
 	margin: 10px 0px 10px 0px;
 	border-radius: 10px;
@@ -149,11 +168,27 @@ div.subPanel {
 	font-size: 20px;
 }
 
+div.subPanel.road {
+	text-align: center;
+	font-size: 30px;
+}
+
+div.subPanel.road .ref {
+	display: inline-block;
+	border: 2px white solid;
+	padding: 0px 5px;
+	margin: 5px;
+}
+
+div.subPanel.road .name {
+	display: inline-block;
+}
+
 div.subPanel.ref {
 	text-align: right;
 }
 
-div.subPanel img {
+div.subPanel.ref img {
 	margin-right: 10px;
 	float: left;
 	margin-top: 2px;
@@ -163,17 +198,17 @@ div.subPanel.destination {
 	overflow: hidden;
 }
 
-div.subPanel table {
+div.subPanel.destination table {
 	width: 100%;
 }
 
-div.subPanel table tr td {
+div.subPanel.destination table tr td {
 	color: white;
 	font-family: TrafficTypSpaD;
 	font-size: 20px;
 }
 
-div.subPanel table tr td.ref {
+div.subPanel.destination table tr td.ref {
 	text-align: right;
 }
 
@@ -186,27 +221,10 @@ div .panelText.ref {
 .red {background-color: red;}
 .green {background-color: green;}
 .blue {background-color: blue;}
-.greenE {background-color: #00cc00;}
+.greenE {background-color: #007f00;}
 .es1 {background-color: #ff9900; color:black;}
 .es2 {background-color: #009900;}
 .es3 {background-color: #ffff00; color:black;}
-
-img.icon {
-	width: 20px;
-	height: 20px;
-}
-
-button.icon {
-	width: 20px;
-	height: 20px;
-	padding: 0px;
-	box-sizing: content-box;
-	vertical-align: top;
-}
-
-i.icon {
-	vertical-align: top;
-}
 
 /* SETTINGS */
 

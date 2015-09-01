@@ -39,6 +39,7 @@
 			<!-- Nav tabs -->
 			<ul class="sidebar-tabs" role="tablist">
 				<li id="search"><a href="#search" role="tab"><i class="fa fa-search"></i></a></li>
+				<li id="road"><a href="#road" role="tab"><i class="fa fa-road"></i></a></li>
 				<li id="stats"><a href="#stats" role="tab"><i class="fa fa-bar-chart"></i></a></li>
 				<li id="info"><a href="#info" role="tab"><i class="fa fa-info"></i></a></li>
 				<li id="settings"><a href="#settings" role="tab"><i class="fa fa-gear"></i></a></li>
@@ -59,7 +60,18 @@
 						</tr></table>
 					</div>
 				</div>
-				<div class="sidebar-pane" id="stats"><h2>Stats</h2><p id="buttons"></p>
+				<div class="sidebar-pane" id="road">
+					<div class="panel road">
+						<div class="subPanel road">
+							<div class="ref"></div>
+							<div class="name"></div>
+						</div>
+					</div>
+					<h3>Relation : </h3>
+					<table class="tags"></table>
+					<p id="timestamp"><p>
+				</div>
+				<div class="sidebar-pane" id="stats"><h2>Stats</h2>
 					<div class="section">
 						<table class="stats">
 							<tr id="tolls">

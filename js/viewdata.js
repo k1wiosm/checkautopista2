@@ -111,9 +111,13 @@ Freeway.prototype.addToMap = function() {
 
 Freeway.prototype.addToSidebar = function () {
 	// Open sidebar if fully loaded
+	if (this.loaded==1) {
+		$('li#road i').attr('class', 'fa fa-road');
+		$('li#stats').show();
+		sidebar.open('road');
+	}
 	if (this.loaded==3) {
 		$('li#stats i').attr('class', 'fa fa-bar-chart');
-		sidebar.open('stats');
 		console.log('Done');
 		ga('send','event','Cargar','click',this.relID);
 	};
@@ -126,37 +130,48 @@ Freeway.prototype.addToSidebar = function () {
 			sidebar.open('info');
 		});
 	});
-	// Stats
-	var fwy = this;
-	$('div#stats h2').html(fwy.name+' ('+(fwy.ref||'').replace('-','&#8209;')+')<br/>');
-	$('div#stats p#buttons').html(' <button class="icon" onClick="fw['+fwy.relID+'].zoom()" title="Zoom to motorway"><i class="fa fa-eye icon"></i></button> '+'|'+
-		' <a href="http://openstreetmap.com/relation/'+fwy.relID+'" target="_blank" title="OpenStreetMap">'+
+	// Road
+	$('div.subPanel.road .ref').html(this.ref || '');
+	if (this.tags.network == 'e-road') { $('div.subPanel.road .ref').toggleClass('greenE', true); } else { $('div.subPanel.road .ref').toggleClass('greenE', false); };
+	$('div.subPanel.road .name').html(this.name || '');
+	$('div#road h3').html('Relation : ' + this.relID +
+		' <button class="icon" onClick="fw['+this.relID+'].zoom()" title="Zoom to motorway"><i class="fa fa-eye icon"></i></button>'+
+		' <a href="http://openstreetmap.com/relation/'+this.relID+'" target="_blank" title="OpenStreetMap">'+
 		'<button class="icon"><img class="icon" src="img/osm-logo.png"></img></button></a>'+
-		' <a href="http://127.0.0.1:8111/load_object?new_layer=false&objects=relation'+fwy.relID+'" target="_blank" title="JOSM editor">'+
+		' <a href="http://127.0.0.1:8111/load_object?new_layer=false&objects=relation'+this.relID+'" target="_blank" title="JOSM editor">'+
 		'<button class="icon"><img class="icon" src="img/josm-logo.png"></img></button></a>'+
-		' <a href="http://www.openstreetmap.org/edit?editor=id&relation='+fwy.relID+'" target="_blank" title="ID editor">'+
+		' <a href="http://www.openstreetmap.org/edit?editor=id&relation='+this.relID+'" target="_blank" title="ID editor">'+
 		'<button class="icon"><img class="icon" src="img/id-logo.png"></img></button></a>'+
-		' <a href="http://level0.osmz.ru/?url=relation/'+fwy.nodeID+'" target="_blank" title="Level0 editor">'+
-		'<button class="icon">L0</button></a> '+'|'+
-		' <a href="http://ra.osmsurround.org/analyzeRelation?relationId='+fwy.relID+'" target="_blank" title="Relation Analyzer">'+
+		' <a href="http://level0.osmz.ru/?url=relation/'+this.relID+'" target="_blank" title="Level0 editor">'+
+		'<button class="icon">L0</button></a>'+
+		' <a href="http://ra.osmsurround.org/analyzeRelation?relationId='+this.relID+'" target="_blank" title="Relation Analyzer">'+
 		'<button class="icon">An</button></a>'+
-		' <a href="http://osmrm.openstreetmap.de/relation.jsp?id='+fwy.relID+'" target="_blank" title="Relation Manager">'+
+		' <a href="http://osmrm.openstreetmap.de/relation.jsp?id='+this.relID+'" target="_blank" title="Relation Manager">'+
 		'<button class="icon">Ma</button></a>');
-	$('div#stats p#timestamp').html(fwy.timestamp);
+	var t_html = '';
+	for (key in this.tags) {
+		t_html += '<tr><td class="code key">'+key+'</td><td class="code">'+this.tags[key].replace('<','&lt;').replace(/;/g,';&#8203;') +'</td></tr>';
+	};
+	if (this.tags==undefined) { t_html += '<p>No tags</p>'};
+	$('div#road table.tags').html(t_html);
+	// Stats
+	$('div#stats h2').html(this.name+' ('+(this.ref||'').replace('-','&#8209;')+')<br/>');
 	$('div#stats tr#toll td#data').html();
-	$('div#stats tr#exDest td#data').html(fwy.analysis.exDest);
-	$('div#stats tr#exExitTo td#data').html(fwy.analysis.exExitTo);
-	$('div#stats tr#exName td#data').html(fwy.analysis.exName);
-	$('div#stats tr#exNone td#data').html(fwy.analysis.exTotal-fwy.analysis.exDir);
-	$('div#stats tr#exUnmarked td#data').html(fwy.analysis.exUnmarked);
-	$('div#stats tr#exRef td#data').html(fwy.analysis.exRef);
-	$('div#stats tr#exNoRef td#data').html(fwy.analysis.exTotal-fwy.analysis.exRef);
-	$('div#stats tr#tolls td#data').html(fwy.analysis.tolls);
-	$('div#stats tr#areas td#data').html(fwy.analysis.areas);
-	$('div#stats tr#wAll td#data').html(Math.round(10000*fwy.analysis.wAll/fwy.analysis.wTotal)/100+' %');
-	$('div#stats tr#wNoLanes td#data').html(Math.round(10000*fwy.analysis.wNoLanes/fwy.analysis.wTotal)/100+' %');
-	$('div#stats tr#wNoMaxspeed td#data').html(Math.round(10000*fwy.analysis.wNoMaxspeed/fwy.analysis.wTotal)/100+' %');
-	$('div#stats tr#wNone td#data').html(Math.round(10000*fwy.analysis.wNone/fwy.analysis.wTotal)/100+' %');
+	$('div#stats tr#exDest td#data').html(this.analysis.exDest);
+	$('div#stats tr#exExitTo td#data').html(this.analysis.exExitTo);
+	$('div#stats tr#exName td#data').html(this.analysis.exName);
+	$('div#stats tr#exNone td#data').html(this.analysis.exTotal-this.analysis.exDir);
+	$('div#stats tr#exUnmarked td#data').html(this.analysis.exUnmarked);
+	$('div#stats tr#exRef td#data').html(this.analysis.exRef);
+	$('div#stats tr#exNoRef td#data').html(this.analysis.exTotal-this.analysis.exRef);
+	$('div#stats tr#tolls td#data').html(this.analysis.tolls);
+	$('div#stats tr#areas td#data').html(this.analysis.areas);
+	$('div#stats tr#wAll td#data').html(Math.round(10000*this.analysis.wAll/this.analysis.wTotal)/100+' %');
+	$('div#stats tr#wNoLanes td#data').html(Math.round(10000*this.analysis.wNoLanes/this.analysis.wTotal)/100+' %');
+	$('div#stats tr#wNoMaxspeed td#data').html(Math.round(10000*this.analysis.wNoMaxspeed/this.analysis.wTotal)/100+' %');
+	$('div#stats tr#wNone td#data').html(Math.round(10000*this.analysis.wNone/this.analysis.wTotal)/100+' %');
+	//Timestamp
+	$('p#timestamp').html(this.timestamp);
 }
 
 Freeway.prototype.zoom = function () {
