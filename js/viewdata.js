@@ -129,13 +129,15 @@ Freeway.prototype.addToSidebar = function () {
 	// Stats
 	var fwy = this;
 	$('div#stats h2').html(fwy.name+' ('+(fwy.ref||'').replace('-','&#8209;')+')<br/>');
-	$('div#stats p#buttons').html(' <button class="icon" onClick="fw['+fwy.relID+'].zoom()" title="Zoom to motorway"><i class="fa fa-eye icon"></i></button>'+
+	$('div#stats p#buttons').html(' <button class="icon" onClick="fw['+fwy.relID+'].zoom()" title="Zoom to motorway"><i class="fa fa-eye icon"></i></button> '+'|'+
 		' <a href="http://openstreetmap.com/relation/'+fwy.relID+'" target="_blank" title="OpenStreetMap">'+
 		'<button class="icon"><img class="icon" src="img/osm-logo.png"></img></button></a>'+
 		' <a href="http://127.0.0.1:8111/load_object?new_layer=false&objects=relation'+fwy.relID+'" target="_blank" title="JOSM editor">'+
 		'<button class="icon"><img class="icon" src="img/josm-logo.png"></img></button></a>'+
 		' <a href="http://www.openstreetmap.org/edit?editor=id&relation='+fwy.relID+'" target="_blank" title="ID editor">'+
 		'<button class="icon"><img class="icon" src="img/id-logo.png"></img></button></a>'+
+		' <a href="http://level0.osmz.ru/?url=relation/'+fwy.nodeID+'" target="_blank" title="Level0 editor">'+
+		'<button class="icon">L0</button></a> '+'|'+
 		' <a href="http://ra.osmsurround.org/analyzeRelation?relationId='+fwy.relID+'" target="_blank" title="Relation Analyzer">'+
 		'<button class="icon">An</button></a>'+
 		' <a href="http://osmrm.openstreetmap.de/relation.jsp?id='+fwy.relID+'" target="_blank" title="Relation Manager">'+
