@@ -58,7 +58,7 @@
 								<i class="fa fa-map-o"></i> <i class="fa fa-search"></i>
 							</button></td>
 							<td><select id="visible" disabled></select></td>
-							<td class="fit"><button id="download" onClick="getFreeway($('select#visible').val())" title="Download" disabled>
+							<td class="fit"><button id="download" onClick="getFreeway($('select#visible').val(), {zoom:true});" title="Download" disabled>
 								<i class="fa fa-cloud-download"></i>
 							</button></td>
 						</tr></table>
@@ -164,10 +164,10 @@
 					<h3>Examples</h3>
 					<p>
 						<ul>
-							<li><a href="#" onClick="getFreeway(106164);event.preventDefault();">London M25</a></li>
-							<li><a href="#" onClick="getFreeway(2211488);event.preventDefault();">Interstate 15 in California</a></li>
-							<li><a href="#" onClick="getFreeway(4071813);event.preventDefault();">Autovía Cantabria - Meseta (A-67) in Spain</a></li>
-							<li><a href="#" onClick="getFreeway(2925465);event.preventDefault();">Bundesautobahn 3</a></li>
+							<li><a href="#" onClick="getFreeway(106164, {zoom:true});event.preventDefault();">London M25</a></li>
+							<li><a href="#" onClick="getFreeway(2211488, {zoom:true});event.preventDefault();">Interstate 15 in California</a></li>
+							<li><a href="#" onClick="getFreeway(4071813, {zoom:true});event.preventDefault();">Autovía Cantabria - Meseta (A-67) in Spain</a></li>
+							<li><a href="#" onClick="getFreeway(2925465, {zoom:true});event.preventDefault();">Bundesautobahn 3</a></li>
 						</ul>
 					</p>
 				</div>

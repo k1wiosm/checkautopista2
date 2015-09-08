@@ -104,7 +104,6 @@ Freeway.prototype.addToMap = function() {
 		mapDataLayer.addLayer(marker);
 	};
 	mapDataLayer.addTo(map);
-	if (options.lat==undefined&&options.lon==undefined&&options.z==undefined) { this.zoom(); };
 	updateVisibility();
 	updatePermalink();
 }
