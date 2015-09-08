@@ -113,7 +113,7 @@ Freeway.prototype.addToSidebar = function () {
 	// Open sidebar if fully loaded
 	if (this.loaded==1) {
 		$('li#road i').attr('class', 'fa fa-road');
-		$('li#stats').show();
+		$('li#stats').toggleClass('disabled', false);
 		sidebar.open('road');
 	}
 	if (this.loaded==3) {
@@ -125,7 +125,7 @@ Freeway.prototype.addToSidebar = function () {
 	mapDataLayer.eachLayer( function (layer) {
 		layer.on('click', function (e) {
 			ga('send','event','Info','click',this.element.nodeID ? 'n'+this.element.nodeID : 'w'+this.element.wayID);
-			$('li#info').show();
+			$('li#info').toggleClass('disabled', false);
 			$('div#info div#tags').html(getHtml(this.element));
 			sidebar.open('info');
 		});

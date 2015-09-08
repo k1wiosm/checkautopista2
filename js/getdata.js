@@ -228,7 +228,7 @@ function getFreeway (relID) {
 	if (typeof rq2[options.relID] !== 'undefined') {rq2[options.relID].abort(); };
 	if (typeof rq3[options.relID] !== 'undefined') {rq3[options.relID].abort(); };
 	console.log('\nLoading freeway [relID='+relID+']');
-	$('li#road i').attr('class', 'fa fa-spinner fa-spin'); $('li#road').show();
+	$('li#road i').attr('class', 'fa fa-spinner fa-spin'); $('li#road').toggleClass('disabled', false);
 	$('li#stats i').attr('class', 'fa fa-spinner fa-spin');
 	fw[relID] = new Freeway();
 	fw[relID].relID = relID;

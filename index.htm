@@ -37,14 +37,18 @@
 		<div class="font_preload" style="opacity: 0"><span style="font-family: TrafficTypSpaD, Arial, sans-serif;"></span></div>
 		<div id="sidebar" class="sidebar collapsed">
 			<!-- Nav tabs -->
-			<ul class="sidebar-tabs" role="tablist">
-				<li id="search"><a href="#search" role="tab"><i class="fa fa-search"></i></a></li>
-				<li id="road"><a href="#road" role="tab"><i class="fa fa-road"></i></a></li>
-				<li id="stats"><a href="#stats" role="tab"><i class="fa fa-bar-chart"></i></a></li>
-				<li id="info"><a href="#info" role="tab"><i class="fa fa-info"></i></a></li>
-				<li id="settings"><a href="#settings" role="tab"><i class="fa fa-gear"></i></a></li>
-			</ul>
-
+			<div class="sidebar-tabs">
+				<ul role="tablist">
+					<li id="search"><a href="#search" role="tab"><i class="fa fa-search"></i></a></li>
+					<li id="road" class="disabled"><a href="#road" role="tab"><i class="fa fa-road"></i></a></li>
+					<li id="stats"class="disabled"><a href="#stats" role="tab"><i class="fa fa-bar-chart"></i></a></li>
+					<li id="info" class="disabled"><a href="#info" role="tab"><i class="fa fa-map-pin"></i></a></li>
+				</ul>
+				<ul role="tablist">
+					<li id="about"><a href="#about" role="tab"><i class="fa fa-info"></i></a></li>
+					<li id="settings"><a href="#settings" role="tab"><i class="fa fa-gear"></i></a></li>
+				</ul>
+			</div>
 			<!-- Tab panes -->
 			<div class="sidebar-content active">
 				<div class="sidebar-pane" id="search">
@@ -144,6 +148,28 @@
 				<div class="sidebar-pane" id="info">
 					<div id="tags">
 					</div>
+				</div>
+				<div class="sidebar-pane" id="about">
+					<h2>CheckAutopista2</h2>
+					<p>CheckAutopista2 is a quality assurance tool for motorways in OpenStreetMap.</p>
+					<p><a href="https://github.com/k1wiosm/checkautopista2" target="_blank">https://github.com/k1wiosm/checkautopista2</a></p>
+					<h3>How to use?</h3>
+					<p>
+						<ol>
+							<li>Zoom in to a motorway</li>
+							<li>Open search tab <img class="example" src="img/search_tab.png"></img> and click <img class="example" src="img/search_in_map.png"></img></li>
+							<li>Select from dropdown and click <img class="example" src="img/download.png"></img></li>
+						</ol>
+					</p>
+					<h3>Examples</h3>
+					<p>
+						<ul>
+							<li><a href="#" onClick="getFreeway(106164);event.preventDefault();">London M25</a></li>
+							<li><a href="#" onClick="getFreeway(2211488);event.preventDefault();">Interstate 15 in California</a></li>
+							<li><a href="#" onClick="getFreeway(4071813);event.preventDefault();">Autovía Cantabria - Meseta (A-67) in Spain</a></li>
+							<li><a href="#" onClick="getFreeway(2925465);event.preventDefault();">Bundesautobahn 3</a></li>
+						</ul>
+					</p>
 				</div>
 				<div class="sidebar-pane" id="settings">
 					<div class="section"><table><tr>

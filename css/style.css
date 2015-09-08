@@ -9,16 +9,12 @@ div#map {
 	height: 100%;
 }
 
-h2, h3, p, span, td {
+h2, h3, p, span, td, ol, ul {
 	font-family: Arial;
 }
 
-p {
+p, ol, ul {
 	font-size: 15px;
-}
-
-li#road, li#stats, li#info {
-	display:none;
 }
 
 div.section {
@@ -225,6 +221,12 @@ div .panelText.ref {
 .es1 {background-color: #ff9900; color:black;}
 .es2 {background-color: #009900;}
 .es3 {background-color: #ffff00; color:black;}
+
+/* ABOUT */
+
+img.example {
+	vertical-align: middle;
+}
 
 /* SETTINGS */
 
