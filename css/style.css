@@ -52,6 +52,7 @@ img#avatar {
 .code {
 	font-family: monospace;
 	font-size: 15px;
+	text-align: left;
 }
 
 .strk {

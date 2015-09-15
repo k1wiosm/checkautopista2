@@ -60,21 +60,26 @@
 							<td class="fit"><button onClick="searchInMap()" title="Search in map">
 								<i class="fa fa-map-o"></i> <i class="fa fa-search"></i>
 							</button></td>
+							<form>
 							<td><select disabled></select></td>
-							<td class="fit"><button class="download" onClick="getFreeway($('div#searchInMap select').val(), {zoom:true});" title="Download" disabled>
+							<td class="fit"><button class="download" onClick="getFreeway($('div#searchInMap select').val(), {zoom:true});event.preventDefault();" title="Download" disabled>
 								<i class="fa fa-cloud-download"></i>
 							</button></td>
+							</form>
 						</tr></table>
+
 					</div>
 					<!-- Search by relation ID -->
 					<div class="section" id="searchByID">
 						<h3>Search by relation ID</h3>
+						<form>
 						<table><tr>
 							<td><input type="number" pattern="\d*" id="relID"></input></td>
-							<td class="fit"><button class="download" onClick="getFreeway($('input#relID').val(), {zoom:true})" title="Download" disabled>
+							<td class="fit"><button class="download" onClick="getFreeway($('input#relID').val(), {zoom:true});event.preventDefault();" title="Download" disabled>
 								<i class="fa fa-cloud-download"></i>
 							</button></td>
 						</tr></table>
+						</form>
 					</div>
 					<!-- Search by properties -->
 					<div class="section" id="searchByProp">
@@ -88,7 +93,7 @@
 						</table>
 						<table>
 							<tr>
-								<td class="fit"><button type="submit" class="search" onClick="searchByProp();event.preventDefault();" title="Search by properties" disabled>
+								<td class="fit"><button class="search" onClick="searchByProp();event.preventDefault();" title="Search by properties" disabled>
 									<i class="fa fa-search"></i>
 								</button></td>
 								<td><select id="visible" disabled></select></td>
