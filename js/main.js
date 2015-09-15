@@ -28,6 +28,17 @@ if (options.id!==undefined) {
 map.on('dragend', function(e) { updatePermalink(undefined, map.getCenter().lat, map.getCenter().lng, map.getZoom()); });
 map.on('zoomend', function(e) { updatePermalink(undefined, map.getCenter().lat, map.getCenter().lng, map.getZoom()); });
 
+$(document).ready(function() {
+	$('div#searchByID input').keyup(function() {
+		// Disable download when input is empty
+		$('div#searchByID button.download').prop('disabled', $('div#searchByID input').val().length == 0);
+	});
+	$('div#searchByProp input').keyup(function() {
+		// Disable search when input is empty
+		$('div#searchByProp button.search').prop('disabled', $('div#searchByProp input#name').val().length + $('div#searchByProp input#ref').val().length + 
+			$('div#searchByProp input#network').val().length + $('div#searchByProp input#operator').val().length == 0);
+	});
+});
 
 window.onbeforeunload = function (e) {
 	killRequests();
