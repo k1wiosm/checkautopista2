@@ -66,6 +66,15 @@ Freeway.prototype.getFreewayData = function(opt) {
 				console.timeEnd('getFreewayData');
 				console.log('ERROR: Timeout when loading freeway data'); opt.timeout+=5; fwy.getFreewayData(opt); return;
 			};
+			if(response.elements.length==0) {
+				console.log('ERROR: Incorrect relation ID'); 
+				$('li#road').toggleClass('disabled', true);
+				$('li#road i').attr('class', 'fa fa-road');
+				$('li#stats').toggleClass('disabled', true);
+				$('li#stats i').attr('class', 'fa fa-bar-chart');
+				$('li#info').toggleClass('disabled', true);
+				return;
+			}
 			fwy.timestamp = new Date(response.osm3s.timestamp_osm_base);
 			for (var i = 0; i < response.elements.length; i++) {
 				// Get info from relation
