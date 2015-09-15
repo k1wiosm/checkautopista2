@@ -266,11 +266,7 @@ function searchInMap (opt) {
 				};
 			};
 			fwVisible.sort( function (a,b) { return a.ref > b.ref ? +1 : -1; });
-			if (fwVisible.length > 0) {
-				$('div#searchInMap button.download,div#searchInMap select').prop('disabled', false);
-			} else {
-				$('div#searchInMap button.download,div#searchInMap select').prop('disabled', true);
-			};
+			$('div#searchInMap button.download,div#searchInMap select').prop('disabled', fwVisible.length == 0);
 			$("div#searchInMap select").html('');
 			for (var i = 0; i < fwVisible.length; i++) { $("div#searchInMap select").append('<option value="'+fwVisible[i].relID+'">'+fwVisible[i].ref+'</option>'); };
 			console.timeEnd('searchInMap');
@@ -291,9 +287,16 @@ function searchByProp (opt) {
 	$('li#search i').attr('class', 'fa fa-spin fa-spinner');
 	console.log('\nSearching by properties');
 	console.time('searchByProp');
-	var query = '[out:json][timeout:'+opt.timeout+'];relation[route=road]('+
-		map.getBounds().getSouth()+','+map.getBounds().getWest()+','+map.getBounds().getNorth()+','+map.getBounds().getEast()+
-		');foreach(out tags; way(r); out tags 1 qt;);';
+	var name = $('div#searchByProp input#name').val();
+	var ref = $('div#searchByProp input#ref').val();
+	var network = $('div#searchByProp input#network').val();
+	var operator = $('div#searchByProp input#operator').val();
+	var query = '[out:json][timeout:'+opt.timeout+'];relation[route=road]'+
+		(name!=''?'[name~"'+name+'"]':'')+
+		(ref!=''?'[ref~"'+ref+'"]':'')+
+		(network!=''?'[network~"'+network+'"]':'')+
+		(operator!=''?'[operator~"'+operator+'"]':'')+
+		';foreach(out tags; way(r); out tags 1 qt;);';
 	rq0 = $.getJSON('http://overpass-api.de/api/interpreter?data=' + query,
 		function (response) {
 			if (response.remark!=undefined) { 
@@ -311,13 +314,9 @@ function searchByProp (opt) {
 				};
 			};
 			fwVisible.sort( function (a,b) { return a.ref > b.ref ? +1 : -1; });
-			if (fwVisible.length > 0) {
-				$('searchbyProp button#download,select#visible').prop('disabled', false);
-			} else {
-				$('searchbyProp button#download,select#visible').prop('disabled', true);
-			};
+			$('div#searchByProp button.download,div#searchByProp select').prop('disabled', fwVisible.length == 0);
 			$("select#visible").html('');
-			for (var i = 0; i < fwVisible.length; i++) { $("select#visible").append('<option value="'+fwVisible[i].relID+'">'+fwVisible[i].ref+'</option>'); };
+			for (var i = 0; i < fwVisible.length; i++) { $("div#searchByProp select").append('<option value="'+fwVisible[i].relID+'">'+fwVisible[i].ref+'</option>'); };
 			console.timeEnd('searchByProp');
 			console.log('Done');
 		}

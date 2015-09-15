@@ -71,7 +71,7 @@
 						<h3>Search by relation ID</h3>
 						<table><tr>
 							<td><input type="number" pattern="\d*" id="relID"></input></td>
-							<td class="fit"><button class="download" onClick="getFreeway($('input#relID').val())" title="Download">
+							<td class="fit"><button class="download" onClick="getFreeway($('input#relID').val(), {zoom:true})" title="Download">
 								<i class="fa fa-cloud-download"></i>
 							</button></td>
 						</tr></table>
