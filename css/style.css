@@ -22,10 +22,16 @@ div.section {
 	margin: 10px 0px 10px 0px;
 	padding: 10px;
 	border-radius: 8px;
+	text-align: center;
 }
 
 div.section table {
 	width: 100%;
+}
+
+div.section h3 {
+	margin: 0px 0px 5px 0px;
+	display: inline-block;
 }
 
 .fit {
@@ -54,7 +60,7 @@ img#avatar {
 
 /* SEARCH */
 
-input#relID {
+input {
 	box-sizing: border-box;
 	width: 100%;
 }

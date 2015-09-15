@@ -266,9 +266,13 @@ function searchInMap (opt) {
 				};
 			};
 			fwVisible.sort( function (a,b) { return a.ref > b.ref ? +1 : -1; });
-			if (fwVisible.length > 0) { $('button#download,select#visible').prop('disabled', false); } else { $('button#download,select#visible').prop('disabled', true); };
-			$("select#visible").html('');
-			for (var i = 0; i < fwVisible.length; i++) { $("select#visible").append('<option value="'+fwVisible[i].relID+'">'+fwVisible[i].ref+'</option>'); };
+			if (fwVisible.length > 0) {
+				$('div#searchInMap button.download,div#searchInMap select').prop('disabled', false);
+			} else {
+				$('div#searchInMap button.download,div#searchInMap select').prop('disabled', true);
+			};
+			$("div#searchInMap select").html('');
+			for (var i = 0; i < fwVisible.length; i++) { $("div#searchInMap select").append('<option value="'+fwVisible[i].relID+'">'+fwVisible[i].ref+'</option>'); };
 			console.timeEnd('searchInMap');
 			console.log('Done');
 		}
@@ -277,6 +281,51 @@ function searchInMap (opt) {
 		console.timeEnd('searchInMap');
 		if (response.statusText!=='abort') { console.log('ERROR: Unknown error when searching in map'); searchInMap();
 		} else { console.log('ERROR: Abort when searching in map'); };
+	});
+}
+
+function searchByProp (opt) {
+	if (!opt) { opt = {}; };
+	if (!opt.timeout) { opt.timeout = 20; };
+	killRequests();
+	$('li#search i').attr('class', 'fa fa-spin fa-spinner');
+	console.log('\nSearching by properties');
+	console.time('searchByProp');
+	var query = '[out:json][timeout:'+opt.timeout+'];relation[route=road]('+
+		map.getBounds().getSouth()+','+map.getBounds().getWest()+','+map.getBounds().getNorth()+','+map.getBounds().getEast()+
+		');foreach(out tags; way(r); out tags 1 qt;);';
+	rq0 = $.getJSON('http://overpass-api.de/api/interpreter?data=' + query,
+		function (response) {
+			if (response.remark!=undefined) { 
+				console.timeEnd('searchInMap');
+				console.log('ERROR: Timeout when searching by properties'); opt.timeout+=60; searchInMap(opt); return; 
+			};
+			$('li#search i').attr('class', 'fa fa-search');
+			var fwVisible = [];
+			for (var i = 0; i < response.elements.length; i++) {
+				if (response.elements[i].type!=='relation') {continue; };
+				if (response.elements[i+1].type!=='way') {continue; };
+				if (response.elements[i+1].tags.highway=='motorway'||response.elements[i+1].tags.highway=='motorway_link'||
+					response.elements[i+1].tags.construction=='motorway'||response.elements[i+1].tags.construction=='motorway_link') {
+					fwVisible.push({relID:response.elements[i].id, ref:response.elements[i].tags.ref});
+				};
+			};
+			fwVisible.sort( function (a,b) { return a.ref > b.ref ? +1 : -1; });
+			if (fwVisible.length > 0) {
+				$('searchbyProp button#download,select#visible').prop('disabled', false);
+			} else {
+				$('searchbyProp button#download,select#visible').prop('disabled', true);
+			};
+			$("select#visible").html('');
+			for (var i = 0; i < fwVisible.length; i++) { $("select#visible").append('<option value="'+fwVisible[i].relID+'">'+fwVisible[i].ref+'</option>'); };
+			console.timeEnd('searchByProp');
+			console.log('Done');
+		}
+	)
+	.fail( function (response) {
+		console.timeEnd('searchInMap');
+		if (response.statusText!=='abort') { console.log('ERROR: Unknown error when searching by properties'); searchInMap();
+		} else { console.log('ERROR: Abort when searching by properties'); };
 	});
 }
 

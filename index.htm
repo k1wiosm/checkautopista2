@@ -51,19 +51,54 @@
 			</div>
 			<!-- Tab panes -->
 			<div class="sidebar-content active">
+				<!-- Search -->
 				<div class="sidebar-pane" id="search">
-					<div class="section">
+					<!-- Search in map -->
+					<div class="section" id="searchInMap">
+						<h3>Search in map</h3>
 						<table><tr>
 							<td class="fit"><button onClick="searchInMap()" title="Search in map">
 								<i class="fa fa-map-o"></i> <i class="fa fa-search"></i>
 							</button></td>
-							<td><select id="visible" disabled></select></td>
-							<td class="fit"><button id="download" onClick="getFreeway($('select#visible').val(), {zoom:true});" title="Download" disabled>
+							<td><select disabled></select></td>
+							<td class="fit"><button class="download" onClick="getFreeway($('div#searchInMap select').val(), {zoom:true});" title="Download" disabled>
 								<i class="fa fa-cloud-download"></i>
 							</button></td>
 						</tr></table>
 					</div>
+					<!-- Search by relation ID -->
+					<div class="section">
+						<h3>Search by relation ID</h3>
+						<table><tr>
+							<td><input type="number" pattern="\d*" id="relID"></input></td>
+							<td class="fit"><button class="download" onClick="getFreeway($('input#relID').val())" title="Download">
+								<i class="fa fa-cloud-download"></i>
+							</button></td>
+						</tr></table>
+					</div>
+					<!-- Search by properties -->
+					<div class="section" id="searchByProp">
+						<h3>Search by properties</h3>
+						<table>
+							<tr><td class="code fit">name</td><td><input class="fill" id="name"></input></td></tr>
+							<tr><td class="code fit">ref</td><td><input class="fill" id="ref"></input></td></tr>
+							<tr><td class="code fit">network</td><td><input class="fill" id="network"></input></td></tr>
+							<tr><td class="code fit">operator</td><td><input class="fill" id="operator"></input></td></tr>
+						</table>
+						<table>
+							<tr>
+								<td class="fit"><button onClick="searchByProp()" title="Search by properties">
+									<i class="fa fa-search"></i>
+								</button></td>
+								<td><select id="visible" disabled></select></td>
+								<td class="fit"><button class="download" onClick="getFreeway($('div#searchByProp select').val(), {zoom:true});" title="Download" disabled>
+									<i class="fa fa-cloud-download"></i>
+								</button></td>
+							</tr>
+						</table>
+					</div>
 				</div>
+				<!-- Road -->
 				<div class="sidebar-pane" id="road">
 					<div class="panel road">
 						<div class="subPanel road">
@@ -75,7 +110,9 @@
 					<table class="tags"></table>
 					<p id="timestamp"><p>
 				</div>
-				<div class="sidebar-pane" id="stats"><h2>Stats</h2>
+				<!-- Stats -->
+				<div class="sidebar-pane" id="stats">
+					<h2>Stats</h2>
 					<div class="section">
 						<table class="stats">
 							<tr id="tolls">
@@ -145,10 +182,12 @@
 					</table></div>
 					<p id="timestamp"></p>
 				</div>
+				<!-- Info -->
 				<div class="sidebar-pane" id="info">
 					<div id="tags">
 					</div>
 				</div>
+				<!-- About -->
 				<div class="sidebar-pane" id="about">
 					<h2>CheckAutopista2</h2>
 					<p>CheckAutopista2 is a quality assurance tool for motorways in OpenStreetMap.</p>
@@ -171,6 +210,7 @@
 						</ul>
 					</p>
 				</div>
+				<!-- Settings -->
 				<div class="sidebar-pane" id="settings">
 					<div class="section"><table><tr>
 						<td class="fit"><div id="small_circle"></div></td>
