@@ -309,8 +309,8 @@ function searchByProp (opt) {
 	rq0 = $.getJSON('http://overpass-api.de/api/interpreter?data=' + query,
 		function (response) {
 			if (response.remark!=undefined) { 
-				console.timeEnd('searchInMap');
-				console.log('ERROR: Timeout when searching by properties'); opt.timeout+=60; searchInMap(opt); return; 
+				console.timeEnd('searchByProp');
+				console.log('ERROR: Timeout when searching by properties'); opt.timeout+=20; searchByProp(opt); return; 
 			};
 			$('li#search i').attr('class', 'fa fa-search');
 			var fwVisible = [];
@@ -331,8 +331,8 @@ function searchByProp (opt) {
 		}
 	)
 	.fail( function (response) {
-		console.timeEnd('searchInMap');
-		if (response.statusText!=='abort') { console.log('ERROR: Unknown error when searching by properties'); searchInMap();
+		console.timeEnd('searchByProp');
+		if (response.statusText!=='abort') { console.log('ERROR: Unknown error when searching by properties'); searchByProp();
 		} else { console.log('ERROR: Abort when searching by properties'); };
 	});
 }
