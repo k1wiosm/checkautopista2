@@ -46,9 +46,10 @@ $(document).ready(function() {
 		killRequests();
 	};
 
+	$('div#searchInMap button.download,div#searchInMap select').prop('disabled', $('div#searchInMap select >').length == 0);
+	$('div#searchByID button.download').prop('disabled', $('div#searchByID input').val().length == 0);
+	$('div#searchByProp button.download,div#searchByProp select').prop('disabled', $('div#searchByProp select >').length == 0);
 });
-
-
 
 function updatePermalink (relID, lat, lon, z) {
 	options.lat = (lat || options.lat) ? Number(lat || options.lat).toFixed(4) : undefined;
