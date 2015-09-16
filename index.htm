@@ -60,14 +60,11 @@
 							<td class="fit"><button onClick="searchInMap()" title="Search in map">
 								<i class="fa fa-map-o"></i> <i class="fa fa-search"></i>
 							</button></td>
-							<form>
 							<td><select disabled></select></td>
-							<td class="fit"><button class="download" onClick="getFreeway($('div#searchInMap select').val(), {zoom:true});event.preventDefault();" title="Download" disabled>
+							<td class="fit"><button class="download" onClick="getFreeway($('div#searchInMap select').val(), {zoom:true});" title="Download" disabled>
 								<i class="fa fa-cloud-download"></i>
 							</button></td>
-							</form>
 						</tr></table>
-
 					</div>
 					<!-- Search by relation ID -->
 					<div class="section" id="searchByID">
@@ -86,10 +83,10 @@
 						<h3>Search by properties</h3>
 						<form>
 						<table>
-							<tr><td class="code fit">name</td><td><input class="fill" id="name"></input></td></tr>
-							<tr><td class="code fit">ref</td><td><input class="fill" id="ref"></input></td></tr>
-							<tr><td class="code fit">network</td><td><input class="fill" id="network"></input></td></tr>
-							<tr><td class="code fit">operator</td><td><input class="fill" id="operator"></input></td></tr>
+							<tr><td class="code fit">name</td><td><input type="text" class="fill" id="name"></input></td></tr>
+							<tr><td class="code fit">ref</td><td><input type="text" class="fill" id="ref"></input></td></tr>
+							<tr><td class="code fit">network</td><td><input type="text" class="fill" id="network"></input></td></tr>
+							<tr><td class="code fit">operator</td><td><input type="text" class="fill" id="operator"></input></td></tr>
 						</table>
 						<table>
 							<tr>
