@@ -271,13 +271,15 @@ function searchInMap (opt) {
 				if (response.elements[i+1].type!=='way') {continue; };
 				if (response.elements[i+1].tags.highway=='motorway'||response.elements[i+1].tags.highway=='motorway_link'||
 					response.elements[i+1].tags.construction=='motorway'||response.elements[i+1].tags.construction=='motorway_link') {
-					fwVisible.push({relID:response.elements[i].id, ref:response.elements[i].tags.ref});
+					fwVisible.push({relID:response.elements[i].id, tags:response.elements[i].tags});
 				};
 			};
-			fwVisible.sort( function (a,b) { return a.ref > b.ref ? +1 : -1; });
+			fwVisible.sort(sortAlgorithm);
 			$('div#searchInMap button.download,div#searchInMap select').prop('disabled', fwVisible.length == 0);
 			$("div#searchInMap select").html('');
-			for (var i = 0; i < fwVisible.length; i++) { $("div#searchInMap select").append('<option value="'+fwVisible[i].relID+'">'+fwVisible[i].ref+'</option>'); };
+			for (var i = 0; i < fwVisible.length; i++) {
+				$("div#searchInMap select").append('<option value="'+fwVisible[i].relID+'">'+fwVisible[i].tags.ref+' — '+fwVisible[i].tags.name+'</option>');
+			};
 			console.timeEnd('searchInMap');
 			console.log('Done');
 		}
@@ -319,13 +321,15 @@ function searchByProp (opt) {
 				if (response.elements[i+1].type!=='way') {continue; };
 				if (response.elements[i+1].tags.highway=='motorway'||response.elements[i+1].tags.highway=='motorway_link'||
 					response.elements[i+1].tags.construction=='motorway'||response.elements[i+1].tags.construction=='motorway_link') {
-					fwVisible.push({relID:response.elements[i].id, ref:response.elements[i].tags.ref});
+					fwVisible.push({relID:response.elements[i].id, tags:response.elements[i].tags});
 				};
 			};
-			fwVisible.sort( function (a,b) { return a.ref > b.ref ? +1 : -1; });
+			fwVisible.sort(sortAlgorithm);
 			$('div#searchByProp button.download,div#searchByProp select').prop('disabled', fwVisible.length == 0);
 			$("select#visible").html('');
-			for (var i = 0; i < fwVisible.length; i++) { $("div#searchByProp select").append('<option value="'+fwVisible[i].relID+'">'+fwVisible[i].ref+'</option>'); };
+			for (var i = 0; i < fwVisible.length; i++) {
+				$("div#searchByProp select").append('<option value="'+fwVisible[i].relID+'">'+fwVisible[i].tags.ref+' — '+fwVisible[i].tags.name+'</option>');
+			};
 			console.timeEnd('searchByProp');
 			console.log('Done');
 		}
@@ -335,6 +339,14 @@ function searchByProp (opt) {
 		if (response.statusText!=='abort') { console.log('ERROR: Unknown error when searching by properties'); searchByProp();
 		} else { console.log('ERROR: Abort when searching by properties'); };
 	});
+}
+
+function sortAlgorithm (a,b) {
+	if (a.tags.ref.replace(/[0-9]/g, '') == b.tags.ref.replace(/[0-9]/g, '')) {
+		return Number(a.tags.ref.replace(/\D/g,'')) > Number(b.tags.ref.replace(/\D/g,'')) ? +1 : -1;
+	} else {
+		return a.tags.ref.replace(/[0-9]/g,'') > b.tags.ref.replace(/[0-9]/g,'') ? +1 : -1;
+	}
 }
 
 function killRequests() {
