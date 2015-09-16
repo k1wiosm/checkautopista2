@@ -38,11 +38,17 @@ $(document).ready(function() {
 		$('div#searchByProp button.search').prop('disabled', $('div#searchByProp input#name').val().length + $('div#searchByProp input#ref').val().length + 
 			$('div#searchByProp input#network').val().length + $('div#searchByProp input#operator').val().length == 0);
 	});
+
+	window.onbeforeunload = function (e) {
+		killRequests();
+	};
+	window.onunload = function (e) {
+		killRequests();
+	};
+
 });
 
-window.onbeforeunload = function (e) {
-	killRequests();
-};
+
 
 function updatePermalink (relID, lat, lon, z) {
 	options.lat = (lat || options.lat) ? Number(lat || options.lat).toFixed(4) : undefined;
