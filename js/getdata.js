@@ -342,7 +342,13 @@ function searchByProp (opt) {
 }
 
 function sortAlgorithm (a,b) {
-	if (a.tags.ref.replace(/[0-9]/g, '') == b.tags.ref.replace(/[0-9]/g, '')) {
+	if (a.tags.ref==undefined && b.tags.ref==undefined) {
+		return +1;
+	} else if (a.tags.ref==undefined && b.tags.ref!==undefined) {
+		return +1;
+	} else if (a.tags.ref!==undefined && b.tags.ref==undefined) {
+		return -1;
+	} else if (a.tags.ref.replace(/[0-9]/g, '') == b.tags.ref.replace(/[0-9]/g, '')) {
 		return Number(a.tags.ref.replace(/\D/g,'')) > Number(b.tags.ref.replace(/\D/g,'')) ? +1 : -1;
 	} else {
 		return a.tags.ref.replace(/[0-9]/g,'') > b.tags.ref.replace(/[0-9]/g,'') ? +1 : -1;
