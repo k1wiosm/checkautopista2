@@ -120,16 +120,7 @@ function getHtml(element) {
 		t_html += htmlPanel(element);
 	}
 	if (element.nodeID!=undefined) {
-		t_html += '<h3>Node : ' + element.nodeID +
-			' <a href="http://openstreetmap.com/node/'+element.nodeID+'" target="_blank" title ="OpenStreetMap">'+
-			'<button class="icon"><img class="icon" src="img/osm-logo.png"></img></button></a>'+
-			' <a href="http://127.0.0.1:8111/load_object?new_layer=false&objects=node'+element.nodeID+'" target="_blank" title="JOSM editor">'+
-			'<button class="icon"><img class="icon" src="img/josm-logo.png"></img></button></a>'+
-			' <a href="http://www.openstreetmap.org/edit?editor=id&node='+element.nodeID+'" target="_blank" title="ID editor">'+
-			'<button class="icon"><img class="icon" src="img/id-logo.png"></img></button></a>'+
-			' <a href="http://level0.osmz.ru/?url=node/'+element.nodeID+'" target="_blank" title="Level0 editor">'+
-			'<button class="icon">L0</button></a>'+
-			'</h3>';
+		t_html += '<h3>Node : ' + element.nodeID + htmlButtons('node',element.nodeID) + '</h3>';
 		t_html += '<table class="tags">';
 		for (key in element.tags) {
 			t_html += '<tr><td class="code key">'+key+'</td><td class="code">'+element.tags[key].replace('<','&lt;').replace(/;/g,';&#8203;') +'</td></tr>';
@@ -138,16 +129,7 @@ function getHtml(element) {
 		t_html += '</table>';
 	};
 	if (element.wayID!=undefined) {
-		t_html += '<h3>Way : ' + element.wayID +
-			' <a href="http://openstreetmap.com/way/'+element.wayID+'" target="_blank" title ="OpenStreetMap">'+
-			'<button class="icon"><img class="icon" src="img/osm-logo.png"></img></button></a>'+
-			' <a href="http://127.0.0.1:8111/load_object?new_layer=false&objects=way'+element.wayID+'" target="_blank" title="JOSM editor">'+
-			'<button class="icon"><img class="icon" src="img/josm-logo.png"></img></button></a>'+
-			' <a href="http://www.openstreetmap.org/edit?editor=id&way='+element.wayID+'" target="_blank" title="ID editor">'+
-			'<button class="icon"><img class="icon" src="img/id-logo.png"></img></button></a>'+
-			' <a href="http://level0.osmz.ru/?url=way/'+element.wayID+'" target="_blank" title="Level0 editor">'+
-			'<button class="icon">L0</button></a>'+
-			'</h3>';
+		t_html += '<h3>Way : ' + element.wayID + htmlButtons('way',element.wayID) + '</h3>';
 		t_html += '<table class="tags">';
 		for (key in way[element.wayID].tags) {
 			t_html += '<tr><td class="code key">'+key+'</td><td class="code">'+way[element.wayID].tags[key].replace('<','&lt;').replace(/;/g,';&#8203;') +'</td></tr>';
@@ -219,4 +201,27 @@ function getColorCode (ref) {
 		'^ *VA-P-[0-9]{4} *$|^ *VP-[0-9]{4} *$|^ *VA-V-[0-9]{4} *$|^ *ZA-[0-9]{3} *$|^ *ZA-P-[0-9]{4} *$'  // ES: Castilla y leon
 		))!=-1) {return 'es3';}
 	else {return 'red';}
+}
+
+function htmlButtons (type, id) {
+	html = '';
+	if (type=='relation') {
+		html += ' <button class="icon" onClick="fw['+id+'].zoom()" title="Zoom to motorway"><i class="fa fa-eye icon"></i></button>'+
+			' <a href="http://openstreetmap.com/relation/'+id+'" target="_blank" title="OpenStreetMap">';
+	};
+	html += ' <a href="http://openstreetmap.com/'+type+'/'+id+'" target="_blank" title ="OpenStreetMap">'+
+		'<button class="icon"><img class="icon" src="img/osm-logo.png"></img></button></a>'+
+		' <a href="http://127.0.0.1:8111/load_object?new_layer=false&objects='+type+id+'" target="_blank" title="JOSM editor">'+
+		'<button class="icon"><img class="icon" src="img/josm-logo.png"></img></button></a>'+
+		' <a href="http://www.openstreetmap.org/edit?editor=id&'+type+'='+id+'" target="_blank" title="ID editor">'+
+		'<button class="icon"><img class="icon" src="img/id-logo.png"></img></button></a>'+
+		' <a href="http://level0.osmz.ru/?url='+type+'/'+id+'" target="_blank" title="Level0 editor">'+
+		'<button class="icon">L0</button></a>';
+	if (type=='relation') {
+		html += ' <a href="http://ra.osmsurround.org/analyzeRelation?relationId='+id+'" target="_blank" title="Relation Analyzer">'+
+			'<button class="icon">An</button></a>'+
+			' <a href="http://osmrm.openstreetmap.de/relation.jsp?id='+id+'" target="_blank" title="Relation Manager">'+
+			'<button class="icon">Ma</button></a>';
+	};
+	return html;
 }
