@@ -125,7 +125,7 @@ function getHtml(element) {
 	};
 	if (element.wayID!=undefined) {
 		t_html += '<h3>Way : ' + element.wayID + htmlButtons('way',element.wayID) + '</h3>';
-		t_html += htmlTagsTable(element);
+		t_html += htmlTagsTable(way[element.wayID]);
 	}
 	t_html += '<p id="timestamp">'+fw[options.relID].timestamp+'<p>';
 	return t_html;
