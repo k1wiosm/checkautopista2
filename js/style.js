@@ -167,14 +167,16 @@ function htmlPanel (element) {
 		var dest_ref = '';
 		var destRefArray = way[element.wayID].tags['destination:ref'].split(/;/g);
 		for (var i = 0; i < destRefArray.length; i++) {
-			dest_ref += '<div class="panelText ref '+getColorCode(destRefArray[i])+'">'+destRefArray[i]+'</div> ';
+			dest_ref += '<div class="panelText ref '+getColorCode(destRefArray[i])+'">'+
+				destRefArray[i].replace(/ /g, '&nbsp;').replace(/-/g, '&#8209;')+'</div> ';
 		};
 	};
 	if (element.wayID!=undefined && way[element.wayID].tags['destination:int_ref']!=undefined) {
 		var dest_int_ref = '';
-		var destIntRefArray = way[element.wayID].tags['destination:int_ref'].split(/;/g);
+		var destIntRefArray = way[element.wayID].tags['destination:int_ref'].replace(/-/g, '&#8209;').split(/;/g);
 		for (var i = 0; i < destIntRefArray.length; i++) {
-			dest_int_ref += '<div class="panelText ref '+getColorCode(destIntRefArray[i])+'">'+destIntRefArray[i]+'</div> ';
+			dest_int_ref += '<div class="panelText ref '+getColorCode(destIntRefArray[i])+'">'+
+			destIntRefArray[i].replace(/ /g, '&nbsp;').replace(/-/g, '&#8209;')+'</div> ';
 		};
 	};
 	var t_html = 	'<div class="panel">' +
