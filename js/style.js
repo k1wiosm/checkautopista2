@@ -145,7 +145,7 @@ function htmlJunctionPanel (element) {
 	};
 	if (element.wayID!=undefined && way[element.wayID].tags['destination:int_ref']!=undefined) {
 		var dest_int_ref = '';
-		var destIntRefArray = way[element.wayID].tags['destination:int_ref'].replace(/-/g, '&#8209;').split(/;/g);
+		var destIntRefArray = way[element.wayID].tags['destination:int_ref'].split(/;/g);
 		for (var i = 0; i < destIntRefArray.length; i++) {
 			dest_int_ref += '<div class="panelText ref '+getColorCode(destIntRefArray[i])+'">'+
 			destIntRefArray[i].replace(/ /g, '&nbsp;').replace(/-/g, '&#8209;')+'</div> ';
