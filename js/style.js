@@ -121,21 +121,11 @@ function getHtml(element) {
 	}
 	if (element.nodeID!=undefined) {
 		t_html += '<h3>Node : ' + element.nodeID + htmlButtons('node',element.nodeID) + '</h3>';
-		t_html += '<table class="tags">';
-		for (key in element.tags) {
-			t_html += '<tr><td class="code key">'+key+'</td><td class="code">'+element.tags[key].replace('<','&lt;').replace(/;/g,';&#8203;') +'</td></tr>';
-		};
-		if (element.tags==undefined) { t_html += '<p>No tags</p>'};
-		t_html += '</table>';
+		t_html += htmlTagsTable(element);
 	};
 	if (element.wayID!=undefined) {
 		t_html += '<h3>Way : ' + element.wayID + htmlButtons('way',element.wayID) + '</h3>';
-		t_html += '<table class="tags">';
-		for (key in way[element.wayID].tags) {
-			t_html += '<tr><td class="code key">'+key+'</td><td class="code">'+way[element.wayID].tags[key].replace('<','&lt;').replace(/;/g,';&#8203;') +'</td></tr>';
-		};
-		if (element.tags==undefined) { t_html += '<p>No tags</p>'};
-		t_html += '</table>';
+		t_html += htmlTagsTable(element);
 	}
 	t_html += '<p id="timestamp">'+fw[options.relID].timestamp+'<p>';
 	return t_html;
@@ -223,5 +213,16 @@ function htmlButtons (type, id) {
 			' <a href="http://osmrm.openstreetmap.de/relation.jsp?id='+id+'" target="_blank" title="Relation Manager">'+
 			'<button class="icon">Ma</button></a>';
 	};
+	return html;
+}
+
+function htmlTagsTable (element) {
+	var html = '<table class="tags">';
+	for (key in element.tags) {
+		html += '<tr><td class="code key">'+key+'</td>'+
+		'<td class="code">'+element.tags[key].replace('<','&lt;').replace(/;/g,';&#8203;') +'</td></tr>';
+	};
+	if (element.tags==undefined) { html += '<p>No tags</p>'};
+	html += '</table>';
 	return html;
 }

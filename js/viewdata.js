@@ -134,12 +134,7 @@ Freeway.prototype.addToSidebar = function () {
 	if (this.tags.network == 'e-road') { $('div.subPanel.road .ref').toggleClass('greenE', true); } else { $('div.subPanel.road .ref').toggleClass('greenE', false); };
 	$('div.subPanel.road .name').html(this.name || '');
 	$('div#road h3').html('Relation : ' + this.relID + htmlButtons('relation',this.relID));
-	var t_html = '';
-	for (key in this.tags) {
-		t_html += '<tr><td class="code key">'+key+'</td><td class="code">'+this.tags[key].replace('<','&lt;').replace(/;/g,';&#8203;') +'</td></tr>';
-	};
-	if (this.tags==undefined) { t_html += '<p>No tags</p>'};
-	$('div#road table.tags').html(t_html);
+	$('div#road div.tags').html(htmlTagsTable(this));
 	// Stats
 	$('div#stats h2').html(this.name+' ('+(this.ref||'').replace('-','&#8209;')+')<br/>');
 	$('div#stats tr#toll td#data').html();
