@@ -130,9 +130,8 @@ Freeway.prototype.addToSidebar = function () {
 		});
 	});
 	// Road
-	$('div.subPanel.road .ref').html(this.ref || '');
-	if (this.tags.network == 'e-road') { $('div.subPanel.road .ref').toggleClass('greenE', true); } else { $('div.subPanel.road .ref').toggleClass('greenE', false); };
-	$('div.subPanel.road .name').html(this.name || '');
+	$('div.panel.road').remove();
+	$('div.sidebar-pane#road').prepend(htmlMotorwayPanel(this));
 	$('div#road h3').html('Relation : ' + this.relID + htmlButtons('relation',this.relID));
 	$('div#road div.tags').html(htmlTagsTable(this));
 	// Stats

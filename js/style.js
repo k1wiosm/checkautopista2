@@ -117,7 +117,7 @@ function styleWay(tags) {
 function getHtml(element) {
 	var t_html = '';
 	if (element.subtype=='exit') {
-		t_html += htmlPanel(element);
+		t_html += htmlJunctionPanel(element);
 	}
 	if (element.nodeID!=undefined) {
 		t_html += '<h3>Node : ' + element.nodeID + htmlButtons('node',element.nodeID) + '</h3>';
@@ -131,7 +131,7 @@ function getHtml(element) {
 	return t_html;
 }
 
-function htmlPanel (element) {
+function htmlJunctionPanel (element) {
 	var ref = element.ref || '&nbsp;';
 	var dest = element.destination || element.exit_to || element.name || '&nbsp;';
 	dest = dest.replace(/;/g, '</br>');
@@ -161,6 +161,13 @@ function htmlPanel (element) {
 						'</div>'+
 					'</div>';
 	return t_html;
+}
+
+function htmlMotorwayPanel (element) {
+	html = '<div class="panel road"><div class="subPanel road">';
+	html += '<div class="ref'+(element.tags.network=='e-road'?' greenE':'')+'">' + (element.ref || '') +'</div>';
+	html += '<div class="name">'+element.name+'</div></div></div>';
+	return html;
 }
 
 function getColorCode (ref) {
