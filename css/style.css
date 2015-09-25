@@ -183,6 +183,15 @@ div.subPanel.road .ref {
 	margin: 5px;
 }
 
+div.subPanel.road .symbol {
+	padding: 5px 0px 0px 0px;
+}
+
+div.subPanel.road .symbol img {
+	margin: 5px;
+	width: 50px;
+}
+
 div.subPanel.road .name {
 	display: inline-block;
 }

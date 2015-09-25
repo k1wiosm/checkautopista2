@@ -165,7 +165,11 @@ function htmlJunctionPanel (element) {
 
 function htmlMotorwayPanel (element) {
 	html = '<div class="panel road"><div class="subPanel road">';
-	html += '<div class="ref'+(element.tags.network=='e-road'?' greenE':'')+'">' + (element.ref || '') +'</div>';
+	if (element.tags.symbol) {
+		html += '<div class="symbol"><img src="'+element.tags.symbol+'"/></div>';
+	} else {
+		html += '<div class="ref'+(element.tags.network=='e-road'?' greenE':'')+'">' + (element.ref || '') +'</div>';
+	}
 	html += '<div class="name">'+element.name+'</div></div></div>';
 	return html;
 }
