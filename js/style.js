@@ -176,7 +176,7 @@ function htmlMotorwayPanel (element) {
 
 function getColorCode (ref) {
 	if (ref.search(RegExp(
-		'^E-' //Europe
+		'^E-|^E ' //Europe
 		))!=-1) {return 'greenE';}
 	else if (ref.search(RegExp(
 		'^ *A-|^ *AP-|'+ // ES:Spanish Motorways
