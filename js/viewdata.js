@@ -155,11 +155,13 @@ Freeway.prototype.addToSidebar = function () {
 }
 
 Freeway.prototype.zoom = function () {
-	map.fitBounds(
-		L.latLngBounds(L.latLng(this.bounds.minlat,this.bounds.minlon), 
-		L.latLng(this.bounds.maxlat,this.bounds.maxlon)),
-		$(window).width() >= 768 ? {paddingTopLeft: [410,0]} : {}
-	);
+	if (this.bounds) {
+		map.fitBounds(
+			L.latLngBounds(L.latLng(this.bounds.minlat,this.bounds.minlon), 
+			L.latLng(this.bounds.maxlat,this.bounds.maxlon)),
+			$(window).width() >= 768 ? {paddingTopLeft: [410,0]} : {}
+		);
+	};
 }
 
 Way.prototype.getLength = function () {
