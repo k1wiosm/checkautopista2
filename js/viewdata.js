@@ -125,7 +125,7 @@ Freeway.prototype.addToSidebar = function () {
 		layer.on('click', function (e) {
 			ga('send','event','Info','click',this.element.nodeID ? 'n'+this.element.nodeID : 'w'+this.element.wayID);
 			$('li#info').toggleClass('disabled', false);
-			$('div#info div#tags').html(getHtml(this.element));
+			$('div#info div#tags').html(htmlInfo(this.element));
 			sidebar.open('info');
 		});
 	});

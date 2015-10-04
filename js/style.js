@@ -114,21 +114,21 @@ function styleWay(tags) {
 	return $.extend(style,{smoothFactor:2, opacity:0.7});
 }
 
-function getHtml(element) {
-	var t_html = '';
+function htmlInfo(element) {
+	var html = '';
 	if (element.subtype=='exit') {
-		t_html += htmlJunctionPanel(element);
-	}
-	if (element.nodeID!=undefined) {
-		t_html += '<h3>Node : ' + element.nodeID + htmlButtons('node',element.nodeID) + '</h3>';
-		t_html += htmlTagsTable(element);
+		html += htmlJunctionPanel(element);
 	};
-	if (element.wayID!=undefined) {
-		t_html += '<h3>Way : ' + element.wayID + htmlButtons('way',element.wayID) + '</h3>';
-		t_html += htmlTagsTable(way[element.wayID]);
-	}
-	t_html += '<p id="timestamp">'+fw[options.relID].timestamp+'<p>';
-	return t_html;
+	if (element.nodeID) {
+		html += '<h3>Node : ' + element.nodeID + htmlButtons('node',element.nodeID) + '</h3>';
+		html += htmlTagsTable(element);
+	};
+	if (element.wayID) {
+		html += '<h3>Way : ' + element.wayID + htmlButtons('way',element.wayID) + '</h3>';
+		html += htmlTagsTable(way[element.wayID]);
+	};
+	html += '<p id="timestamp">'+fw[options.relID].timestamp+'<p>';
+	return html;
 }
 
 function htmlJunctionPanel (element) {
@@ -151,7 +151,7 @@ function htmlJunctionPanel (element) {
 			destIntRefArray[i].replace(/ /g, '&nbsp;').replace(/-/g, '&#8209;')+'</div> ';
 		};
 	};
-	var t_html = 	'<div class="panel">' +
+	var html = 	'<div class="panel">' +
 						'<div class="subPanel ref"><img src="img/exit.svg" height="20px"/>'+ref.replace("<","&lt;")+'</div>' +
 						'<div class="subPanel destination">'+
 							'<table><tr>'+
@@ -160,11 +160,11 @@ function htmlJunctionPanel (element) {
 							'</tr></table>'+
 						'</div>'+
 					'</div>';
-	return t_html;
+	return html;
 }
 
 function htmlMotorwayPanel (element) {
-	html = '<div class="panel road"><div class="subPanel road">';
+	var html = '<div class="panel road"><div class="subPanel road">';
 	if (element.tags.symbol) {
 		html += '<div class="symbol"><img src="'+element.tags.symbol+'"/></div>';
 	} else {
