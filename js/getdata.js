@@ -60,7 +60,7 @@ Freeway.prototype.getFreewayData = function(opt) {
 	console.time('getFreewayData');
 	var query = '[out:json][timeout:'+opt.timeout+'];(relation('+this.relID+');way(r);node(w););out bb body qt;';
 	var fwy = this;
-	rq1[this.relID] = $.getJSON('http://overpass-api.de/api/interpreter?data=' + query,
+	rq1[this.relID] = $.getJSON('//overpass-api.de/api/interpreter?data=' + query,
 		function (response) {
 			if(response.remark!=undefined) {
 				console.timeEnd('getFreewayData');
@@ -142,7 +142,7 @@ Freeway.prototype.getDestinationUnmarked = function(opt) {
 	console.time('getDestinationUnmarked');
 	var query = '[out:json][timeout:'+opt.timeout+'];relation('+this.relID+');way(r);node(w);way(bn);out body qt;';
 	var fwy = this;
-	rq2[this.relID] = $.getJSON('http://overpass-api.de/api/interpreter?data=' + query,
+	rq2[this.relID] = $.getJSON('//overpass-api.de/api/interpreter?data=' + query,
 		function (response) {
 			if (response.remark!=undefined) {
 				console.timeEnd('getDestinationUnmarked');
@@ -202,7 +202,7 @@ Freeway.prototype.getAreas = function(opt) {
 	var query = '[out:json][timeout:'+opt.timeout+'];relation(' + this.relID + ');way(r);node(w);(node(around:500)["highway"~"services|rest_' +
 		'area"]->.x;way(around:500)["highway"~"services|rest_area"];);(._;>;);out center qt;';
 	var fwy = this;
-	rq3[this.relID] = $.getJSON('http://overpass-api.de/api/interpreter?data=' + query,
+	rq3[this.relID] = $.getJSON('//overpass-api.de/api/interpreter?data=' + query,
 		function (response) {
 			if (response.remark!=undefined) { 
 				console.timeEnd('getAreas');
@@ -258,7 +258,7 @@ function searchInMap (opt) {
 	var query = '[out:json][timeout:'+opt.timeout+'];relation[route=road]('+
 		map.getBounds().getSouth()+','+map.getBounds().getWest()+','+map.getBounds().getNorth()+','+map.getBounds().getEast()+
 		');foreach(out tags; way(r); out tags 1 qt;);';
-	rq0 = $.getJSON('http://overpass-api.de/api/interpreter?data=' + query,
+	rq0 = $.getJSON('//overpass-api.de/api/interpreter?data=' + query,
 		function (response) {
 			if (response.remark!=undefined) { 
 				console.timeEnd('searchInMap');
@@ -308,7 +308,7 @@ function searchByProp (opt) {
 		(network!=''?'[network~"'+network+'"]':'')+
 		(operator!=''?'[operator~"'+operator+'"]':'')+
 		';foreach(out tags; way(r); out tags 1 qt;);';
-	rq0 = $.getJSON('http://overpass-api.de/api/interpreter?data=' + query,
+	rq0 = $.getJSON('//overpass-api.de/api/interpreter?data=' + query,
 		function (response) {
 			if (response.remark!=undefined) { 
 				console.timeEnd('searchByProp');
