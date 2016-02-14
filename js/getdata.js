@@ -303,10 +303,10 @@ function searchByProp (opt) {
 	var network = $('div#searchByProp input#network').val();
 	var operator = $('div#searchByProp input#operator').val();
 	var query = '[out:json][timeout:'+opt.timeout+'];relation[route=road]'+
-		(name!=''?'[name~"'+name+'"]':'')+
-		(ref!=''?'[ref~"'+ref+'"]':'')+
-		(network!=''?'[network~"'+network+'"]':'')+
-		(operator!=''?'[operator~"'+operator+'"]':'')+
+		(name!=''?'[name~"'+name+'",i]':'')+
+		(ref!=''?'[ref~"'+ref+'",i]':'')+
+		(network!=''?'[network~"'+network+'",i]':'')+
+		(operator!=''?'[operator~"'+operator+'",i]':'')+
 		';foreach(out tags; way(r); out tags 1 qt;);';
 	rq0 = $.getJSON('https://overpass-api.de/api/interpreter?data=' + query,
 		function (response) {
