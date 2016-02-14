@@ -1,0 +1,37 @@
+{
+	"data_format": 1,
+	"data_url": "http://k1wiosm.github.io/checkautopista2/taginfo.json",
+	"data_updated": "2016-02-14T18:00:00Z",
+	"project": {
+		"name": "CheckAutopista2",
+		"description": "QA tool for motorways in OSM.",
+		"project_url": "http://k1wiosm.github.io/checkautopista2/",
+		"doc_url": "http://github.com/k1wiosm/checkautopista2",
+		"icon_url": "http://github.com/k1wiosm/checkautopista2/favicon.ico",
+		"contact_name": "k1wi",
+		"contact_email": "k1wiosm@gmail.com"
+	},
+	"tags":
+		[
+			{ "key": "type", "value": "route", "object_types": ["relation"] },
+			{ "key": "route", "value": "road", "object_types": ["relation"] },
+			{ "key": "highway", "value": "motorway", "object_types": ["way"] },
+			{ "key": "highway", "value": "motorway_link", "object_types": ["way"] },
+			{ "key": "highway", "value": "construction", "object_types": ["way"] },
+			{ "key": "construction", "value": "motorway", "object_types": ["way"] },
+			{ "key": "construction", "value": "motorway_link", "object_types": ["way"] },
+			{ "key": "highway", "value": "motorway_junction", "object_types": ["node"] },
+			{ "key": "exit_to", "object_types": ["node"] },
+			{ "key": "name", "object_types": ["node","way"] },
+			{ "key": "ref", "object_types": ["node","way"] },
+			{ "key": "destination", "object_types": ["way"] },
+			{ "key": "destination:ref", "object_types": ["way"] },
+			{ "key": "destination:int_ref", "object_types": ["way"] },
+			{ "key": "barrier", "value": "toll_booth", "object_types": ["node"] },
+			{ "key": "highway", "value": "services", "object_types": ["node","way"] },
+			{ "key": "highway", "value": "rest_area", "object_types": ["node","way"] },
+			{ "key": "maxspeed", "object_types": ["way"] },
+			{ "key": "lanes", "object_types": ["way"] },
+			{ "key": "symbol", "object_types": ["relation"], "description": "Image of motorway shield." },
+		]
+}
