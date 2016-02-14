@@ -32,6 +32,6 @@
 			{ "key": "highway", "value": "rest_area", "object_types": ["node","way"] },
 			{ "key": "maxspeed", "object_types": ["way"] },
 			{ "key": "lanes", "object_types": ["way"] },
-			{ "key": "symbol", "object_types": ["relation"], "description": "Image of motorway shield." },
+			{ "key": "symbol", "object_types": ["relation"], "description": "Image of motorway shield." }
 		]
 }
