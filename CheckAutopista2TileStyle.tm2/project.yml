@@ -20,7 +20,7 @@ interactivity_layer: ''
 layers: null
 maxzoom: 22
 minzoom: 0
-name: ChechAutopista2
+name: CheckAutopista2
 source: "mapbox:///mapbox.mapbox-streets-v7"
 styles: 
   - style.mss
