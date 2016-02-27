@@ -10,11 +10,17 @@ if (options.lat==undefined && options.lon==undefined && options.z==undefined && 
 		maxZoom:12});
 }
 
-a=L.tileLayer(
+tileCA2=L.tileLayer(
 	'https://api.tiles.mapbox.com/v4/k1wi.7e678c5d/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiazF3aSIsImEiOiJaX0JKRUNzIn0.yL_KftGNvh631-_yDzotcQ', {
 		attribution: '<a href="http://openstreetmap.org" title="OpenStreetMap">OSM</a> | <a href="http://mapbox.com" title="Tiles by Mapbox">Mapbox</a> ',
-		maxZoom: 18})
-	.addTo(map);
+		maxZoom: 18});
+
+tileOSM=L.tileLayer(
+	'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		attribution: '<a href="http://openstreetmap.org" title="OpenStreetMap">OSM</a>',
+		maxZoom: 18});
+
+updateTiles();
 
 var sidebar = L.control.sidebar('sidebar').addTo(map);
 
@@ -99,4 +105,29 @@ function updateLegend () {
 
 function findWithAttr(array, attr, value) {
 	for (var i in array) { if (array[i][attr] == value) { return array[i]; }; };
+}
+
+function updateTiles(clicked) {
+	if (typeof clicked !== undefined) {
+		var id = $(clicked).parent().parent().attr('id');
+		if (id=='tileCA2') {
+			options.tile='tileCA2';
+			Cookies.set('tile',options.tile);
+			$('#tileOSM .chk').prop('checked', false);
+		};
+		if (id=='tileOSM') {
+			options.tile='tileOSM';
+			Cookies.set('tile',options.tile);
+			$('#tileCA2 .chk').prop('checked', false);
+		};
+	};
+
+	if (options.tile=='tileCA2') { 
+		map.removeLayer(tileOSM);
+		map.addLayer(tileCA2);
+	};
+	if (options.tile=='tileOSM') { 
+		map.removeLayer(tileCA2);
+		map.addLayer(tileOSM);
+	};
 }

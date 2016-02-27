@@ -5,11 +5,13 @@ var options = {
 	lon: $.url().param('lon'),
 	z: $.url().param('z') || $.url().param('zoom'),
 	id: ($.url().param('id') ? Number($.url().param('id')) : undefined),
-	view: $.url().param('view') || 'tdenxuaALMX'
+	view: $.url().param('view') || 'tdenxuaALMX',
+	tile: 'tileCA2'
 }
 
 if (Cookies.get('radius')!==undefined) { options.radius = Number(Cookies.get('radius')); }
 if (Cookies.get('opacity')!==undefined) { options.opacity = Number(Cookies.get('opacity')); }
+if (Cookies.get('tile')!==undefined) { options.tile = Cookies.get('tile'); }
 
 colorToll = 'blue';
 bgColorToll = '#8888FF';
@@ -73,9 +75,16 @@ $('document').ready(function () {
 		}
 	});
 
-	$('.chk').change(function() {
+	if (options.tile=='tileOSM') { $('#tileOSM .chk').prop('checked', true); } else { $('#tileOSM .chk').prop('checked', false); };
+	if (options.tile=='tileCA2') { $('#tileCA2 .chk').prop('checked', true); } else { $('#tileCA2 .chk').prop('checked', false); };
+
+	$('.stats .chk').change(function() {
 		updateVisibility(this);
 		updatePermalink();
+	});
+
+	$('.tile .chk').change(function() {
+		updateTiles(this);
 	});
 })
 
