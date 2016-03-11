@@ -136,7 +136,7 @@ function htmlInfo(element) {
 		html += '<h3>Way : ' + element.wayID + htmlButtons('way',element.wayID) + '</h3>';
 		html += htmlTagsTable(way[element.wayID]);
 	};
-	html += '<p id="timestamp">'+fw[options.relID].timestamp+'<p>';
+	html += '<p id="timestamp">' + fw[options.relID].timestamp + '</p>';
 	return html;
 }
 
@@ -217,14 +217,14 @@ function htmlButtons (type, id) {
 	html = '';
 	if (type=='relation') {
 		html += ' <button class="icon" onClick="fw['+id+'].zoom()" title="Zoom to motorway"><i class="fa fa-eye icon"></i></button>'+
-			' <a href="http://openstreetmap.com/relation/'+id+'" target="_blank" title="OpenStreetMap">';
+			' <a href="https://www.openstreetmap.org/relation/'+id+'" target="_blank" title="OpenStreetMap">';
 	};
-	html += ' <a href="http://openstreetmap.com/'+type+'/'+id+'" target="_blank" title ="OpenStreetMap">'+
-		'<button class="icon"><img class="icon" src="img/osm-logo.png"></img></button></a>'+
+	html += ' <a href="https://www.openstreetmap.org/'+type+'/'+id+'" target="_blank" title ="OpenStreetMap">'+
+		'<button class="icon"><img class="icon" src="img/osm-logo.png"/></button></a>'+
 		' <a href="http://127.0.0.1:8111/load_object?new_layer=false&objects='+type+id+'" target="_blank" title="JOSM editor">'+
-		'<button class="icon"><img class="icon" src="img/josm-logo.png"></img></button></a>'+
-		' <a href="http://www.openstreetmap.org/edit?editor=id&'+type+'='+id+'" target="_blank" title="ID editor">'+
-		'<button class="icon"><img class="icon" src="img/id-logo.png"></img></button></a>'+
+		'<button class="icon"><img class="icon" src="img/josm-logo.png"/></button></a>'+
+		' <a href="https://www.openstreetmap.org/edit?editor=id&'+type+'='+id+'" target="_blank" title="ID editor">'+
+		'<button class="icon"><img class="icon" src="img/id-logo.png"/></button></a>'+
 		' <a href="http://level0.osmz.ru/?url='+type+'/'+id+'" target="_blank" title="Level0 editor">'+
 		'<button class="icon">L0</button></a>';
 	if (type=='relation') {
