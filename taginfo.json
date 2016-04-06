@@ -24,6 +24,7 @@
 			{ "key": "exit_to", "object_types": ["node"] },
 			{ "key": "name", "object_types": ["node","way"] },
 			{ "key": "ref", "object_types": ["node","way"] },
+			{ "key": "noref", "value": "yes", "object_types": ["node"] },
 			{ "key": "destination", "object_types": ["way"] },
 			{ "key": "destination:ref", "object_types": ["way"] },
 			{ "key": "destination:int_ref", "object_types": ["way"] },
