@@ -1,7 +1,7 @@
 {
 	"data_format": 1,
 	"data_url": "http://k1wiosm.github.io/checkautopista2/taginfo.json",
-	"data_updated": "2016-02-14T18:00:00Z",
+	"data_updated": "2016-04-06T18:00:00Z",
 	"project": {
 		"name": "CheckAutopista2",
 		"description": "QA tool for motorways in OSM.",
