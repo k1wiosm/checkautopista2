@@ -71,6 +71,7 @@ function updatePermalink (relID, lat, lon, z) {
 	if ($('#exNone .chk')[0].checked) { options.view += 'x'; };
 	if ($('#exUnmarked .chk')[0].checked) { options.view += 'u'; };
 	if ($('#exRef .chk')[0].checked) { options.view += 'r'; };
+	if ($('#exNoRefYes .chk')[0].checked) { options.view += 'y'; };
 	if ($('#exNoRef .chk')[0].checked) { options.view += 'o'; };
 	if ($('#areas .chk')[0].checked) { options.view += 'a'; };
 	if ($('#wAll .chk')[0].checked) { options.view += 'A' };
@@ -95,6 +96,7 @@ function updateLegend () {
 	if (options.view.indexOf('x')==-1) { $('#exNone .chk').prop('checked', false); } else { $('#exNone .chk').prop('checked', true); };
 	if (options.view.indexOf('u')==-1) { $('#exUnmarked .chk').prop('checked', false); } else { $('#exUnmarked .chk').prop('checked', true); };
 	if (options.view.indexOf('r')==-1) { $('#exRef .chk').prop('checked', false); } else { $('#exRef .chk').prop('checked', true); };
+	if (options.view.indexOf('y')==-1) { $('#exNoRefYes .chk').prop('checked', false); } else { $('#exNoRefYes .chk').prop('checked', true); };
 	if (options.view.indexOf('o')==-1) { $('#exNoRef .chk').prop('checked', false); } else { $('#exNoRef .chk').prop('checked', true); };
 	if (options.view.indexOf('a')==-1) { $('#areas .chk').prop('checked', false); } else { $('#areas .chk').prop('checked', true); };
 	if (options.view.indexOf('A')==-1) { $('#wAll .chk').prop('checked', false); } else { $('#wAll .chk').prop('checked', true); };

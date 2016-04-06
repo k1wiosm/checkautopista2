@@ -1,6 +1,8 @@
 function Analysis() {
 	this.exTotal = undefined;
 	this.exRef = undefined;
+	this.exNoRef = undefined;
+	this.exNoRefYes = undefined;
 	this.exName = undefined;
 	this.exExitTo = undefined;
 	this.exDest = undefined;
@@ -13,12 +15,14 @@ function Analysis() {
 Freeway.prototype.getAnalysis = function () {
 	//Exits and other nodes
 	var exRef = 0;
+	var exNoRefYes = 0;
 	var exName = 0;
 	var exExitTo = 0;
 	var exDest = 0;
 	var exDir = 0;
 	for (var i = 0; i < this.exits.length; i++) {
-		if (this.exits[i].ref!=undefined) { exRef++; };
+		if (this.exits[i].ref!=undefined) { exRef++;
+		} else if (this.exits[i].tags.noref=='yes') { exNoRefYes++; };
 		if (this.exits[i].name!=undefined) { exName++; };
 		if (this.exits[i].exit_to!=undefined) { exExitTo++; };
 		if (this.exits[i].destination!=undefined) { exDest++; };
@@ -26,6 +30,8 @@ Freeway.prototype.getAnalysis = function () {
 	};
 	this.analysis.exTotal = this.exits.length;
 	this.analysis.exRef = exRef;
+	this.analysis.exNoRefYes = exNoRefYes;
+	this.analysis.exNoRef = this.exits.length - exRef - exNoRefYes;
 	this.analysis.exName = exName;
 	this.analysis.exExitTo = exExitTo;
 	this.analysis.exDest = exDest;
@@ -143,7 +149,8 @@ Freeway.prototype.addToSidebar = function () {
 	$('div#stats tr#exNone td#data').html(this.analysis.exTotal-this.analysis.exDir);
 	$('div#stats tr#exUnmarked td#data').html(this.analysis.exUnmarked);
 	$('div#stats tr#exRef td#data').html(this.analysis.exRef);
-	$('div#stats tr#exNoRef td#data').html(this.analysis.exTotal-this.analysis.exRef);
+	$('div#stats tr#exNoRefYes td#data').html(this.analysis.exNoRefYes);
+	$('div#stats tr#exNoRef td#data').html(this.analysis.exNoRef);
 	$('div#stats tr#tolls td#data').html(this.analysis.tolls);
 	$('div#stats tr#areas td#data').html(this.analysis.areas);
 	$('div#stats tr#wAll td#data').html(Math.round(10000*this.analysis.wAll/this.analysis.wTotal)/100+' %');
@@ -185,9 +192,10 @@ function updateVisibility(clicked) {
 		var id = $(clicked).parent().parent().attr('id');
 		if (['exDest','exExitTo','exName','exNone'].indexOf(id)!=-1) {
 			$('#exRef .chk').prop('checked', false);
+			$('#exNoRefYes .chk').prop('checked', false);
 			$('#exNoRef .chk').prop('checked', false);
 		};
-		if (['exRef','exNoRef'].indexOf(id)!=-1) {
+		if (['exRef','exNoRefYes','exNoRef'].indexOf(id)!=-1) {
 			$('#exDest .chk').prop('checked', false);
 			$('#exExitTo .chk').prop('checked', false);
 			$('#exName .chk').prop('checked', false);
@@ -199,6 +207,7 @@ function updateVisibility(clicked) {
 	mapChange('exName','removeLayer');
 	mapChange('exNone','removeLayer');
 	mapChange('exRef','removeLayer');
+	mapChange('exNoRefYes','removeLayer');
 	mapChange('exNoRef','removeLayer');
 	if ($('#tolls .chk')[0].checked) { mapChange('tolls','addLayer'); } else { mapChange('tolls','removeLayer'); };
 	if ($('#exDest .chk')[0].checked) { mapChange('exDest','addLayer'); };
@@ -207,6 +216,7 @@ function updateVisibility(clicked) {
 	if ($('#exNone .chk')[0].checked) { mapChange('exNone','addLayer'); };
 	if ($('#exUnmarked .chk')[0].checked) { mapChange('exUnmarked','addLayer'); } else { mapChange('exUnmarked','removeLayer'); };
 	if ($('#exRef .chk')[0].checked) { mapChange('exRef','addLayer'); };
+	if ($('#exNoRefYes .chk')[0].checked) { mapChange('exNoRefYes','addLayer'); };
 	if ($('#exNoRef .chk')[0].checked) { mapChange('exNoRef','addLayer'); };
 	if ($('#areas .chk')[0].checked) { mapChange('areas','addLayer'); } else { mapChange('areas','removeLayer'); };
 	if ($('#wAll .chk')[0].checked) { mapChange('wAll','addLayer'); } else { mapChange('wAll','removeLayer'); };
@@ -245,9 +255,13 @@ function mapChange(group, action) {
 		for (var i = 0; i < fw[id].exits.length; i++) {
 			if (fw[id].exits[i].ref!==undefined) { map[action](fw[id].exits[i].marker); };
 		};
+	} else if (group=='exNoRefYes') {
+		for (var i = 0; i < fw[id].exits.length; i++) {
+			if (fw[id].exits[i].ref==undefined && fw[id].exits[i].tags.noref=='yes') { map[action](fw[id].exits[i].marker); };
+		};
 	} else if (group=='exNoRef') {
 		for (var i = 0; i < fw[id].exits.length; i++) {
-			if (fw[id].exits[i].ref==undefined) { map[action](fw[id].exits[i].marker); };
+			if (fw[id].exits[i].ref==undefined && fw[id].exits[i].tags.noref==undefined) { map[action](fw[id].exits[i].marker); };
 		};
 	} else if (group=='areas') {
 		for (var i = 0; i < fw[id].areasNode.length; i++) {

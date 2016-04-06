@@ -22,6 +22,7 @@ colorExNone = '#B60000';
 colorExUnmarked = 'black';
 bgColorExUnmarked = 'grey';
 colorExRef = '#00DB00';
+colorExNoRefYes = 'yellow';
 colorExNoRef = 'red';
 colorAreas = '#F043B4';
 bgColorAreas = '#D48FD1';
@@ -43,6 +44,8 @@ $('document').ready(function () {
 	$('table.stats tr#exUnmarked td div#circle').css('background', bgColorExUnmarked);
 	$('table.stats tr#exRef td div#circle').css('background', colorExRef);
 	$('table.stats tr#exRef td div#circle').css('border-color', 'white');
+	$('table.stats tr#exNoRefYes td div#circle').css('background', colorExNoRefYes);
+	$('table.stats tr#exNoRefYes td div#circle').css('border-color', 'white');
 	$('table.stats tr#exNoRef td div#circle').css('background', colorExNoRef);
 	$('table.stats tr#exNoRef td div#circle').css('border-color', 'white');
 	$('table.stats tr#areas td div#circle').css('border-color', colorAreas);
@@ -91,11 +94,14 @@ $('document').ready(function () {
 function styleNode(node) {
 	if (node.tags==undefined) { var color = {color: colorExUnmarked}; var fill = {fillColor: bgColorExUnmarked};
 	} else if (node.tags.highway=='motorway_junction') {
+		//Outer style
 		if (node.destination!=undefined) { var color = {color: colorExDest};
 		} else if (node.exit_to!=undefined) { var color = {color: colorExExitTo};
 		} else if (node.name!=undefined) { var color = {color: colorExName};
 		} else { var color = {color: colorExNone}; };
-		if (node.ref!=undefined) {var fill = {fillColor: colorExRef};
+		//Inner style
+		if (node.ref!=undefined) { var fill = {fillColor: colorExRef};
+		} else if (node.tags.noref=='yes') { var fill = {fillColor: colorExNoRefYes};
 		} else { var fill = {fillColor: colorExNoRef}; };
 	} else if (node.tags.highway=='services'||node.tags.highway=='rest_area') {
 		var color = {color: colorAreas};
