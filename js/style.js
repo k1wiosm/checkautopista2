@@ -138,9 +138,10 @@ function htmlInfo(element) {
 		html += '<h3>Node : ' + element.nodeID + htmlButtons('node',element.nodeID) + '</h3>';
 		html += htmlTagsTable(element);
 	};
-	if (element.wayID) {
-		html += '<h3>Way : ' + element.wayID + htmlButtons('way',element.wayID) + '</h3>';
-		html += htmlTagsTable(way[element.wayID]);
+	if (element.wayID || element.correspondingWayID) {
+		var wayID = element.wayID || element.correspondingWayID;
+		html += '<h3>Way : ' + wayID + htmlButtons('way',wayID) + '</h3>';
+		html += htmlTagsTable(way[wayID]);
 	};
 	html += '<p id="timestamp">' + fw[options.relID].timestamp + '</p>';
 	return html;
@@ -150,7 +151,8 @@ function htmlJunctionPanel (element) {
 	var ref = element.ref || '&nbsp;';
 	var dest = element.destination || element.exit_to || element.name || '&nbsp;';
 	dest = dest.replace(/;/g, '</br>');
-	if (element.wayID!=undefined && way[element.wayID].tags['destination:ref']!=undefined) {
+	var wayID = element.wayID || element.correspondingWayID;
+	if (wayID!=undefined && way[wayID].tags['destination:ref']!=undefined) {
 		var dest_ref = '';
 		var destRefArray = way[element.wayID].tags['destination:ref'].split(/;/g);
 		for (var i = 0; i < destRefArray.length; i++) {
@@ -158,9 +160,9 @@ function htmlJunctionPanel (element) {
 				destRefArray[i].replace(/ /g, '&nbsp;').replace(/-/g, '&#8209;')+'</div> ';
 		};
 	};
-	if (element.wayID!=undefined && way[element.wayID].tags['destination:int_ref']!=undefined) {
+	if (wayID!=undefined && way[wayID].tags['destination:int_ref']!=undefined) {
 		var dest_int_ref = '';
-		var destIntRefArray = way[element.wayID].tags['destination:int_ref'].split(/;/g);
+		var destIntRefArray = way[wayID].tags['destination:int_ref'].split(/;/g);
 		for (var i = 0; i < destIntRefArray.length; i++) {
 			dest_int_ref += '<div class="panelText ref '+getColorCode(destIntRefArray[i])+'">'+
 			destIntRefArray[i].replace(/ /g, '&nbsp;').replace(/-/g, '&#8209;')+'</div> ';

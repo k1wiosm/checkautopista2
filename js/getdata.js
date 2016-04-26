@@ -43,7 +43,7 @@ function Way(element) {
 
 function Exit() {
 	this.subtype = 'exit';
-	this.wayID = undefined;
+	this.correspondingWayID = undefined;
 	this.ref = undefined;
 	this.name = undefined;
 	this.exit_to = undefined;
@@ -154,10 +154,10 @@ Freeway.prototype.getDestinationUnmarked = function(opt) {
 				for (var j = 0; j < fwy.exits.length; j++) {
 					// Searching for the exit corresponding to fwy destination tag
 					if(fwy.exits[j].nodeID==response.elements[i].nodes[0] || fwy.exits[j].nodeID==response.elements[i].nodes[response.elements[i].nodes.length-1]){
-						if (fwy.exits[j].destination==undefined || response.elements[i].tags.highway=='motorway_link') {
+						if (fwy.exits[j].correspondingWayID==undefined || response.elements[i].tags.highway=='motorway_link') {
 							way[response.elements[i].id] = new Way(response.elements[i]);
 							fwy.exits[j].destination=response.elements[i].tags.destination;
-							fwy.exits[j].wayID=response.elements[i].id;
+							fwy.exits[j].correspondingWayID=response.elements[i].id;
 						};
 					};
 				};
