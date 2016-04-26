@@ -154,7 +154,7 @@ function htmlJunctionPanel (element) {
 	var wayID = element.wayID || element.correspondingWayID;
 	if (wayID!=undefined && way[wayID].tags['destination:ref']!=undefined) {
 		var dest_ref = '';
-		var destRefArray = way[element.wayID].tags['destination:ref'].split(/;/g);
+		var destRefArray = way[wayID].tags['destination:ref'].split(/;/g);
 		for (var i = 0; i < destRefArray.length; i++) {
 			dest_ref += '<div class="panelText ref '+getColorCode(destRefArray[i])+'">'+
 				destRefArray[i].replace(/ /g, '&nbsp;').replace(/-/g, '&#8209;')+'</div> ';

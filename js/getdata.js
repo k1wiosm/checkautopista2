@@ -144,16 +144,20 @@ Freeway.prototype.getDestinationUnmarked = function(opt) {
 	var fwy = this;
 	rq2[this.relID] = $.getJSON('https://overpass-api.de/api/interpreter?data=' + query,
 		function (response) {
+			console.log(response);
 			if (response.remark!=undefined) {
 				console.timeEnd('getDestinationUnmarked');
 				console.log('ERROR: Timeout when loading destination & unmarked'); opt.timeout+=5; fwy.getDestinationUnmarked(opt); return; 
 			};
-			// get Destination tags
+			// Get corresponding motorway_link
 			for (var i = 0; i < response.elements.length; i++) {
-				if(!response.elements[i].tags || !response.elements[i].tags.destination) { continue; };
+				if(!response.elements[i].tags) { continue; }; // Remove untagged ways
+				if(fwy.waysIDs.indexOf(response.elements[i].id)!==-1) { continue; }; // Remove ways which are part of the freeway
 				for (var j = 0; j < fwy.exits.length; j++) {
-					// Searching for the exit corresponding to fwy destination tag
+					// Searching for the motorway_junction corresponding to this motorway_link
 					if(fwy.exits[j].nodeID==response.elements[i].nodes[0] || fwy.exits[j].nodeID==response.elements[i].nodes[response.elements[i].nodes.length-1]){
+						// Check if the selected motorway_junction has already been assigned a way
+						// And give priority with ways with motorway_link tagging
 						if (fwy.exits[j].correspondingWayID==undefined || response.elements[i].tags.highway=='motorway_link') {
 							way[response.elements[i].id] = new Way(response.elements[i]);
 							fwy.exits[j].destination=response.elements[i].tags.destination;
@@ -162,7 +166,7 @@ Freeway.prototype.getDestinationUnmarked = function(opt) {
 					};
 				};
 			};
-			// get Unmarked Exits
+			// Get Unmarked Exits
 			for (var i = 0; i < response.elements.length; i++) {
 				if (!response.elements[i].tags || !response.elements[i].tags.highway) { continue; };
 				if (['motorway_link','trunk_link','service'].indexOf(response.elements[i].tags.highway)==-1) { continue; };
