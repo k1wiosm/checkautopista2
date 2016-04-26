@@ -144,7 +144,6 @@ Freeway.prototype.getDestinationUnmarked = function(opt) {
 	var fwy = this;
 	rq2[this.relID] = $.getJSON('https://overpass-api.de/api/interpreter?data=' + query,
 		function (response) {
-			console.log(response);
 			if (response.remark!=undefined) {
 				console.timeEnd('getDestinationUnmarked');
 				console.log('ERROR: Timeout when loading destination & unmarked'); opt.timeout+=5; fwy.getDestinationUnmarked(opt); return; 
