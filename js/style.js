@@ -95,7 +95,7 @@ function styleNode(node) {
 	if (node.tags==undefined) { var color = {color: colorExUnmarked}; var fill = {fillColor: bgColorExUnmarked};
 	} else if (node.tags.highway=='motorway_junction') {
 		//Outer style
-		if (node.destination!=undefined) { var color = {color: colorExDest};
+		if (node.hasDestination()) { var color = {color: colorExDest};
 		} else if (node.exit_to!=undefined) { var color = {color: colorExExitTo};
 		} else if (node.name!=undefined) { var color = {color: colorExName};
 		} else { var color = {color: colorExNone}; };

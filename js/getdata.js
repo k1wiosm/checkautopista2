@@ -48,6 +48,16 @@ function Exit() {
 	this.name = undefined;
 	this.exit_to = undefined;
 	this.destination = undefined;
+	this.hasDestination = function () {
+		//Returns true if this motorway_junction has a corresponding
+		//motorway_link with a destination tag
+		
+		if (!this.correspondingWayID) { return false; };
+		var correspondingWay = way[this.correspondingWayID];
+		if (correspondingWay.tags.destination) { return true; };
+		if (correspondingWay.tags['destination:street']) { return true; };
+		return false;
+	}
 }
 
 Exit.prototype = new Node();
