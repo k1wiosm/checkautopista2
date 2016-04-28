@@ -47,16 +47,28 @@ function Exit() {
 	this.ref = undefined;
 	this.name = undefined;
 	this.exit_to = undefined;
-	this.destination = undefined;
 	this.hasDestination = function () {
 		//Returns true if this motorway_junction has a corresponding
 		//motorway_link with a destination tag
-		
+
 		if (!this.correspondingWayID) { return false; };
 		var correspondingWay = way[this.correspondingWayID];
 		if (correspondingWay.tags.destination) { return true; };
 		if (correspondingWay.tags['destination:street']) { return true; };
 		return false;
+	}
+	this.getDestination = function () {
+		// Returns the destination tag of the corresponding motorway_link
+
+		var correspondingWay = way[this.correspondingWayID];
+		var dest = '';
+		if (correspondingWay.tags['destination:street']) { 
+			dest += correspondingWay.tags['destination:street'];
+		};
+		if (correspondingWay.tags.destination) {
+			dest += correspondingWay.tags['destination'];
+		};
+		return dest;
 	}
 }
 
@@ -169,7 +181,6 @@ Freeway.prototype.getDestinationUnmarked = function(opt) {
 						// And give priority with ways with motorway_link tagging
 						if (fwy.exits[j].correspondingWayID==undefined || response.elements[i].tags.highway=='motorway_link') {
 							way[response.elements[i].id] = new Way(response.elements[i]);
-							fwy.exits[j].destination=response.elements[i].tags.destination;
 							fwy.exits[j].correspondingWayID=response.elements[i].id;
 						};
 					};

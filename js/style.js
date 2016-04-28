@@ -149,7 +149,7 @@ function htmlInfo(element) {
 
 function htmlJunctionPanel (element) {
 	var ref = element.ref || '&nbsp;';
-	var dest = element.destination || element.exit_to || element.name || '&nbsp;';
+	var dest = element.getDestination() || element.exit_to || element.name || '&nbsp;';
 	dest = dest.replace(/;/g, '</br>');
 	var wayID = element.wayID || element.correspondingWayID;
 	if (wayID!=undefined && way[wayID].tags['destination:ref']!=undefined) {
