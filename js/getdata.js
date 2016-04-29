@@ -60,6 +60,10 @@ function Exit() {
 	this.getDestination = function () {
 		// Returns the destination tag of the corresponding motorway_link
 
+		if (!this.hasDestination()) {
+			return undefined;
+		};
+
 		var correspondingWay = way[this.correspondingWayID];
 		var dest = '';
 		if (correspondingWay.tags['destination:street']) { 
