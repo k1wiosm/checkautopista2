@@ -50,6 +50,8 @@ You can choose a motorway from the map and it shows:
 * [Leaflet](http://leafletjs.com/)
 * [sidebar-v2](http://github.com/turbo87/sidebar-v2/)
 * [font-awesome](http://fortawesome.github.io/Font-Awesome/)
+* [Leaflet.VectorGrid](http://github.com/IvanSanchez/Leaflet.VectorGrid)
+* [fetch](https://github.com/github/fetch)
 * [purl](http://github.com/allmarkedup/jQuery-URL-Parser)
 * [js-cookie](https://github.com/js-cookie/js-cookie)
 * [jQuery](http://jquery.com)
