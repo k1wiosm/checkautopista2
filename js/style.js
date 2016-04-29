@@ -6,12 +6,15 @@ var options = {
 	z: $.url().param('z') || $.url().param('zoom'),
 	id: ($.url().param('id') ? Number($.url().param('id')) : undefined),
 	view: $.url().param('view') || 'tdenxuaALMX',
-	tile: 'tileCA2'
+	tile: 'tileCA2',
+	tileMapillary: false
 }
 
 if (Cookies.get('radius')!==undefined) { options.radius = Number(Cookies.get('radius')); }
 if (Cookies.get('opacity')!==undefined) { options.opacity = Number(Cookies.get('opacity')); }
 if (Cookies.get('tile')!==undefined) { options.tile = Cookies.get('tile'); }
+if (Cookies.get('tileMapillary')!==undefined) { options.tileMapillary = (Cookies.get('tileMapillary')=='true'); }
+
 
 colorToll = 'blue';
 bgColorToll = '#8888FF';
@@ -80,6 +83,7 @@ $('document').ready(function () {
 
 	if (options.tile=='tileOSM') { $('#tileOSM .chk').prop('checked', true); } else { $('#tileOSM .chk').prop('checked', false); };
 	if (options.tile=='tileCA2') { $('#tileCA2 .chk').prop('checked', true); } else { $('#tileCA2 .chk').prop('checked', false); };
+	if (options.tileMapillary) { $('#tileMapillary .chk').prop('checked', true); } else { $('#tileMapillary .chk').prop('checked', false); };
 
 	$('.stats .chk').change(function() {
 		updateVisibility(this);

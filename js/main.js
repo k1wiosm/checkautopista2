@@ -20,6 +20,19 @@ tileOSM=L.tileLayer(
 		attribution: '<a href="http://openstreetmap.org" title="OpenStreetMap">OSM</a>',
 		maxZoom: 18});
 
+tileMapillary=L.vectorGrid.protobuf(
+	'http://d2munx5tg0hw47.cloudfront.net/tiles/{z}/{x}/{y}.mapbox', {
+		rendererFactory: L.canvas.tile,
+		vectorTileLayerStyles: {
+			'mapillary-sequences': {
+				weight: 15,
+				color: '#00b96f',
+				opacity: 0.3,
+				fill: true
+			},
+		}
+	});
+
 updateTiles();
 
 var sidebar = L.control.sidebar('sidebar').addTo(map);
@@ -122,6 +135,10 @@ function updateTiles(clicked) {
 			Cookies.set('tile',options.tile);
 			$('#tileCA2 .chk').prop('checked', false);
 		};
+		if (id=='tileMapillary') {
+			options.tileMapillary=$('#tileMapillary .chk').prop('checked');;
+			Cookies.set('tileMapillary',options.tileMapillary);
+		};
 	};
 
 	if (options.tile=='tileCA2') { 
@@ -132,4 +149,9 @@ function updateTiles(clicked) {
 		map.removeLayer(tileCA2);
 		map.addLayer(tileOSM);
 	};
+	if (options.tileMapillary==true) { 
+		map.addLayer(tileMapillary);
+	} else {
+		map.removeLayer(tileMapillary);
+	}
 }
