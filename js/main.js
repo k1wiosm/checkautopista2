@@ -147,6 +147,13 @@ function updateTiles(clicked) {
 				options.tiles.splice(options.tiles.indexOf('tileMapillary'), 1);
 			}
 		};
+		if (id=='tile30USCities') {
+			if ($('#tile30USCities .chk').prop('checked')) {
+				options.tiles.push('tile30USCities');
+			} else {
+				options.tiles.splice(options.tiles.indexOf('tile30USCities'), 1);
+			}
+		};
 	};
 
 	showTiles();
@@ -174,5 +181,12 @@ function showTiles() {
 	} else {
 		$('#tileMapillary .chk').prop('checked', false);
 		map.removeLayer(tileMapillary);
+	};
+	if (options.tiles.indexOf('tile30USCities')!==-1) {
+		$('#tile30USCities .chk').prop('checked', true);
+		map.addLayer(tile30USCities);
+	} else {
+		$('#tile30USCities .chk').prop('checked', false);
+		map.removeLayer(tile30USCities);
 	};
 }
