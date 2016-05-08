@@ -6,15 +6,10 @@ var options = {
 	z: $.url().param('z') || $.url().param('zoom'),
 	id: ($.url().param('id') ? Number($.url().param('id')) : undefined),
 	view: $.url().param('view') || 'tdenxuaALMX',
-	tile: 'tileCA2',
-	tileMapillary: false
+	tiles: ['tileCA2']
 }
 
-if (Cookies.get('radius')!==undefined) { options.radius = Number(Cookies.get('radius')); }
-if (Cookies.get('opacity')!==undefined) { options.opacity = Number(Cookies.get('opacity')); }
-if (Cookies.get('tile')!==undefined) { options.tile = Cookies.get('tile'); }
-if (Cookies.get('tileMapillary')!==undefined) { options.tileMapillary = (Cookies.get('tileMapillary')=='true'); }
-
+loadFromCookies();
 
 colorToll = 'blue';
 bgColorToll = '#8888FF';
@@ -65,8 +60,8 @@ $('document').ready(function () {
 		value: options.opacity*10,
 		change: function (event, ui) {
 			options.opacity = $(this).slider('value')/10;
-			Cookies.set('opacity',options.opacity);
 			mapDataLayer.eachLayer( function (layer) { if (layer.type=='marker') { layer.setStyle({opacity:options.opacity, fillOpacity:options.opacity}); }; });
+			updateCookies();
 		}
 	});
 
@@ -76,14 +71,15 @@ $('document').ready(function () {
 		value: options.radius,
 		change: function (event, ui) {
 			options.radius = $(this).slider('value');
-			Cookies.set('radius',options.radius);
 			mapDataLayer.eachLayer( function (layer) { if (layer.type=='marker') { layer.setRadius(options.radius).setStyle({weight:options.radius/2}); }; });
+			updateCookies();
 		}
 	});
 
-	if (options.tile=='tileOSM') { $('#tileOSM .chk').prop('checked', true); } else { $('#tileOSM .chk').prop('checked', false); };
-	if (options.tile=='tileCA2') { $('#tileCA2 .chk').prop('checked', true); } else { $('#tileCA2 .chk').prop('checked', false); };
-	if (options.tileMapillary) { $('#tileMapillary .chk').prop('checked', true); } else { $('#tileMapillary .chk').prop('checked', false); };
+	if (options.tiles.indexOf('tileOSM')!==-1) { $('#tileOSM .chk').prop('checked', true); } else { $('#tileOSM .chk').prop('checked', false); };
+	if (options.tiles.indexOf('tileCA2')!==-1) { $('#tileCA2 .chk').prop('checked', true); } else { $('#tileCA2 .chk').prop('checked', false); };
+	if (options.tiles.indexOf('tileMapillary')!==-1) { $('#tileMapillary .chk').prop('checked', true); } else { $('#tileMapillary .chk').prop('checked', false); };
+	if (options.tiles.indexOf('tile30USCities')!==-1) { $('#tile30USCities .chk').prop('checked', true); } else { $('#tile30USCities .chk').prop('checked', false); };
 
 	$('.stats .chk').change(function() {
 		updateVisibility(this);
@@ -257,4 +253,26 @@ function htmlTagsTable (element) {
 	if (element.tags==undefined) { html += '<p>No tags</p>'};
 	html += '</table>';
 	return html;
+}
+
+function updateCookies () {
+	// Saves options object to cookies
+
+	Cookies.set('opacity',options.opacity);
+	Cookies.set('radius',options.radius);
+	Cookies.set('tiles',options.tiles.toString());
+}
+
+function loadFromCookies () {
+	// Loads cookies info into options object
+
+	if (Cookies.get('radius')!==undefined) {
+		options.radius = Number(Cookies.get('radius')); 
+	};
+	if (Cookies.get('opacity')!==undefined) {
+		options.opacity = Number(Cookies.get('opacity'));
+	};
+	if (Cookies.get('tiles')!==undefined) {
+		options.tiles = Cookies.get('tiles').split(',');
+	};
 }

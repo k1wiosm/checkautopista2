@@ -33,6 +33,10 @@ tileMapillary=L.vectorGrid.protobuf(
 		}
 	});
 
+tile30USCities=L.tileLayer(
+	'https://api.mapbox.com/styles/v1/planemad/cijwpzx4m00ofcakw1m0f1ir1/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoicGxhbmVtYWQiLCJhIjoiemdYSVVLRSJ9.g3lbg_eN0kztmsfIPxa9MQ', {
+		maxZoom: 18});
+
 updateTiles();
 
 var sidebar = L.control.sidebar('sidebar').addTo(map);
@@ -123,35 +127,52 @@ function findWithAttr(array, attr, value) {
 }
 
 function updateTiles(clicked) {
+	// Updates tiles visibility in options object
+
 	if (typeof clicked !== undefined) {
 		var id = $(clicked).parent().parent().attr('id');
 		if (id=='tileCA2') {
-			options.tile='tileCA2';
-			Cookies.set('tile',options.tile);
-			$('#tileOSM .chk').prop('checked', false);
+			options.tiles.push('tileCA2');
+			options.tiles.splice(options.tiles.indexOf('tileOSM'), 1);
 		};
 		if (id=='tileOSM') {
-			options.tile='tileOSM';
-			Cookies.set('tile',options.tile);
+			options.tiles.push('tileOSM');
+			options.tiles.splice(options.tiles.indexOf('tileCA2'), 1);
 			$('#tileCA2 .chk').prop('checked', false);
 		};
 		if (id=='tileMapillary') {
-			options.tileMapillary=$('#tileMapillary .chk').prop('checked');;
-			Cookies.set('tileMapillary',options.tileMapillary);
+			if ($('#tileMapillary .chk').prop('checked')) {
+				options.tiles.push('tileMapillary');
+			} else {
+				options.tiles.splice(options.tiles.indexOf('tileMapillary'), 1);
+			}
 		};
 	};
 
-	if (options.tile=='tileCA2') { 
+	showTiles();
+	updateCookies();
+}
+
+function showTiles() {
+	// Updates the map tiles & menu according to options object
+
+	if (options.tiles.indexOf('tileCA2')!==-1) {
+		$('#tileCA2 .chk').prop('checked', true);
+		$('#tileOSM .chk').prop('checked', false);
 		map.removeLayer(tileOSM);
 		map.addLayer(tileCA2);
 	};
-	if (options.tile=='tileOSM') { 
+	if (options.tiles.indexOf('tileOSM')!==-1) {
+		$('#tileCA2 .chk').prop('checked', false);
+		$('#tileOSM .chk').prop('checked', true);
 		map.removeLayer(tileCA2);
 		map.addLayer(tileOSM);
 	};
-	if (options.tileMapillary==true) { 
+	if (options.tiles.indexOf('tileMapillary')!==-1) {
+		$('#tileMapillary .chk').prop('checked', true);
 		map.addLayer(tileMapillary);
 	} else {
+		$('#tileMapillary .chk').prop('checked', false);
 		map.removeLayer(tileMapillary);
-	}
+	};
 }
