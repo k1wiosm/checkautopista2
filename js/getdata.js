@@ -151,7 +151,7 @@ Freeway.prototype.loadFreewayData = function(opt) {
 			fwy.loaded++;
 			console.timeEnd('loadFreewayData');
 			fwy.getAnalysis();
-			fwy.loadDestinationUnmarked();
+			fwy.loadCountry();
 		}
 	)
 	.fail( function (response) {
@@ -162,6 +162,36 @@ Freeway.prototype.loadFreewayData = function(opt) {
 }
 
 rq2 = [];
+Freeway.prototype.loadCountry = function(opt) {
+	if (!opt) { opt = {}; };
+	if (!opt.timeout) { opt.timeout = 5; };
+	console.log('Loading country');
+	console.time('loadCountry');
+	var query = '[out:json][timeout:'+opt.timeout+'];is_in(' + this.exits[0].lat + ',' + this.exits[0].lon + ');area._[admin_level="2"];out tags;';
+	var fwy = this;
+	rq2[this.relID] = $.getJSON('https://overpass-api.de/api/interpreter?data=' + query,
+		function (response) {
+			if (response.remark!=undefined) { 
+				console.timeEnd('loadCountry');
+				console.log('ERROR: Timeout when loading country'); opt.timeout+=5; fwy.loadCountry(opt); return; 
+			};
+			if (response.elements[0]) {
+				fwy.country = response.elements[0].tags['ISO3166-1'];
+			}
+			fwy.loaded++;
+			console.timeEnd('loadCountry');
+			fwy.getAnalysis();
+			fwy.loadDestinationUnmarked();
+		}
+	)
+	.fail( function (response) {
+		console.timeEnd('loadCountry');
+		if (response.statusText!=='abort') { console.log('ERROR: Unknown error when loading country'); fwy.loadCountry();
+		} else { console.log('ERROR: Abort when loading country'); };
+	});
+}
+
+rq3 = [];
 Freeway.prototype.loadDestinationUnmarked = function(opt) {
 	if (!opt) { opt = {}; };
 	if (!opt.timeout) { opt.timeout = 8; };
@@ -169,7 +199,7 @@ Freeway.prototype.loadDestinationUnmarked = function(opt) {
 	console.time('loadDestinationUnmarked');
 	var query = '[out:json][timeout:'+opt.timeout+'];relation('+this.relID+');way(r);node(w);way(bn);out body qt;';
 	var fwy = this;
-	rq2[this.relID] = $.getJSON('https://overpass-api.de/api/interpreter?data=' + query,
+	rq3[this.relID] = $.getJSON('https://overpass-api.de/api/interpreter?data=' + query,
 		function (response) {
 			if (response.remark!=undefined) {
 				console.timeEnd('loadDestinationUnmarked');
@@ -222,7 +252,7 @@ Freeway.prototype.loadDestinationUnmarked = function(opt) {
 	});
 }
 
-rq3 = [];
+rq4 = [];
 Freeway.prototype.loadAreas = function(opt) {
 	if (!opt) { opt = {}; };
 	if (!opt.timeout) { opt.timeout = 25; };
@@ -231,7 +261,7 @@ Freeway.prototype.loadAreas = function(opt) {
 	var query = '[out:json][timeout:'+opt.timeout+'];relation(' + this.relID + ');way(r);node(w);(node(around:500)["highway"~"services|rest_' +
 		'area"]->.x;way(around:500)["highway"~"services|rest_area"];);(._;>;);out center qt;';
 	var fwy = this;
-	rq3[this.relID] = $.getJSON('https://overpass-api.de/api/interpreter?data=' + query,
+	rq4[this.relID] = $.getJSON('https://overpass-api.de/api/interpreter?data=' + query,
 		function (response) {
 			if (response.remark!=undefined) { 
 				console.timeEnd('loadAreas');
@@ -255,42 +285,12 @@ Freeway.prototype.loadAreas = function(opt) {
 			fwy.loaded++;
 			console.timeEnd('loadAreas');
 			fwy.getAnalysis();
-			fwy.loadCountry();
 		}
 	)
 	.fail( function (response) {
 		console.timeEnd('loadAreas');
 		if (response.statusText!=='abort') { console.log('ERROR: Unknown error when loading areas'); fwy.loadAreas();
 		} else { console.log('ERROR: Abort when loading areas'); };
-	});
-}
-
-rq4 = [];
-Freeway.prototype.loadCountry = function(opt) {
-	if (!opt) { opt = {}; };
-	if (!opt.timeout) { opt.timeout = 5; };
-	console.log('Loading country');
-	console.time('loadCountry');
-	var query = '[out:json][timeout:'+opt.timeout+'];is_in(' + this.exits[0].lat + ',' + this.exits[0].lon + ');area._[admin_level="2"];out tags;';
-	var fwy = this;
-	rq4[this.relID] = $.getJSON('https://overpass-api.de/api/interpreter?data=' + query,
-		function (response) {
-			if (response.remark!=undefined) { 
-				console.timeEnd('loadCountry');
-				console.log('ERROR: Timeout when loading country'); opt.timeout+=5; fwy.loadCountry(opt); return; 
-			};
-			if (response.elements[0]) {
-				fwy.country = response.elements[0].tags['ISO3166-1'];
-			}
-			fwy.loaded++;
-			console.timeEnd('loadCountry');
-			fwy.getAnalysis();
-		}
-	)
-	.fail( function (response) {
-		console.timeEnd('loadCountry');
-		if (response.statusText!=='abort') { console.log('ERROR: Unknown error when loading country'); fwy.loadCountry();
-		} else { console.log('ERROR: Abort when loading country'); };
 	});
 }
 

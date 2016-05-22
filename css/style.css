@@ -157,7 +157,14 @@ div.panel {
 	border-radius: 10px;
 	padding: 3px;
 	width: 100%;
+}
+
+.EUpanel {
 	background-color: #19408b;
+}
+
+.USpanel {
+	background-color: #006f53;
 }
 
 div.subPanel {
@@ -171,6 +178,8 @@ div.subPanel {
 	font-family: TrafficTypSpaD;
 	font-size: 20px;
 }
+
+/* Road Panel */
 
 div.subPanel.road {
 	text-align: center;
@@ -197,14 +206,25 @@ div.subPanel.road .name {
 	display: inline-block;
 }
 
+/* Exit Panel */
+
 div.subPanel.ref {
 	text-align: right;
 }
 
-div.subPanel.ref img {
+div.subPanel.ref .exitSymbol {
 	margin-right: 10px;
 	float: left;
-	margin-top: 2px;
+	
+}
+
+.EUexitSymbol {
+	font-size: 15px;
+}
+
+.USexitSymbol {
+	margin-top: 4px;
+	font-size: 15px;
 }
 
 div.subPanel.destination {

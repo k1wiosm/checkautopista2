@@ -114,7 +114,7 @@ Freeway.prototype.addToMap = function() {
 
 Freeway.prototype.addToSidebar = function () {
 	// Open sidebar if fully loaded
-	if (this.loaded==1) {
+	if (this.loaded==2) {
 		$('li#road i').attr('class', 'fa fa-road');
 		$('li#stats').toggleClass('disabled', false);
 		sidebar.open('road');

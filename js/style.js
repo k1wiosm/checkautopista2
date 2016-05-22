@@ -168,20 +168,32 @@ function htmlJunctionPanel (element) {
 			destIntRefArray[i].replace(/ /g, '&nbsp;').replace(/-/g, '&#8209;')+'</div> ';
 		};
 	};
-	var html = 	'<div class="panel">' +
-						'<div class="subPanel ref"><img src="img/exit.svg" height="20px"/>'+ref.replace("<","&lt;")+'</div>' +
-						'<div class="subPanel destination">'+
-							'<table><tr>'+
-								'<td class="destination">'+dest+'</td>'+
-								'<td class="ref">'+(dest_int_ref!=undefined?dest_int_ref:'')+(dest_ref!=undefined?dest_ref:'')+'</td>'+
-							'</tr></table>'+
-						'</div>'+
-					'</div>';
+	if (fw[options.relID].country == 'US') {
+		var panel = 'panel USpanel';
+		var exitSymbol = '<div class="exitSymbol USexitSymbol">EXIT</div>';
+	} else {
+		var panel = 'panel EUpanel';
+		var exitSymbol = '<div class="exitSymbol EUexitSymbol"><img src="img/exit.svg" height="20px"/></div>';
+	};
+	var html = 	'<div class="'+panel+'">' +
+					'<div class="subPanel ref">'+exitSymbol+ref.replace("<","&lt;")+'</div>' +
+					'<div class="subPanel destination">'+
+						'<table><tr>'+
+							'<td class="destination">'+dest+'</td>'+
+							'<td class="ref">'+(dest_int_ref!=undefined?dest_int_ref:'')+(dest_ref!=undefined?dest_ref:'')+'</td>'+
+						'</tr></table>'+
+					'</div>'+
+				'</div>';
 	return html;
 }
 
 function htmlMotorwayPanel (element) {
-	var html = '<div class="panel road"><div class="subPanel road">';
+	if (fw[options.relID].country == 'US') {
+		var panel = 'panel USpanel';
+	} else {
+		var panel = 'panel EUpanel';
+	};
+	var html = '<div class="'+panel+' road"><div class="subPanel road">';
 	if (element.tags.symbol) {
 		html += '<div class="symbol"><img src="'+element.tags.symbol+'"/></div>';
 	} else {
