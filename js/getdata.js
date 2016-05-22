@@ -80,18 +80,18 @@ function Exit() {
 Exit.prototype = new Node();
 
 rq1 = [];
-Freeway.prototype.getFreewayData = function(opt) {
+Freeway.prototype.loadFreewayData = function(opt) {
 	if (!opt) { opt = {}; };
 	if (!opt.timeout) { opt.timeout = 8; };
 	console.log('Loading freeway data');
-	console.time('getFreewayData');
+	console.time('loadFreewayData');
 	var query = '[out:json][timeout:'+opt.timeout+'];(relation('+this.relID+');way(r);node(w););out bb body qt;';
 	var fwy = this;
 	rq1[this.relID] = $.getJSON('https://overpass-api.de/api/interpreter?data=' + query,
 		function (response) {
 			if(response.remark!=undefined) {
-				console.timeEnd('getFreewayData');
-				console.log('ERROR: Timeout when loading freeway data'); opt.timeout+=5; fwy.getFreewayData(opt); return;
+				console.timeEnd('loadFreewayData');
+				console.log('ERROR: Timeout when loading freeway data'); opt.timeout+=5; fwy.loadFreewayData(opt); return;
 			};
 			if(response.elements.length==0) {
 				console.log('ERROR: Incorrect relation ID'); 
@@ -149,31 +149,31 @@ Freeway.prototype.getFreewayData = function(opt) {
 			};
 			if (opt && opt.zoom) { fwy.zoom() };
 			fwy.loaded++;
-			console.timeEnd('getFreewayData');
+			console.timeEnd('loadFreewayData');
 			fwy.getAnalysis();
-			fwy.getDestinationUnmarked();
+			fwy.loadDestinationUnmarked();
 		}
 	)
 	.fail( function (response) {
-		console.timeEnd('getFreewayData');
-		if (response.statusText!=='abort') { console.log('ERROR: Unknown error when loading freeway data'); fwy.getFreewayData();
+		console.timeEnd('loadFreewayData');
+		if (response.statusText!=='abort') { console.log('ERROR: Unknown error when loading freeway data'); fwy.loadFreewayData();
 		} else { console.log('ERROR: Abort when loading freeway data'); };
 	});
 }
 
 rq2 = [];
-Freeway.prototype.getDestinationUnmarked = function(opt) {
+Freeway.prototype.loadDestinationUnmarked = function(opt) {
 	if (!opt) { opt = {}; };
 	if (!opt.timeout) { opt.timeout = 8; };
 	console.log('Loading destination & unmarked');
-	console.time('getDestinationUnmarked');
+	console.time('loadDestinationUnmarked');
 	var query = '[out:json][timeout:'+opt.timeout+'];relation('+this.relID+');way(r);node(w);way(bn);out body qt;';
 	var fwy = this;
 	rq2[this.relID] = $.getJSON('https://overpass-api.de/api/interpreter?data=' + query,
 		function (response) {
 			if (response.remark!=undefined) {
-				console.timeEnd('getDestinationUnmarked');
-				console.log('ERROR: Timeout when loading destination & unmarked'); opt.timeout+=5; fwy.getDestinationUnmarked(opt); return; 
+				console.timeEnd('loadDestinationUnmarked');
+				console.log('ERROR: Timeout when loading destination & unmarked'); opt.timeout+=5; fwy.loadDestinationUnmarked(opt); return; 
 			};
 			// Get corresponding motorway_link
 			for (var i = 0; i < response.elements.length; i++) {
@@ -210,32 +210,32 @@ Freeway.prototype.getDestinationUnmarked = function(opt) {
 				};
 			};
 			fwy.loaded++;
-			console.timeEnd('getDestinationUnmarked');
+			console.timeEnd('loadDestinationUnmarked');
 			fwy.getAnalysis();
-			fwy.getAreas();
+			fwy.loadAreas();
 		}
 	)
 	.fail( function (response) {
-		console.timeEnd('getDestinationUnmarked');
-		if (response.statusText!=='abort') { console.log('ERROR: Unknown error when loading destination & unmarked'); fwy.getDestinationUnmarked();
+		console.timeEnd('loadDestinationUnmarked');
+		if (response.statusText!=='abort') { console.log('ERROR: Unknown error when loading destination & unmarked'); fwy.loadDestinationUnmarked();
 		} else { console.log('ERROR: Abort when loading destination & unmarked'); };
 	});
 }
 
 rq3 = [];
-Freeway.prototype.getAreas = function(opt) {
+Freeway.prototype.loadAreas = function(opt) {
 	if (!opt) { opt = {}; };
 	if (!opt.timeout) { opt.timeout = 25; };
 	console.log('Loading areas');
-	console.time('getAreas');
+	console.time('loadAreas');
 	var query = '[out:json][timeout:'+opt.timeout+'];relation(' + this.relID + ');way(r);node(w);(node(around:500)["highway"~"services|rest_' +
 		'area"]->.x;way(around:500)["highway"~"services|rest_area"];);(._;>;);out center qt;';
 	var fwy = this;
 	rq3[this.relID] = $.getJSON('https://overpass-api.de/api/interpreter?data=' + query,
 		function (response) {
 			if (response.remark!=undefined) { 
-				console.timeEnd('getAreas');
-				console.log('ERROR: Timeout when loading areas'); opt.timeout+=10; fwy.getAreas(opt); return; 
+				console.timeEnd('loadAreas');
+				console.log('ERROR: Timeout when loading areas'); opt.timeout+=10; fwy.loadAreas(opt); return; 
 			};
 			for (var i = 0; i < response.elements.length; i++) {
 				if(!response.elements[i].tags || !response.elements[i].tags.highway) { continue; };
@@ -253,55 +253,55 @@ Freeway.prototype.getAreas = function(opt) {
 				if (node[response.elements[i].id]==undefined) { node[response.elements[i].id] = new Node(response.elements[i]); };
 			};
 			fwy.loaded++;
-			console.timeEnd('getAreas');
+			console.timeEnd('loadAreas');
 			fwy.getAnalysis();
-			fwy.getCountry();
+			fwy.loadCountry();
 		}
 	)
 	.fail( function (response) {
-		console.timeEnd('getAreas');
-		if (response.statusText!=='abort') { console.log('ERROR: Unknown error when loading areas'); fwy.getAreas();
+		console.timeEnd('loadAreas');
+		if (response.statusText!=='abort') { console.log('ERROR: Unknown error when loading areas'); fwy.loadAreas();
 		} else { console.log('ERROR: Abort when loading areas'); };
 	});
 }
 
 rq4 = [];
-Freeway.prototype.getCountry = function(opt) {
+Freeway.prototype.loadCountry = function(opt) {
 	if (!opt) { opt = {}; };
 	if (!opt.timeout) { opt.timeout = 5; };
 	console.log('Loading country');
-	console.time('getCountry');
+	console.time('loadCountry');
 	var query = '[out:json][timeout:'+opt.timeout+'];is_in(' + this.exits[0].lat + ',' + this.exits[0].lon + ');area._[admin_level="2"];out tags;';
 	var fwy = this;
 	rq3[this.relID] = $.getJSON('https://overpass-api.de/api/interpreter?data=' + query,
 		function (response) {
 			if (response.remark!=undefined) { 
-				console.timeEnd('getCountry');
-				console.log('ERROR: Timeout when loading country'); opt.timeout+=5; fwy.getCountry(opt); return; 
+				console.timeEnd('loadCountry');
+				console.log('ERROR: Timeout when loading country'); opt.timeout+=5; fwy.loadCountry(opt); return; 
 			};
 			if (response.elements[0]) {
 				fwy.country = response.elements[0].tags['ISO3166-1'];
 			}
 			fwy.loaded++;
-			console.timeEnd('getCountry');
+			console.timeEnd('loadCountry');
 			fwy.getAnalysis();
 		}
 	)
 	.fail( function (response) {
-		console.timeEnd('getCountry');
-		if (response.statusText!=='abort') { console.log('ERROR: Unknown error when loading country'); fwy.getCountry();
+		console.timeEnd('loadCountry');
+		if (response.statusText!=='abort') { console.log('ERROR: Unknown error when loading country'); fwy.loadCountry();
 		} else { console.log('ERROR: Abort when loading country'); };
 	});
 }
 
-function getFreeway (relID, opt) {
+function loadFreeway (relID, opt) {
 	killRequests();
 	console.log('\nLoading freeway [relID='+relID+']');
 	$('li#road i').attr('class', 'fa fa-spinner fa-spin'); $('li#road').toggleClass('disabled', false);
 	$('li#stats i').attr('class', 'fa fa-spinner fa-spin');
 	fw[relID] = new Freeway();
 	fw[relID].relID = relID;
-	fw[relID].getFreewayData(opt);
+	fw[relID].loadFreewayData(opt);
 	updatePermalink(relID);
 	ga('send', 'pageview', document.URL.split('/')[document.URL.split('/').length-2]+'/'+document.URL.split('/')[document.URL.split('/').length-1]);
 	return fw[relID];

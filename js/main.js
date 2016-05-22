@@ -44,8 +44,8 @@ var sidebar = L.control.sidebar('sidebar').addTo(map);
 updateLegend();
 
 if (options.id!==undefined) { 
-	if (options.lat==undefined&&options.lon==undefined&&options.z==undefined) { getFreeway(options.id, {zoom: true}); 
-	} else { getFreeway(options.id); };
+	if (options.lat==undefined&&options.lon==undefined&&options.z==undefined) { loadFreeway(options.id, {zoom: true}); 
+	} else { loadFreeway(options.id); };
 };
 
 map.on('dragend', function(e) { updatePermalink(undefined, map.getCenter().lat, map.getCenter().lng, map.getZoom()); });
