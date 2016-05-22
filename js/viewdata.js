@@ -58,8 +58,6 @@ Freeway.prototype.getAnalysis = function () {
 	this.analysis.wNoMaxspeed = wNoMaxspeed;
 	this.analysis.wNone = wNone;
 	this.analysis.wTotal = wAll+wNoLanes+wNoMaxspeed+wNone;
-	//Total
-	this.analysis.score = (0.3*(exDest+exExitTo*0.5)+0.4*exRef)/this.analysis.exTotal+0.3*(wAll+wNoLanes*0.3+wNoMaxspeed*0.3)/this.analysis.wTotal;
 	// Show
 	this.addToSidebar();
 }
