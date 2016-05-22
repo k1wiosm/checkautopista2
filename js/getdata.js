@@ -67,7 +67,7 @@ function Exit() {
 		var correspondingWay = way[this.correspondingWayID];
 		var dest = '';
 		if (correspondingWay.tags['destination:street']) { 
-			dest += correspondingWay.tags['destination:street'];
+			dest += correspondingWay.tags['destination:street'] + ';';
 		};
 		if (correspondingWay.tags.destination) {
 			dest += correspondingWay.tags['destination'];
