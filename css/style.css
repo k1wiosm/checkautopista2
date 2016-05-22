@@ -229,15 +229,8 @@ div .panelText.ref {
 	margin: 1px;
 	font-size: 18px;
 	display: inline-block;
+	background-color: red;
 }
-
-.red {background-color: red;}
-.green {background-color: green;}
-.blue {background-color: blue;}
-.greenE {background-color: #007f00;}
-.es1 {background-color: #ff9900; color:black;}
-.es2 {background-color: #009900;}
-.es3 {background-color: #ffff00; color:black;}
 
 /* ABOUT */
 
