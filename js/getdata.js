@@ -273,7 +273,7 @@ Freeway.prototype.loadCountry = function(opt) {
 	console.time('loadCountry');
 	var query = '[out:json][timeout:'+opt.timeout+'];is_in(' + this.exits[0].lat + ',' + this.exits[0].lon + ');area._[admin_level="2"];out tags;';
 	var fwy = this;
-	rq3[this.relID] = $.getJSON('https://overpass-api.de/api/interpreter?data=' + query,
+	rq4[this.relID] = $.getJSON('https://overpass-api.de/api/interpreter?data=' + query,
 		function (response) {
 			if (response.remark!=undefined) { 
 				console.timeEnd('loadCountry');
@@ -419,6 +419,7 @@ function killRequests() {
 	if (typeof rq1[options.relID] !== 'undefined') {rq1[options.relID].abort(); };
 	if (typeof rq2[options.relID] !== 'undefined') {rq2[options.relID].abort(); };
 	if (typeof rq3[options.relID] !== 'undefined') {rq3[options.relID].abort(); };
+	if (typeof rq4[options.relID] !== 'undefined') {rq4[options.relID].abort(); };
 	$('li#search i').attr('class', 'fa fa-search');
 	$('li#road i').attr('class', 'fa fa-road');
 	$('li#stats i').attr('class', 'fa fa-bar-chart');
