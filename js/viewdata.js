@@ -121,7 +121,7 @@ Freeway.prototype.addToSidebar = function () {
 		$('li#stats').toggleClass('disabled', false);
 		sidebar.open('road');
 	}
-	if (this.loaded==3) {
+	if (this.loaded==4) {
 		$('li#stats i').attr('class', 'fa fa-bar-chart');
 		console.log('Done');
 		ga('send','event','Cargar','click',this.relID);
