@@ -126,7 +126,7 @@ function styleWay(tags) {
 	} else if (!tags.lanes) { var style = {color: wColorNoLanes};
 	} else { var style = {color: wColorAll};
 	};
-	return $.extend(style,{smoothFactor:2, opacity:0.7});
+	return $.extend(style,{smoothFactor:2, opacity:0.7, weight: 6});
 }
 
 function htmlInfo(element) {
