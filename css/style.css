@@ -60,6 +60,10 @@ img#avatar {
 	text-decoration: line-through;
 }
 
+iframe[name=hiddenIframe] {
+	display: none;
+}
+
 /* SEARCH */
 
 input[type=text], input[type=number] {

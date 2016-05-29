@@ -211,7 +211,7 @@ function htmlButtons (type, id) {
 	};
 	html += ' <a href="https://www.openstreetmap.org/'+type+'/'+id+'" target="_blank" title ="OpenStreetMap">'+
 		'<button class="icon"><img class="icon" src="img/osm-logo.png"/></button></a>'+
-		' <a href="http://127.0.0.1:8111/load_object?new_layer=false&objects='+type+id+'" target="_blank" title="JOSM editor">'+
+		' <a href="http://127.0.0.1:8111/load_object?new_layer=false&objects='+type+id+'" target="hiddenIframe" title="JOSM editor">'+
 		'<button class="icon"><img class="icon" src="img/josm-logo.png"/></button></a>'+
 		' <a href="https://www.openstreetmap.org/edit?editor=id&'+type+'='+id+'" target="_blank" title="ID editor">'+
 		'<button class="icon"><img class="icon" src="img/id-logo.png"/></button></a>'+
