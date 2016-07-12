@@ -21,7 +21,7 @@ tileOSM=L.tileLayer(
 		maxZoom: 18});
 
 tileMapillary=L.vectorGrid.protobuf(
-	'http://d2munx5tg0hw47.cloudfront.net/tiles/{z}/{x}/{y}.mapbox', {
+	'https://d2munx5tg0hw47.cloudfront.net/tiles/{z}/{x}/{y}.mapbox', {
 		rendererFactory: L.canvas.tile,
 		vectorTileLayerStyles: {
 			'mapillary-sequences': {
