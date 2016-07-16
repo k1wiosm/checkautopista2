@@ -72,15 +72,6 @@ function Exit() {
 	this.ref = undefined;
 	this.name = undefined;
 	this.exit_to = undefined;
-	this.getLinkWay = function () {
-		// Returns the motorway_link way of this exit
-
-		if (this.linkWays[0]) {
-			return this.linkWays[0];
-		} else {
-			return undefined;
-		};
-	};
 	this.hasDestination = function () {
 		// Returns true if the motorway_link way of this exit has destination
 
