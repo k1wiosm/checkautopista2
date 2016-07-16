@@ -1,5 +1,6 @@
 fw = [];
 function Freeway(relID, name) {
+	this.type = 'relation'
 	this.relID = relID;
 	this.name = name;
 	this.ref = undefined;
@@ -40,6 +41,29 @@ function Way(element) {
 	this.wayID = element.id;
 	this.nodes = element.nodes;
 	this.tags = element.tags;
+	this.hasDestination = function () {
+		// Returns true if this way has any destination tag
+
+		if (this.tags['destination']) { return true; };
+		if (this.tags['destination:street']) { return true; };
+		return false;
+	};
+	this.getDestination = function () {
+		// Returns the destination tags of this way
+
+		if (!this.hasDestination()) {
+			return undefined;
+		};
+
+		var dest = '';
+		if (this.tags['destination:street']) { 
+			dest += this.tags['destination:street'] + ';';
+		};
+		if (this.tags.destination) {
+			dest += this.tags['destination'];
+		};
+		return dest;
+	};
 }
 
 function Exit() {
@@ -48,33 +72,24 @@ function Exit() {
 	this.ref = undefined;
 	this.name = undefined;
 	this.exit_to = undefined;
-	this.hasDestination = function () {
-		// Returns true if this motorway_junction has a corresponding
-		// motorway_link with a destination tag
+	this.getLinkWay = function () {
+		// Returns the motorway_link way of this exit
 
-		if (!this.correspondingWayID) { return false; };
-		var correspondingWay = way[this.correspondingWayID];
-		if (correspondingWay.tags.destination) { return true; };
-		if (correspondingWay.tags['destination:street']) { return true; };
-		return false;
-	}
-	this.getDestination = function () {
-		// Returns the destination tag of the corresponding motorway_link
-
-		if (!this.hasDestination()) {
+		if (this.correspondingWayID) {
+			return way[this.correspondingWayID];
+		} else {
 			return undefined;
 		};
+	};
+	this.hasDestination = function () {
+		// Returns true if the motorway_link way of this exit has destination
 
-		var correspondingWay = way[this.correspondingWayID];
-		var dest = '';
-		if (correspondingWay.tags['destination:street']) { 
-			dest += correspondingWay.tags['destination:street'] + ';';
+		if (!this.getLinkWay()) { 
+			return false; 
+		} else {
+			return this.getLinkWay().hasDestination();
 		};
-		if (correspondingWay.tags.destination) {
-			dest += correspondingWay.tags['destination'];
-		};
-		return dest;
-	}
+	};
 }
 
 Exit.prototype = new Node();

@@ -163,44 +163,49 @@ function htmlInfo(element) {
 
 	var html = '';
 	if (element.subtype=='exit') {
-		html += htmlJunctionPanel(element);
+		html += htmlJunctionPanel(element, element.getLinkWay());
 	};
-	if (element.nodeID) {
-		html += '<h3>Node : ' + element.nodeID + htmlButtons('node',element.nodeID) + '</h3>';
-		html += htmlTagsTable(element);
-	};
-	if (element.wayID || element.correspondingWayID) {
-		var wayID = element.wayID || element.correspondingWayID;
-		html += '<h3>Way : ' + wayID + htmlButtons('way',wayID) + '</h3>';
-		html += htmlTagsTable(way[wayID]);
+	if (element.type=='node' || element.type=='way') {
+		html += htmlGenericInfo(element);
+	}
+	if (element.subtype=='exit' && element.hasDestination()) {
+		html += htmlGenericInfo(element.getLinkWay());
 	};
 	html += '<p id="timestamp">' + fw[options.relID].timestamp + '</p>';
 	return html;
 }
 
-function htmlJunctionPanel (element) {
-	// Returns html code of a junction panel like the ones on the real world
+function htmlJunctionPanel (nodeElement, wayElement) {
+	// Returns html code of a junction panel like the ones in the real world
 
-	var ref = element.ref || '&nbsp;';
-	var dest = element.getDestination() || element.exit_to || element.name || '&nbsp;';
+	// Get ref
+	var ref = nodeElement.ref || '&nbsp;';
+	// Get destination or equivalent
+	if (wayElement && wayElement.hasDestination()) {
+		var dest = wayElement.getDestination();
+	} else {
+		var dest = nodeElement.exit_to || nodeElement.name || '&nbsp;';
+	};
 	dest = dest.replace(/;/g, '</br>');
-	var wayID = element.wayID || element.correspondingWayID;
-	if (wayID!=undefined && way[wayID].tags['destination:ref']!=undefined) {
-		var dest_ref = '';
-		var destRefArray = way[wayID].tags['destination:ref'].split(/;/g);
+	// Get destination:ref
+	var dest_ref = '';
+	if (wayElement && wayElement.tags['destination:ref']!=undefined) {
+		var destRefArray = wayElement.tags['destination:ref'].split(/;/g);
 		for (var i = 0; i < destRefArray.length; i++) {
 			dest_ref += '<div class="panelText ref">'+
 				destRefArray[i].replace(/ /g, '&nbsp;').replace(/-/g, '&#8209;')+'</div> ';
 		};
 	};
-	if (wayID!=undefined && way[wayID].tags['destination:int_ref']!=undefined) {
-		var dest_int_ref = '';
-		var destIntRefArray = way[wayID].tags['destination:int_ref'].split(/;/g);
+	// Get destination:int_ref
+	var dest_int_ref = '';
+	if (wayElement && wayElement.tags['destination:int_ref']!=undefined) {
+		var destIntRefArray = wayElement.tags['destination:int_ref'].split(/;/g);
 		for (var i = 0; i < destIntRefArray.length; i++) {
 			dest_int_ref += '<div class="panelText ref">'+
 			destIntRefArray[i].replace(/ /g, '&nbsp;').replace(/-/g, '&#8209;')+'</div> ';
 		};
 	};
+	// Prepare html panel
 	if (fw[options.relID].country == 'US') {
 		var panel = 'panel USpanel';
 		var exitSymbol = '<div class="exitSymbol USexitSymbol">EXIT</div>';
@@ -213,7 +218,7 @@ function htmlJunctionPanel (element) {
 					'<div class="subPanel destination">'+
 						'<table><tr>'+
 							'<td class="destination">'+dest+'</td>'+
-							'<td class="ref">'+(dest_int_ref!=undefined?dest_int_ref:'')+(dest_ref!=undefined?dest_ref:'')+'</td>'+
+							'<td class="ref">'+dest_int_ref+dest_ref+'</td>'+
 						'</tr></table>'+
 					'</div>'+
 				'</div>';
@@ -235,6 +240,19 @@ function htmlMotorwayPanel (element) {
 		html += '<div class="ref'+(element.tags.network=='e-road'?' greenE':'')+'">' + (element.ref || '') +'</div>';
 	}
 	html += '<div class="name">'+element.name+'</div></div></div>';
+	return html;
+}
+
+function htmlGenericInfo (element) {
+	// Returns html code showing generic info of a way or node
+
+	var html = '';
+	if (element.type == 'node') {
+		html += '<h3>Node : ' + element.nodeID + htmlButtons('node',element.nodeID) + '</h3>';
+	} else if (element.type == 'way') {
+		html += '<h3>Way : ' + element.wayID + htmlButtons('way',element.wayID) + '</h3>';
+	};
+	html += htmlTagsTable(element);
 	return html;
 }
 
