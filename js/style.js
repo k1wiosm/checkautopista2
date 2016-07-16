@@ -60,7 +60,11 @@ $('document').ready(function () {
 		value: options.opacity*10,
 		change: function (event, ui) {
 			options.opacity = $(this).slider('value')/10;
-			mapDataLayer.eachLayer( function (layer) { if (layer.type=='marker') { layer.setStyle({opacity:options.opacity, fillOpacity:options.opacity}); }; });
+			mapDataLayer.eachLayer( function (layer) { 
+				if (layer.type=='marker') { 
+					layer.setStyle({opacity:options.opacity, fillOpacity:options.opacity}); 
+				}; 
+			});
 			updateCookies();
 		}
 	});
@@ -71,15 +75,35 @@ $('document').ready(function () {
 		value: options.radius,
 		change: function (event, ui) {
 			options.radius = $(this).slider('value');
-			mapDataLayer.eachLayer( function (layer) { if (layer.type=='marker') { layer.setRadius(options.radius).setStyle({weight:options.radius/2}); }; });
+			mapDataLayer.eachLayer( function (layer) { 
+				if (layer.type=='marker') { 
+					layer.setRadius(options.radius).setStyle({weight:options.radius/2}); 
+				}; 
+			});
 			updateCookies();
 		}
 	});
 
-	if (options.tiles.indexOf('tileOSM')!==-1) { $('#tileOSM .chk').prop('checked', true); } else { $('#tileOSM .chk').prop('checked', false); };
-	if (options.tiles.indexOf('tileCA2')!==-1) { $('#tileCA2 .chk').prop('checked', true); } else { $('#tileCA2 .chk').prop('checked', false); };
-	if (options.tiles.indexOf('tileMapillary')!==-1) { $('#tileMapillary .chk').prop('checked', true); } else { $('#tileMapillary .chk').prop('checked', false); };
-	if (options.tiles.indexOf('tile30USCities')!==-1) { $('#tile30USCities .chk').prop('checked', true); } else { $('#tile30USCities .chk').prop('checked', false); };
+	if (options.tiles.indexOf('tileOSM')!==-1) { 
+		$('#tileOSM .chk').prop('checked', true); 
+	} else { 
+		$('#tileOSM .chk').prop('checked', false); 
+	};
+	if (options.tiles.indexOf('tileCA2')!==-1) { 
+		$('#tileCA2 .chk').prop('checked', true); 
+	} else { 
+		$('#tileCA2 .chk').prop('checked', false); 
+	};
+	if (options.tiles.indexOf('tileMapillary')!==-1) { 
+		$('#tileMapillary .chk').prop('checked', true); 
+	} else { 
+		$('#tileMapillary .chk').prop('checked', false); 
+	};
+	if (options.tiles.indexOf('tile30USCities')!==-1) { 
+		$('#tile30USCities .chk').prop('checked', true); 
+	} else { 
+		$('#tile30USCities .chk').prop('checked', false); 
+	};
 
 	$('.stats .chk').change(function() {
 		updateVisibility(this);
@@ -92,6 +116,8 @@ $('document').ready(function () {
 })
 
 function styleNode(node) {
+	// Returns a style object based on node tags
+
 	if (node.tags==undefined) { var color = {color: colorExUnmarked}; var fill = {fillColor: bgColorExUnmarked};
 	} else if (node.tags.highway=='motorway_junction') {
 		//Outer style
@@ -117,6 +143,8 @@ function styleNode(node) {
 }
 
 function styleWay(tags) {
+	// Returns a style object based on way tags
+
 	if (tags==undefined) { var style = {color: wColorNone};
 	} else if (tags.highway=='construction') { var style = {color: wColorConstruction};
 	} else if (tags.highway=='proposed') { var style = {color: wColorProposed};
@@ -130,6 +158,9 @@ function styleWay(tags) {
 }
 
 function htmlInfo(element) {
+	// Returns html code showing info of a way or node 
+	// including a junction panel if it is an exit node
+
 	var html = '';
 	if (element.subtype=='exit') {
 		html += htmlJunctionPanel(element);
@@ -148,6 +179,8 @@ function htmlInfo(element) {
 }
 
 function htmlJunctionPanel (element) {
+	// Returns html code of a junction panel like the ones on the real world
+
 	var ref = element.ref || '&nbsp;';
 	var dest = element.getDestination() || element.exit_to || element.name || '&nbsp;';
 	dest = dest.replace(/;/g, '</br>');
@@ -188,6 +221,8 @@ function htmlJunctionPanel (element) {
 }
 
 function htmlMotorwayPanel (element) {
+	// Returns html code of a panel with the ref and name of the motorway
+
 	if (fw[options.relID].country == 'US') {
 		var panel = 'panel USpanel';
 	} else {
@@ -204,6 +239,8 @@ function htmlMotorwayPanel (element) {
 }
 
 function htmlButtons (type, id) {
+	// Returns html code of buttons linking to other OSM tools
+
 	html = '';
 	if (type=='relation') {
 		html += ' <button class="icon" onClick="fw['+id+'].zoom()" title="Zoom to motorway"><i class="fa fa-eye icon"></i></button>'+
@@ -227,6 +264,8 @@ function htmlButtons (type, id) {
 }
 
 function htmlTagsTable (element) {
+	// Returns html code of a table showing tags of a way or node
+
 	var html = '<table class="tags">';
 	for (key in element.tags) {
 		html += '<tr><td class="code key">'+key+'</td>'+
