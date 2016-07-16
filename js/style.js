@@ -163,13 +163,17 @@ function htmlInfo(element) {
 
 	var html = '';
 	if (element.subtype=='exit') {
-		html += htmlJunctionPanel(element, element.getLinkWay());
+		for (var i in element.linkWays) {
+			html += htmlJunctionPanel(element, element.linkWays[i]);
+		};
 	};
 	if (element.type=='node' || element.type=='way') {
 		html += htmlGenericInfo(element);
-	}
+	};
 	if (element.subtype=='exit' && element.hasDestination()) {
-		html += htmlGenericInfo(element.getLinkWay());
+		for (var i in element.linkWays) {
+			html += htmlGenericInfo(element.linkWays[i]);
+		};
 	};
 	html += '<p id="timestamp">' + fw[options.relID].timestamp + '</p>';
 	return html;
@@ -179,12 +183,12 @@ function htmlJunctionPanel (nodeElement, wayElement) {
 	// Returns html code of a junction panel like the ones in the real world
 
 	// Get ref
-	var ref = nodeElement.ref || '&nbsp;';
+	var ref = wayElement.tags['junction:ref'] || nodeElement.tags.ref || '&nbsp;';
 	// Get destination or equivalent
 	if (wayElement && wayElement.hasDestination()) {
 		var dest = wayElement.getDestination();
 	} else {
-		var dest = nodeElement.exit_to || nodeElement.name || '&nbsp;';
+		var dest = nodeElement.tags.exit_to || nodeElement.tags.name || '&nbsp;';
 	};
 	dest = dest.replace(/;/g, '</br>');
 	// Get destination:ref

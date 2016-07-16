@@ -68,15 +68,15 @@ function Way(element) {
 
 function Exit() {
 	this.subtype = 'exit';
-	this.correspondingWayID = undefined;
+	this.linkWays = [];
 	this.ref = undefined;
 	this.name = undefined;
 	this.exit_to = undefined;
 	this.getLinkWay = function () {
 		// Returns the motorway_link way of this exit
 
-		if (this.correspondingWayID) {
-			return way[this.correspondingWayID];
+		if (this.linkWays[0]) {
+			return this.linkWays[0];
 		} else {
 			return undefined;
 		};
@@ -84,11 +84,12 @@ function Exit() {
 	this.hasDestination = function () {
 		// Returns true if the motorway_link way of this exit has destination
 
-		if (!this.getLinkWay()) { 
-			return false; 
-		} else {
-			return this.getLinkWay().hasDestination();
-		};
+		for (var i in this.linkWays) {
+			if (this.linkWays[i].hasDestination()) {
+				return true;
+			};
+		}
+		return false;
 	};
 }
 
@@ -224,15 +225,13 @@ Freeway.prototype.loadDestinationUnmarked = function(opt) {
 			for (var i = 0; i < response.elements.length; i++) {
 				if(!response.elements[i].tags) { continue; }; // Remove untagged ways
 				if(fwy.waysIDs.indexOf(response.elements[i].id)!==-1) { continue; }; // Remove ways which are part of the freeway
+				if(response.elements[i].tags.highway!=='motorway_link') { continue; }; // Remove ways which are not motorway_link
 				for (var j = 0; j < fwy.exits.length; j++) {
 					// Searching for the motorway_junction corresponding to this motorway_link
-					if(fwy.exits[j].nodeID==response.elements[i].nodes[0] || fwy.exits[j].nodeID==response.elements[i].nodes[response.elements[i].nodes.length-1]){
-						// Check if the selected motorway_junction has already been assigned a way
-						// And give priority with ways with motorway_link tagging
-						if (fwy.exits[j].correspondingWayID==undefined || response.elements[i].tags.highway=='motorway_link') {
-							way[response.elements[i].id] = new Way(response.elements[i]);
-							fwy.exits[j].correspondingWayID=response.elements[i].id;
-						};
+					if(fwy.exits[j].nodeID==response.elements[i].nodes[0] || 
+						fwy.exits[j].nodeID==response.elements[i].nodes[response.elements[i].nodes.length-1]){
+						way[response.elements[i].id] = new Way(response.elements[i]);
+						fwy.exits[j].linkWays.push(way[response.elements[i].id]);
 					};
 				};
 			};
