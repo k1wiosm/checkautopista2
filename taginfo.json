@@ -1,7 +1,7 @@
 {
 	"data_format": 1,
 	"data_url": "http://k1wiosm.github.io/checkautopista2/taginfo.json",
-	"data_updated": "20160427T001500Z",
+	"data_updated": "20160725T000920Z",
 	"project": {
 		"name": "CheckAutopista2",
 		"description": "QA tool for motorways in OSM.",
@@ -24,6 +24,7 @@
 			{ "key": "exit_to", "object_types": ["node"] },
 			{ "key": "name", "object_types": ["node","way"] },
 			{ "key": "ref", "object_types": ["node","way"] },
+			{ "key": "junction:ref", "object_types": ["way"] },
 			{ "key": "noref", "value": "yes", "object_types": ["node"], "description": "Used to indicate that a motorway_junction has no reference in the real world" },
 			{ "key": "destination", "object_types": ["way"] },
 			{ "key": "destination:ref", "object_types": ["way"] },
