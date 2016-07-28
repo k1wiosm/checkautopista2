@@ -209,6 +209,15 @@ function htmlJunctionPanel (nodeElement, wayElement) {
 			destIntRefArray[i].replace(/ /g, '&nbsp;').replace(/-/g, '&#8209;')+'</div> ';
 		};
 	};
+	// Get destination:symbol
+	var dest_symbol = '';
+	if (wayElement && wayElement.tags['destination:symbol']!=undefined) {
+		var destSymbolArray = wayElement.tags['destination:symbol'].split(/;/g);
+		for (var i = 0; i < destSymbolArray.length; i++) {
+			dest_symbol += '<div class="symbol">'+htmlSymbol(destSymbolArray[i])+'</div> ';
+		};
+	};
+	
 	// Prepare html panel
 	if (fw[options.relID].country == 'US') {
 		var panel = 'panel USpanel';
@@ -217,16 +226,51 @@ function htmlJunctionPanel (nodeElement, wayElement) {
 		var panel = 'panel EUpanel';
 		var exitSymbol = '<div class="exitSymbol EUexitSymbol"><img src="img/exit.svg" height="20px"/></div>';
 	};
-	var html = 	'<div class="'+panel+'">' +
-					'<div class="subPanel ref">'+exitSymbol+ref.replace("<","&lt;")+'</div>' +
-					'<div class="subPanel destination">'+
-						'<table><tr>'+
-							'<td class="destination">'+dest+'</td>'+
-							'<td class="ref">'+dest_int_ref+dest_ref+'</td>'+
-						'</tr></table>'+
+	var html = 	'<div class="panelWrapper">'+
+					'<div class="symbolsHolder">'+dest_symbol+'</div>'+
+					'<div class="'+panel+'">' +
+						'<div class="subPanel ref">'+exitSymbol+ref.replace("<","&lt;")+'</div>' +
+						'<div class="subPanel destination">'+
+							'<table><tr>'+
+								'<td class="destination">'+dest+'</td>'+
+								'<td class="ref">'+dest_int_ref+dest_ref+'</td>'+
+							'</tr></table>'+
+						'</div>'+
 					'</div>'+
 				'</div>';
 	return html;
+}
+
+function htmlSymbol (symbol) {
+	// Returns html code of a given destination:symbol
+
+	switch (symbol) {
+		case 'airport':
+			img = 'https://upload.wikimedia.org/wikipedia/commons/b/bf/MUTCD_I-5.svg'; break;
+		case 'camp_site':
+			img = 'https://upload.wikimedia.org/wikipedia/commons/4/45/MUTCD_D9-3.svg'; break;
+		case 'ferry':
+			img = 'https://upload.wikimedia.org/wikipedia/commons/7/72/MUTCD_I-9.svg'; break;
+		case 'food':
+			img = 'https://upload.wikimedia.org/wikipedia/commons/9/9d/MUTCD_D9-8.svg'; break;
+		case 'fuel':
+			img = 'https://upload.wikimedia.org/wikipedia/commons/0/03/MUTCD_D9-7.svg'; break;
+		case 'hospital':
+			img = 'https://upload.wikimedia.org/wikipedia/commons/f/fd/MUTCD_D9-2.svg'; break;
+		case 'lodging':
+			img = 'https://upload.wikimedia.org/wikipedia/commons/4/44/MUTCD_D9-9.svg'; break;
+		case 'parking':
+			img = 'https://upload.wikimedia.org/wikipedia/commons/c/cb/Japanese_Road_sign_(Parking_lot_A,_Parking_permitted).svg'; break;
+		case 'train_station':
+			img = 'https://upload.wikimedia.org/wikipedia/commons/a/a5/MUTCD_I-7.svg'; break;
+		default:
+			img = ''; break;
+	}
+	if (img) {
+		return '<img src='+img+'></img>';
+	} else {
+		return '?';
+	}
 }
 
 function htmlMotorwayPanel (element) {
