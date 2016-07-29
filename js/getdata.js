@@ -46,6 +46,9 @@ function Way(element) {
 
 		if (this.tags['destination']) { return true; };
 		if (this.tags['destination:street']) { return true; };
+		if (this.tags['destination:ref']) { return true; };
+		if (this.tags['destination:int_ref']) { return true; };
+		if (this.tags['destination:symbol']) { return true; };
 		return false;
 	};
 	this.getDestination = function () {
