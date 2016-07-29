@@ -196,7 +196,7 @@ function htmlJunctionPanel (nodeElement, wayElement) {
 	if (wayElement && wayElement.tags['destination:ref']!=undefined) {
 		var destRefArray = wayElement.tags['destination:ref'].split(/;/g);
 		for (var i = 0; i < destRefArray.length; i++) {
-			dest_ref += '<div class="panelText ref">'+
+			dest_ref += '<div class="refText">'+
 				destRefArray[i].replace(/ /g, '&nbsp;').replace(/-/g, '&#8209;')+'</div> ';
 		};
 	};
@@ -205,7 +205,7 @@ function htmlJunctionPanel (nodeElement, wayElement) {
 	if (wayElement && wayElement.tags['destination:int_ref']!=undefined) {
 		var destIntRefArray = wayElement.tags['destination:int_ref'].split(/;/g);
 		for (var i = 0; i < destIntRefArray.length; i++) {
-			dest_int_ref += '<div class="panelText ref">'+
+			dest_int_ref += '<div class="intRefText">'+
 			destIntRefArray[i].replace(/ /g, '&nbsp;').replace(/-/g, '&#8209;')+'</div> ';
 		};
 	};
@@ -220,20 +220,20 @@ function htmlJunctionPanel (nodeElement, wayElement) {
 	
 	// Prepare html panel
 	if (fw[options.relID].country == 'US') {
-		var panel = 'panel USpanel';
-		var exitSymbol = '<div class="exitSymbol USexitSymbol">EXIT</div>';
+		var panel = 'usPanel';
+		var exitSymbol = '<div class="exitSymbol usExitSymbol">EXIT</div>';
 	} else {
-		var panel = 'panel EUpanel';
-		var exitSymbol = '<div class="exitSymbol EUexitSymbol"><img src="img/exit.svg" height="20px"/></div>';
+		var panel = 'euPanel';
+		var exitSymbol = '<div class="exitSymbol euExitSymbol"><img src="img/exit.svg" height="20px"/></div>';
 	};
 	var html = 	'<div class="panelWrapper">'+
 					'<div class="symbolsHolder">'+dest_symbol+'</div>'+
 					'<div class="'+panel+'">' +
-						'<div class="subPanel ref">'+exitSymbol+ref.replace("<","&lt;")+'</div>' +
-						'<div class="subPanel destination">'+
+						'<div class="subPanel refPanel">'+exitSymbol+ref.replace("<","&lt;")+'</div>' +
+						'<div class="subPanel destinationPanel">'+
 							'<table><tr>'+
-								'<td class="destination">'+dest+'</td>'+
-								'<td class="ref">'+dest_int_ref+dest_ref+'</td>'+
+								'<td class="destinationCell">'+dest+'</td>'+
+								'<td class="refCell">'+dest_int_ref+dest_ref+'</td>'+
 							'</tr></table>'+
 						'</div>'+
 					'</div>'+
@@ -295,17 +295,22 @@ function htmlMotorwayPanel (element) {
 	// Returns html code of a panel with the ref and name of the motorway
 
 	if (fw[options.relID].country == 'US') {
-		var panel = 'panel USpanel';
+		var panel = 'panel usPanel';
 	} else {
-		var panel = 'panel EUpanel';
+		var panel = 'panel euPanel';
 	};
-	var html = '<div class="'+panel+' road"><div class="subPanel road">';
+	var html =	'<div class="panelWrapper">'+
+					'<div class="'+panel+' road">'+
+						'<div class="subPanel road">';
 	if (element.tags.symbol) {
 		html += '<div class="symbol"><img src="'+element.tags.symbol+'"/></div>';
 	} else {
 		html += '<div class="ref'+(element.tags.network=='e-road'?' greenE':'')+'">' + (element.ref || '') +'</div>';
 	}
-	html += '<div class="name">'+element.name+'</div></div></div>';
+	html += 				'<div class="name">'+element.name+'</div>'+
+						'</div>'+
+					'</div>'+
+				'</div>';
 	return html;
 }
 

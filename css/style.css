@@ -66,7 +66,8 @@ iframe[name=hiddenIframe] {
 
 /* SEARCH */
 
-input[type=text], input[type=number] {
+input[type=text], 
+input[type=number] {
 	box-sizing: border-box;
 	width: 100%;
 }
@@ -132,7 +133,8 @@ table.tags tr td.key {
 	background: rgba(0, 0, 0, 0.06);
 }
 
-input.tag, input#comment {
+input.tag, 
+input#comment {
 	box-sizing: border-box;
 	width: 100%;
 }
@@ -174,16 +176,17 @@ div.symbolsHolder .symbol img {
 	width: 100%;
 }
 
-div.panel {
+div.euPanel, 
+div.usPanel {
 	border-radius: 10px;
 	padding: 3px;
 }
 
-.EUpanel {
+div.euPanel {
 	background-color: #19408b;
 }
 
-.USpanel {
+div.usPanel {
 	background-color: #006f53;
 }
 
@@ -228,48 +231,56 @@ div.subPanel.road .name {
 
 /* Exit Panel */
 
-div.subPanel.ref {
+div.subPanel.refPanel {
 	text-align: right;
 }
 
-div.subPanel.ref .exitSymbol {
+div.subPanel.refPanel .exitSymbol {
 	margin-right: 10px;
 	float: left;
 	
 }
 
-.EUexitSymbol {
+.euExitSymbol {
 	font-size: 15px;
 }
 
-.USexitSymbol {
+.usExitSymbol {
 	margin-top: 4px;
 	font-size: 15px;
 }
 
-div.subPanel.destination {
+div.subPanel.destinationPanel {
 	overflow: hidden;
 }
 
-div.subPanel.destination table {
+div.subPanel.destinationPanel table {
 	width: 100%;
 }
 
-div.subPanel.destination table tr td {
+div.subPanel.destinationPanel table tr td {
 	color: white;
 	font-family: TrafficTypSpaD;
 	font-size: 20px;
 }
 
-div.subPanel.destination table tr td.ref {
+div.subPanel.destinationPanel table tr td.refCell {
 	text-align: right;
 }
 
-div .panelText.ref {
+div.refText, 
+div.intRefText {
 	margin: 1px;
 	font-size: 18px;
 	display: inline-block;
+}
+
+div.refText {
 	background-color: red;
+}
+
+div.intRefText {
+	background-color: green;
 }
 
 /* ABOUT */
