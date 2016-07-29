@@ -167,11 +167,11 @@ div.panel {
 	padding: 3px;
 }
 
-div.euColor {
+div.euStyle {
 	background-color: #19408b;
 }
 
-div.usColor {
+div.usStyle {
 	background-color: #006f53;
 }
 
@@ -239,11 +239,16 @@ div.symbolsHolder .symbol .unknownSymbol {
 	text-align: center;
 	display: inline-block;
 	box-sizing: border-box;
-	padding: 4px;
+	padding: 3px;
+	border: 1px white solid;
 	border-radius: 3px;
 	font-family: TrafficTypSpaD;
 	font-size: 20px;
 	color: white;
+}
+
+.euStyle .symbolsHolder {
+	text-align: center;
 }
 
 div.subPanel.refPanel {
