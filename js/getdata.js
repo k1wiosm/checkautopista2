@@ -215,7 +215,6 @@ Freeway.prototype.loadDestinationUnmarked = function(opt) {
 			// Get corresponding motorway_link
 			for (var i = 0; i < response.elements.length; i++) {
 				if(!response.elements[i].tags) { continue; }; // Remove untagged ways
-				if(fwy.waysIDs.indexOf(response.elements[i].id)!==-1) { continue; }; // Remove ways which are part of the freeway
 				if(response.elements[i].tags.highway!=='motorway_link') { continue; }; // Remove ways which are not motorway_link
 				for (var j = 0; j < fwy.exits.length; j++) {
 					// Searching for the motorway_junction corresponding to this motorway_link
