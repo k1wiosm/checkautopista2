@@ -7,7 +7,7 @@
 		"description": "QA tool for motorways in OSM.",
 		"project_url": "http://k1wiosm.github.io/checkautopista2/",
 		"doc_url": "http://github.com/k1wiosm/checkautopista2",
-		"icon_url": "http://github.com/k1wiosm/checkautopista2/favicon.ico",
+		"icon_url": "http://k1wiosm.github.io/checkautopista2/img/exit.svg",
 		"contact_name": "k1wi",
 		"contact_email": "k1wiosm@gmail.com"
 	},
