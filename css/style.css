@@ -162,31 +162,16 @@ div.panelWrapper {
 	margin: 10px 0px 10px 0px;
 }
 
-div.symbolsHolder {
-	width: 100%;
-}
-
-div.symbolsHolder .symbol {
-	width: 30px;
-	height: 30px;
-	display: inline-block;
-}
-
-div.symbolsHolder .symbol img {
-	width: 100%;
-}
-
-div.euPanel, 
-div.usPanel {
+div.panel {
 	border-radius: 10px;
 	padding: 3px;
 }
 
-div.euPanel {
+div.euColor {
 	background-color: #19408b;
 }
 
-div.usPanel {
+div.usColor {
 	background-color: #006f53;
 }
 
@@ -231,6 +216,36 @@ div.subPanel.road .name {
 
 /* Exit Panel */
 
+div.symbolsHolder {
+	width: 100%;
+	box-sizing: border-box;
+	padding: 0px 0px 2px 0px;
+}
+
+div.symbolsHolder .symbol {
+	width: 30px;
+	height: 30px;
+	display: inline-block;
+	vertical-align: top;
+}
+
+div.symbolsHolder .symbol img {
+	width: 100%;
+}
+
+div.symbolsHolder .symbol .unknownSymbol {
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	display: inline-block;
+	box-sizing: border-box;
+	padding: 4px;
+	border-radius: 3px;
+	font-family: TrafficTypSpaD;
+	font-size: 20px;
+	color: white;
+}
+
 div.subPanel.refPanel {
 	text-align: right;
 }
@@ -238,7 +253,6 @@ div.subPanel.refPanel {
 div.subPanel.refPanel .exitSymbol {
 	margin-right: 10px;
 	float: left;
-	
 }
 
 .euExitSymbol {

@@ -220,15 +220,15 @@ function htmlJunctionPanel (nodeElement, wayElement) {
 	
 	// Prepare html panel
 	if (fw[options.relID].country == 'US') {
-		var panel = 'usPanel';
+		var color = 'usColor';
 		var exitSymbol = '<div class="exitSymbol usExitSymbol">EXIT</div>';
 	} else {
-		var panel = 'euPanel';
+		var color = 'euColor';
 		var exitSymbol = '<div class="exitSymbol euExitSymbol"><img src="img/exit.svg" height="20px"/></div>';
 	};
 	var html = 	'<div class="panelWrapper">'+
 					'<div class="symbolsHolder">'+dest_symbol+'</div>'+
-					'<div class="'+panel+'">' +
+					'<div class="panel '+color+'">' +
 						'<div class="subPanel refPanel">'+exitSymbol+ref.replace("<","&lt;")+'</div>' +
 						'<div class="subPanel destinationPanel">'+
 							'<table><tr>'+
@@ -287,7 +287,7 @@ function htmlSymbol (symbol) {
 	if (img) {
 		return '<img src='+img+'></img>';
 	} else {
-		return '?';
+		return '<div class="unknownSymbol euColor">?</div>';
 	}
 }
 
@@ -295,12 +295,12 @@ function htmlMotorwayPanel (element) {
 	// Returns html code of a panel with the ref and name of the motorway
 
 	if (fw[options.relID].country == 'US') {
-		var panel = 'panel usPanel';
+		var color = 'usColor';
 	} else {
-		var panel = 'panel euPanel';
+		var color = 'euColor';
 	};
 	var html =	'<div class="panelWrapper">'+
-					'<div class="'+panel+' road">'+
+					'<div class="panel '+color+' road">'+
 						'<div class="subPanel road">';
 	if (element.tags.symbol) {
 		html += '<div class="symbol"><img src="'+element.tags.symbol+'"/></div>';
