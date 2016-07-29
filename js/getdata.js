@@ -218,8 +218,8 @@ Freeway.prototype.loadDestinationUnmarked = function(opt) {
 				if(response.elements[i].tags.highway!=='motorway_link') { continue; }; // Remove ways which are not motorway_link
 				for (var j = 0; j < fwy.exits.length; j++) {
 					// Searching for the motorway_junction corresponding to this motorway_link
-					if(fwy.exits[j].nodeID==response.elements[i].nodes[0] || 
-						fwy.exits[j].nodeID==response.elements[i].nodes[response.elements[i].nodes.length-1]){
+					if(fwy.exits[j].nodeID==response.elements[i].nodes[0] && response.elements[i].tags.oneway=='yes' || 
+						fwy.exits[j].nodeID==response.elements[i].nodes[response.elements[i].nodes.length-1] && response.elements[i].tags.oneway=='-1'){
 						way[response.elements[i].id] = new Way(response.elements[i]);
 						fwy.exits[j].linkWays.push(way[response.elements[i].id]);
 					};
