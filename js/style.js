@@ -249,6 +249,8 @@ function htmlSymbol (symbol) {
 			img = 'https://upload.wikimedia.org/wikipedia/commons/b/bf/MUTCD_I-5.svg'; break;
 		case 'camp_site':
 			img = 'https://upload.wikimedia.org/wikipedia/commons/4/45/MUTCD_D9-3.svg'; break;
+		case 'centre':
+			img = 'https://upload.wikimedia.org/wikipedia/commons/2/2a/Italian_traffic_signs_-_icona_centro.svg'; break;
 		case 'ferry':
 			img = 'https://upload.wikimedia.org/wikipedia/commons/7/72/MUTCD_I-9.svg'; break;
 		case 'food':
@@ -265,6 +267,8 @@ function htmlSymbol (symbol) {
 			img = 'https://upload.wikimedia.org/wikipedia/commons/6/6c/MUTCD_D9-11b.svg'; break;
 		case 'hospital':
 			img = 'https://upload.wikimedia.org/wikipedia/commons/f/fd/MUTCD_D9-2.svg'; break;
+		case 'industrial':
+			img = 'https://upload.wikimedia.org/wikipedia/commons/4/4e/RWB_Industriegebiet.svg'; break;
 		case 'info':
 			img = 'https://upload.wikimedia.org/wikipedia/commons/a/a4/MUTCD_D9-10.svg'; break;
 		case 'lodging':
