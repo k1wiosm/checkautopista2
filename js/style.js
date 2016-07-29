@@ -255,14 +255,32 @@ function htmlSymbol (symbol) {
 			img = 'https://upload.wikimedia.org/wikipedia/commons/9/9d/MUTCD_D9-8.svg'; break;
 		case 'fuel':
 			img = 'https://upload.wikimedia.org/wikipedia/commons/0/03/MUTCD_D9-7.svg'; break;
+		case 'fuel_cng':
+			img = 'https://upload.wikimedia.org/wikipedia/commons/6/65/MUTCD_D9-11a.svg'; break;
+		case 'fuel_diesel':
+			img = 'https://upload.wikimedia.org/wikipedia/commons/7/7e/MUTCD_D9-11.svg'; break;
+		case 'fuel_e85':
+			img = 'https://upload.wikimedia.org/wikipedia/commons/f/f3/MUTCD_D9-11c.svg'; break;
+		case 'fuel_ev':
+			img = 'https://upload.wikimedia.org/wikipedia/commons/6/6c/MUTCD_D9-11b.svg'; break;
 		case 'hospital':
 			img = 'https://upload.wikimedia.org/wikipedia/commons/f/fd/MUTCD_D9-2.svg'; break;
+		case 'info':
+			img = 'https://upload.wikimedia.org/wikipedia/commons/a/a4/MUTCD_D9-10.svg'; break;
 		case 'lodging':
 			img = 'https://upload.wikimedia.org/wikipedia/commons/4/44/MUTCD_D9-9.svg'; break;
 		case 'parking':
 			img = 'https://upload.wikimedia.org/wikipedia/commons/c/cb/Japanese_Road_sign_(Parking_lot_A,_Parking_permitted).svg'; break;
+		case 'parking_truck':
+			img = 'https://upload.wikimedia.org/wikipedia/commons/0/00/MUTCD_D9-16.svg'; break;
+		case 'phone':
+			img = 'https://upload.wikimedia.org/wikipedia/commons/5/5c/MUTCD_D9-1.svg'; break;
 		case 'train_station':
 			img = 'https://upload.wikimedia.org/wikipedia/commons/a/a5/MUTCD_I-7.svg'; break;
+		case 'TDD':
+			img = 'https://upload.wikimedia.org/wikipedia/commons/8/8a/MUTCD_D9-21.svg'; break;
+		case 'wifi':
+			img = 'https://upload.wikimedia.org/wikipedia/commons/0/05/MUTCD_D9-22.svg'; break;
 		default:
 			img = ''; break;
 	}
