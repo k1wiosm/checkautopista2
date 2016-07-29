@@ -170,7 +170,7 @@ function htmlInfo(element) {
 	if (element.type=='node' || element.type=='way') {
 		html += htmlGenericInfo(element);
 	};
-	if (element.subtype=='exit' && element.hasDestination()) {
+	if (element.subtype=='exit') {
 		for (var i in element.linkWays) {
 			html += htmlGenericInfo(element.linkWays[i]);
 		};
