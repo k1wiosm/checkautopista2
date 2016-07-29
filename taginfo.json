@@ -1,7 +1,7 @@
 {
 	"data_format": 1,
 	"data_url": "http://k1wiosm.github.io/checkautopista2/taginfo.json",
-	"data_updated": "20160725T000920Z",
+	"data_updated": "20160729T122300Z",
 	"project": {
 		"name": "CheckAutopista2",
 		"description": "QA tool for motorways in OSM.",
@@ -29,6 +29,7 @@
 			{ "key": "destination", "object_types": ["way"] },
 			{ "key": "destination:ref", "object_types": ["way"] },
 			{ "key": "destination:int_ref", "object_types": ["way"] },
+			{ "key": "destination:symbol", "object_types": ["way"] },
 			{ "key": "barrier", "value": "toll_booth", "object_types": ["node"] },
 			{ "key": "highway", "value": "services", "object_types": ["node","way"] },
 			{ "key": "highway", "value": "rest_area", "object_types": ["node","way"] },
