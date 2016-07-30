@@ -247,7 +247,7 @@ function htmlJunctionPanel (nodeElement, wayElement) {
 function htmlSymbol (symbol) {
 	// Returns html code of a given destination:symbol
 
-	switch (symbol) {
+	switch (symbol.replace(/\s+/g, '')) {
 		case 'airport':
 			img = 'https://upload.wikimedia.org/wikipedia/commons/b/bf/MUTCD_I-5.svg'; break;
 		case 'camp_site':
