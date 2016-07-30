@@ -249,13 +249,15 @@ function htmlSymbol (symbol) {
 
 	symbolsList = {
 		'aerialway': {
-			'eu': 'https://upload.wikimedia.org/wikipedia/commons/3/3b/Pictogram_Cable_Car.svg',
+			'eu': 'https://upload.wikimedia.org/wikipedia/commons/3/34/Italian_traffic_signs_-_icona_funivia.svg',
 			'us': 'https://upload.wikimedia.org/wikipedia/commons/6/60/MUTCD_RS-071.svg',
 		},
 		'airport': {
+			'eu': 'https://upload.wikimedia.org/wikipedia/commons/5/51/Italian_traffic_signs_-_icona_aeroporto.svg',
 			'us': 'https://upload.wikimedia.org/wikipedia/commons/b/bf/MUTCD_I-5.svg',
 		},
 		'camp_site': {
+			'eu': 'https://upload.wikimedia.org/wikipedia/commons/3/3d/Italian_traffic_signs_-_icona_campeggio.svg',
 			'us': 'https://upload.wikimedia.org/wikipedia/commons/4/45/MUTCD_D9-3.svg',
 		},
 		'centre': {
@@ -275,6 +277,7 @@ function htmlSymbol (symbol) {
 			'us': 'https://upload.wikimedia.org/wikipedia/commons/6/65/MUTCD_D9-11a.svg',
 		},
 		'fuel_diesel': {
+			'eu': 'https://upload.wikimedia.org/wikipedia/commons/f/fa/Italian_traffic_signs_-_icona_diesel.svg',
 			'us': 'https://upload.wikimedia.org/wikipedia/commons/7/7e/MUTCD_D9-11.svg',
 		},
 		'fuel_e85': {
@@ -290,6 +293,7 @@ function htmlSymbol (symbol) {
 			'eu': 'https://upload.wikimedia.org/wikipedia/commons/4/4e/RWB_Industriegebiet.svg',
 		},
 		'info': {
+			'eu': 'https://upload.wikimedia.org/wikipedia/commons/7/7e/Italian_traffic_signs_-_icona_informazioni.svg',
 			'us': 'https://upload.wikimedia.org/wikipedia/commons/a/a4/MUTCD_D9-10.svg',
 		},
 		'lodging': {
@@ -302,7 +306,14 @@ function htmlSymbol (symbol) {
 			'us': 'https://upload.wikimedia.org/wikipedia/commons/0/00/MUTCD_D9-16.svg',
 		},
 		'phone': {
+			'eu': 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Italian_traffic_signs_-_icona_telefono.svg',
 			'us': 'https://upload.wikimedia.org/wikipedia/commons/5/5c/MUTCD_D9-1.svg',
+		},
+		'soccer_stadium': {
+			'eu': 'https://upload.wikimedia.org/wikipedia/commons/d/dc/Italian_traffic_signs_-_icona_stadio.svg',
+		},
+		'toilets': {
+			'eu': 'https://upload.wikimedia.org/wikipedia/commons/0/06/Italian_traffic_signs_-_icona_wc.svg',
 		},
 		'train_station': {
 			'eu': 'https://upload.wikimedia.org/wikipedia/commons/3/33/Fernbahn_Signet_HVV.svg',
