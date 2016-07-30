@@ -231,6 +231,7 @@ div.symbolsHolder .symbol {
 
 div.symbolsHolder .symbol img {
 	width: 100%;
+	background-color: white;
 }
 
 div.symbolsHolder .symbol .unknownSymbol {

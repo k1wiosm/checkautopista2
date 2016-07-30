@@ -247,54 +247,89 @@ function htmlJunctionPanel (nodeElement, wayElement) {
 function htmlSymbol (symbol) {
 	// Returns html code of a given destination:symbol
 
-	switch (symbol.replace(/\s+/g, '')) {
-		case 'airport':
-			img = 'https://upload.wikimedia.org/wikipedia/commons/b/bf/MUTCD_I-5.svg'; break;
-		case 'camp_site':
-			img = 'https://upload.wikimedia.org/wikipedia/commons/4/45/MUTCD_D9-3.svg'; break;
-		case 'centre':
-			img = 'https://upload.wikimedia.org/wikipedia/commons/2/2a/Italian_traffic_signs_-_icona_centro.svg'; break;
-		case 'ferry':
-			img = 'https://upload.wikimedia.org/wikipedia/commons/7/72/MUTCD_I-9.svg'; break;
-		case 'food':
-			img = 'https://upload.wikimedia.org/wikipedia/commons/9/9d/MUTCD_D9-8.svg'; break;
-		case 'fuel':
-			img = 'https://upload.wikimedia.org/wikipedia/commons/0/03/MUTCD_D9-7.svg'; break;
-		case 'fuel_cng':
-			img = 'https://upload.wikimedia.org/wikipedia/commons/6/65/MUTCD_D9-11a.svg'; break;
-		case 'fuel_diesel':
-			img = 'https://upload.wikimedia.org/wikipedia/commons/7/7e/MUTCD_D9-11.svg'; break;
-		case 'fuel_e85':
-			img = 'https://upload.wikimedia.org/wikipedia/commons/f/f3/MUTCD_D9-11c.svg'; break;
-		case 'fuel_ev':
-			img = 'https://upload.wikimedia.org/wikipedia/commons/6/6c/MUTCD_D9-11b.svg'; break;
-		case 'hospital':
-			img = 'https://upload.wikimedia.org/wikipedia/commons/f/fd/MUTCD_D9-2.svg'; break;
-		case 'industrial':
-			img = 'https://upload.wikimedia.org/wikipedia/commons/4/4e/RWB_Industriegebiet.svg'; break;
-		case 'info':
-			img = 'https://upload.wikimedia.org/wikipedia/commons/a/a4/MUTCD_D9-10.svg'; break;
-		case 'lodging':
-			img = 'https://upload.wikimedia.org/wikipedia/commons/4/44/MUTCD_D9-9.svg'; break;
-		case 'parking':
-			img = 'https://upload.wikimedia.org/wikipedia/commons/c/cb/Japanese_Road_sign_(Parking_lot_A,_Parking_permitted).svg'; break;
-		case 'parking_truck':
-			img = 'https://upload.wikimedia.org/wikipedia/commons/0/00/MUTCD_D9-16.svg'; break;
-		case 'phone':
-			img = 'https://upload.wikimedia.org/wikipedia/commons/5/5c/MUTCD_D9-1.svg'; break;
-		case 'train_station':
-			img = 'https://upload.wikimedia.org/wikipedia/commons/a/a5/MUTCD_I-7.svg'; break;
-		case 'TDD':
-			img = 'https://upload.wikimedia.org/wikipedia/commons/8/8a/MUTCD_D9-21.svg'; break;
-		case 'wifi':
-			img = 'https://upload.wikimedia.org/wikipedia/commons/0/05/MUTCD_D9-22.svg'; break;
-		default:
-			img = ''; break;
-	}
+	symbolsList = {
+		'aerialway': {
+			'eu': 'https://upload.wikimedia.org/wikipedia/commons/3/3b/Pictogram_Cable_Car.svg',
+			'us': 'https://upload.wikimedia.org/wikipedia/commons/6/60/MUTCD_RS-071.svg',
+		},
+		'airport': {
+			'us': 'https://upload.wikimedia.org/wikipedia/commons/b/bf/MUTCD_I-5.svg',
+		},
+		'camp_site': {
+			'us': 'https://upload.wikimedia.org/wikipedia/commons/4/45/MUTCD_D9-3.svg',
+		},
+		'centre': {
+			'eu': 'https://upload.wikimedia.org/wikipedia/commons/2/2a/Italian_traffic_signs_-_icona_centro.svg',
+		},
+		'ferry': {
+			'us': 'https://upload.wikimedia.org/wikipedia/commons/7/72/MUTCD_I-9.svg',
+		},
+		'food': {
+			'us': 'https://upload.wikimedia.org/wikipedia/commons/9/9d/MUTCD_D9-8.svg',
+		},
+		'fuel': {
+			'us': 'https://upload.wikimedia.org/wikipedia/commons/0/03/MUTCD_D9-7.svg',
+		},
+		'fuel_cng': {
+			'us': 'https://upload.wikimedia.org/wikipedia/commons/6/65/MUTCD_D9-11a.svg',
+		},
+		'fuel_diesel': {
+			'us': 'https://upload.wikimedia.org/wikipedia/commons/7/7e/MUTCD_D9-11.svg',
+		},
+		'fuel_e85': {
+			'us': 'https://upload.wikimedia.org/wikipedia/commons/f/f3/MUTCD_D9-11c.svg',
+		},
+		'fuel_ev': {
+			'us': 'https://upload.wikimedia.org/wikipedia/commons/6/6c/MUTCD_D9-11b.svg',
+		},
+		'hospital': {
+			'us': 'https://upload.wikimedia.org/wikipedia/commons/f/fd/MUTCD_D9-2.svg',
+		},
+		'industrial': {
+			'eu': 'https://upload.wikimedia.org/wikipedia/commons/4/4e/RWB_Industriegebiet.svg',
+		},
+		'info': {
+			'us': 'https://upload.wikimedia.org/wikipedia/commons/a/a4/MUTCD_D9-10.svg',
+		},
+		'lodging': {
+			'us': 'https://upload.wikimedia.org/wikipedia/commons/4/44/MUTCD_D9-9.svg',
+		},
+		'parking': {
+			'us': 'https://upload.wikimedia.org/wikipedia/commons/c/cb/Japanese_Road_sign_(Parking_lot_A,_Parking_permitted).svg',
+		},
+		'parking_truck': {
+			'us': 'https://upload.wikimedia.org/wikipedia/commons/0/00/MUTCD_D9-16.svg',
+		},
+		'phone': {
+			'us': 'https://upload.wikimedia.org/wikipedia/commons/5/5c/MUTCD_D9-1.svg',
+		},
+		'train_station': {
+			'eu': 'https://upload.wikimedia.org/wikipedia/commons/3/33/Fernbahn_Signet_HVV.svg',
+			'us': 'https://upload.wikimedia.org/wikipedia/commons/a/a5/MUTCD_I-7.svg',
+		},
+		'TDD': {
+			'us': 'https://upload.wikimedia.org/wikipedia/commons/8/8a/MUTCD_D9-21.svg',
+		},
+		'wifi': {
+			'us': 'https://upload.wikimedia.org/wikipedia/commons/0/05/MUTCD_D9-22.svg',
+		},
+	};
+
+	if (fw[options.relID].country == 'US') {
+		var country = 'us';
+	} else {
+		var country = 'eu';
+	};
+
+	symbol = symbol.replace(/\s+/g, '');
+	if (symbolsList[symbol]) {
+		var img = symbolsList[symbol][country] || symbolsList[symbol]['us'] || symbolsList[symbol]['eu'];
+	};
+
 	if (img) {
 		return '<img src='+img+'></img>';
 	} else {
-		return '<div class="unknownSymbol euColor">?</div>';
+		return '<div class="unknownSymbol '+country+'Style">?</div>';
 	}
 }
 
