@@ -227,11 +227,12 @@ div.symbolsHolder .symbol {
 	height: 30px;
 	display: inline-block;
 	vertical-align: top;
+	background-color: white;
 }
 
 div.symbolsHolder .symbol img {
 	width: 100%;
-	background-color: white;
+	vertical-align: bottom;
 }
 
 div.symbolsHolder .symbol .unknownSymbol {

@@ -262,6 +262,7 @@ function htmlSymbol (symbol) {
 			'eu': 'https://upload.wikimedia.org/wikipedia/commons/2/2a/Italian_traffic_signs_-_icona_centro.svg',
 		},
 		'ferry': {
+			'eu': 'https://upload.wikimedia.org/wikipedia/commons/9/92/Ferry.png',
 			'us': 'https://upload.wikimedia.org/wikipedia/commons/7/72/MUTCD_I-9.svg',
 		},
 		'food': {
