@@ -347,7 +347,7 @@ function htmlSymbol (symbol) {
 	if (img) {
 		return '<img src='+img+'></img>';
 	} else {
-		return '<div class="unknownSymbol '+country+'Style">?</div>';
+		return '<div class="unknownSymbol '+country+'Style">¿?</div>';
 	}
 }
 
