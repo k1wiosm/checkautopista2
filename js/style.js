@@ -268,12 +268,15 @@ function htmlSymbol (symbol) {
 			'us': 'https://upload.wikimedia.org/wikipedia/commons/7/72/MUTCD_I-9.svg',
 		},
 		'food': {
+			'eu': 'https://upload.wikimedia.org/wikipedia/commons/4/4d/Zeichen_376.svg',
 			'us': 'https://upload.wikimedia.org/wikipedia/commons/9/9d/MUTCD_D9-8.svg',
 		},
 		'fuel': {
+			'eu': 'https://upload.wikimedia.org/wikipedia/commons/d/d3/Zeichen_361-50.svg',
 			'us': 'https://upload.wikimedia.org/wikipedia/commons/0/03/MUTCD_D9-7.svg',
 		},
 		'fuel_cng': {
+			'eu': 'https://upload.wikimedia.org/wikipedia/commons/e/e7/Zeichen_365-54.svg',
 			'us': 'https://upload.wikimedia.org/wikipedia/commons/6/65/MUTCD_D9-11a.svg',
 		},
 		'fuel_diesel': {
@@ -287,6 +290,7 @@ function htmlSymbol (symbol) {
 			'us': 'https://upload.wikimedia.org/wikipedia/commons/6/6c/MUTCD_D9-11b.svg',
 		},
 		'hospital': {
+			'eu': 'https://upload.wikimedia.org/wikipedia/commons/c/c3/Zeichen_358.svg',
 			'us': 'https://upload.wikimedia.org/wikipedia/commons/f/fd/MUTCD_D9-2.svg',
 		},
 		'industrial': {
@@ -297,9 +301,11 @@ function htmlSymbol (symbol) {
 			'us': 'https://upload.wikimedia.org/wikipedia/commons/a/a4/MUTCD_D9-10.svg',
 		},
 		'lodging': {
+			'eu': 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Zeichen_375.svg',
 			'us': 'https://upload.wikimedia.org/wikipedia/commons/4/44/MUTCD_D9-9.svg',
 		},
 		'parking': {
+			'eu': 'https://upload.wikimedia.org/wikipedia/commons/a/ab/Zeichen_314_-_Parkplatz%2C_StVO_2013.svg',
 			'us': 'https://upload.wikimedia.org/wikipedia/commons/c/cb/Japanese_Road_sign_(Parking_lot_A,_Parking_permitted).svg',
 		},
 		'parking_truck': {
