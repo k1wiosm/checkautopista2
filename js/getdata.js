@@ -218,7 +218,11 @@ Freeway.prototype.loadDestinationUnmarked = function(opt) {
 			// Get corresponding motorway_link
 			for (var i = 0; i < response.elements.length; i++) {
 				if(!response.elements[i].tags) { continue; }; // Remove untagged ways
-				if(response.elements[i].tags.highway!=='motorway_link') { continue; }; // Remove ways which are not motorway_link
+				if(response.elements[i].tags.highway!=='motorway_link' &&
+					response.elements[i].tags.highway!=='construction' && 
+					response.elements[i].tags.construction!=='motorway_link' &&
+					response.elements[i].tags.highway!=='proposed' && 
+					response.elements[i].tags.proposed!=='motorway_link' &&) { continue; }; // Remove ways which are not motorway_link
 				for (var j = 0; j < fwy.exits.length; j++) {
 					// Searching for the motorway_junction corresponding to this motorway_link
 					if(fwy.exits[j].nodeID==response.elements[i].nodes[0] && response.elements[i].tags.oneway=='yes' || 
