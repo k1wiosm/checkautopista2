@@ -1,12 +1,22 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>CheckAutopista2</title>
-		<meta name="viewport" content="width=device-width, target-densitydpi=high-dpi, user-scalable=no, initial-scale=1, minimum-scale=1, maximum-scale=1" /> <!-- iOS: Fill screen -->
+		<title>CheckAutopista2 - Quality assurance tool for motorways in OpenStreetMap</title>
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, minimum-scale=1, maximum-scale=1" /> <!-- iOS: Fill screen -->
 		<meta http-equiv="Content-Type" content="application/vnd.wap.xhtml+xml; charset=utf-8" />
 		<meta name="HandheldFriendly" content="true" />
 		<meta name="apple-mobile-web-app-capable" content="yes" /> <!--iOS: Capable of running fullscreen as an app-->
 		<meta name="apple-mobile-web-app-status-bar-style" content="black"> <!--iOS: Black status bar-->
+		<meta name="description" content="A quality assurance tool for motorways in OpenStreetMap. Checks highways tagged as motorway, motorway_link and their exits for completeness.">
+		<meta name="keywords" content="openstreetmap, destination, QA">
+		<meta name="robots" content="index, follow">
+		<meta name="language" content="EN">
+                <meta name="theme-color" content="#0074d9">
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+		<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+		<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+		<link rel="manifest" href="/manifest.json">
+		<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#0074d9">
 		<link rel="stylesheet" href="lib/jquery/jquery-ui.css">
 		<link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css">
 		<link rel="stylesheet" href="lib/leaflet/leaflet.css" />
@@ -55,9 +65,9 @@
 				<div class="sidebar-pane" id="search">
 					<!-- Search in map -->
 					<div class="section" id="searchInMap">
-						<h3>Search in map</h3>
+						<h3>Search current map view</h3>
 						<table><tr>
-							<td class="fit"><button onClick="searchInMap()" title="Search in map">
+							<td class="fit"><button onClick="searchInMap()" title="Search in current map view">
 								<i class="fa fa-map-o"></i> <i class="fa fa-search"></i>
 							</button></td>
 							<td><select disabled></select></td>
@@ -71,7 +81,7 @@
 						<h3>Get by relation ID</h3>
 						<form>
 						<table><tr>
-							<td><input type="number" pattern="\d*" id="relID"></input></td>
+							<td><input type="number" pattern="\d*" id="relID" min="1" placeholder="Ex. 106164"></input></td>
 							<td class="fit"><button class="download" onClick="loadFreeway($('input#relID').val(), {zoom:true});event.preventDefault();" title="Download" disabled>
 								<i class="fa fa-cloud-download"></i>
 							</button></td>
