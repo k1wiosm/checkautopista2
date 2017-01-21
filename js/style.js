@@ -430,18 +430,25 @@ function htmlTagsTable (element) {
 }
 
 function htmlPrevNext (element) {
-	var html = '<div id="prevnext">';
-	html += '<div id="prev"><p><i class="fa fa-arrow-left"></i></p>';
-	for (var i = 0; i < element.prev.length; i++) {
-		html += '<p><a href="javascript:;" onClick="way['+element.prev[i].wayID+'].zoom();'+
-			'way['+element.prev[i].wayID+'].sidebar();">'+
-			element.prev[i].wayID +'</a></p>';
+	var html = '<div id="prevnext"><div id="prev">';
+	if (element.prev.length>0) {
+		html += '<p><i class="fa fa-arrow-left"></i></p>';
+		for (var i = 0; i < element.prev.length; i++) {
+			html += '<p><a href="javascript:;" '+
+				'onClick="way['+element.prev[i].wayID+'].zoom();'+
+				'way['+element.prev[i].wayID+'].sidebar();">'+
+				element.prev[i].wayID +'</a></p>';
+		};
 	};
-	html += '</div><div id="next"><p><i class="fa fa-arrow-right"></i></p>';
-	for (var i = 0; i < element.next.length; i++) {
-		html += '<p><a href="javascript:;" onClick="way['+element.next[i].wayID+'].zoom();'+
-			'way['+element.next[i].wayID+'].sidebar();">'+
-			element.next[i].wayID +'</a></p>';
+	html+='</div><div id="next">'
+	if (element.next.length>0) {
+		html += '<p><i class="fa fa-arrow-right"></i></p>';
+		for (var i = 0; i < element.next.length; i++) {
+			html += '<p><a href="javascript:;" '+
+				'onClick="way['+element.next[i].wayID+'].zoom();'+
+				'way['+element.next[i].wayID+'].sidebar();">'+
+				element.next[i].wayID +'</a></p>';
+		};
 	};
 	html += '</div></div>';
 	html += '</table>';
