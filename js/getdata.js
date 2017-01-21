@@ -41,6 +41,8 @@ function Way(element) {
 	this.wayID = element.id;
 	this.nodes = element.nodes;
 	this.tags = element.tags;
+	this.prev = [];		// array of ways that are before this way
+	this.next = [];		// array of ways that are after this way
 	this.hasDestination = function () {
 		// Returns true if this way has any destination tag
 
@@ -155,6 +157,37 @@ Freeway.prototype.loadFreewayData = function(opt) {
 				// Get info from ways
 				} else if (response.elements[i].type=='way') {
 					way[response.elements[i].id] = new Way(response.elements[i]);
+				};
+			};
+			// Get previous/next ways of each way
+			for (var i = 0; i < fwy.waysIDs.length; i++) {
+				var wayi = way[fwy.waysIDs[i]];
+				var lasti = wayi.nodes.length-1;
+				for (var j = 0; j < fwy.waysIDs.length; j++) {
+					var wayj = way[fwy.waysIDs[j]];
+					var lastj = wayj.nodes.length-1;
+					// Skip if it's the same way
+					if (wayi==wayj) { continue; };
+					// Checking first node
+					if (wayi.nodes[0]==wayj.nodes[0] ||
+						wayi.nodes[0]==wayj.nodes[lastj]) {
+						if (!wayi.tags || wayi.tags.oneway!='-1') {
+							wayi.prev.push(wayj);
+							console.log(wayj.wayID+' is prev to '+wayi.wayID);
+						} else {
+							wayi.next.push(wayj);
+							console.log(wayj.wayID+' is next to '+wayi.wayID);
+						};
+					};
+					//Checking last node
+					if (wayi.nodes[lasti]==wayj.nodes[0] ||
+						wayi.nodes[lasti]==wayj.nodes[lastj]) {
+						if (!wayi.tags || wayi.tags.oneway!='-1') {
+							wayi.next.push(wayj);
+						} else {
+							wayi.prev.push(wayj);
+						};
+					};
 				};
 			};
 			if (opt && opt.zoom) { fwy.zoom() };

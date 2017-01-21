@@ -175,7 +175,11 @@ function htmlInfo(element) {
 			html += htmlGenericInfo(element.linkWays[i]);
 		};
 	};
-	html += '<p id="timestamp">' + fw[options.relID].timestamp + '</p>';
+	if (element.type=='way') {
+		html += htmlPrevNext(element);
+	};
+	html += '<div id="timestamp"><p>' + fw[options.relID].timestamp + 
+		'</p></div>';
 	return html;
 }
 
@@ -421,6 +425,25 @@ function htmlTagsTable (element) {
 		'<td class="code">'+element.tags[key].replace('<','&lt;').replace(/;/g,';&#8203;') +'</td></tr>';
 	};
 	if (element.tags==undefined) { html += '<p>No tags</p>'};
+	html += '</table>';
+	return html;
+}
+
+function htmlPrevNext (element) {
+	var html = '<div id="prevnext">';
+	html += '<div id="prev"><p><i class="fa fa-arrow-left"></i></p>';
+	for (var i = 0; i < element.prev.length; i++) {
+		html += '<p><a href="javascript:;" onClick="way['+element.prev[i].wayID+'].zoom();'+
+			'way['+element.prev[i].wayID+'].sidebar();">'+
+			element.prev[i].wayID +'</a></p>';
+	};
+	html += '</div><div id="next"><p><i class="fa fa-arrow-right"></i></p>';
+	for (var i = 0; i < element.next.length; i++) {
+		html += '<p><a href="javascript:;" onClick="way['+element.next[i].wayID+'].zoom();'+
+			'way['+element.next[i].wayID+'].sidebar();">'+
+			element.next[i].wayID +'</a></p>';
+	};
+	html += '</div></div>';
 	html += '</table>';
 	return html;
 }

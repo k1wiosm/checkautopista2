@@ -160,6 +160,20 @@ i.icon {
 	vertical-align: top;
 }
 
+div#prevnext {
+	overflow: auto;
+}
+
+div#prev {
+	float: left;
+	text-align: left;
+}
+
+div#next {
+	float: right;
+	text-align: right;
+}
+
 /* Html Panel */
 
 div.panelWrapper {

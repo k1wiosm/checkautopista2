@@ -127,10 +127,7 @@ Freeway.prototype.addToSidebar = function () {
 	// Assign click event to map features
 	mapDataLayer.eachLayer( function (layer) {
 		layer.on('click', function (e) {
-			ga('send','event','Info','click',this.element.nodeID ? 'n'+this.element.nodeID : 'w'+this.element.wayID);
-			$('li#info').toggleClass('disabled', false);
-			$('div#info div#tags').html(htmlInfo(this.element));
-			sidebar.open('info');
+			this.element.sidebar();
 		});
 	});
 	// Road
@@ -181,8 +178,22 @@ Way.prototype.zoom = function () {
 	map.fitBounds(this.polyline.getBounds());
 }
 
+Way.prototype.sidebar = function () {
+	ga('send','event','Info','click','w'+this.wayID);
+	$('li#info').toggleClass('disabled', false);
+	$('div#info div#tags').html(htmlInfo(this));
+	sidebar.open('info');
+}
+
 Node.prototype.zoom = function () {
 	map.setView(this.marker.getLatLng(),18);
+}
+
+Node.prototype.sidebar = function () {
+	ga('send','event','Info','click','n'+this.nodeID);
+	$('li#info').toggleClass('disabled', false);
+	$('div#info div#tags').html(htmlInfo(this));
+	sidebar.open('info');
 }
 
 function updateVisibility(clicked) {
