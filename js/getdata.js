@@ -173,10 +173,8 @@ Freeway.prototype.loadFreewayData = function(opt) {
 						wayi.nodes[0]==wayj.nodes[lastj]) {
 						if (!wayi.tags || wayi.tags.oneway!='-1') {
 							wayi.prev.push(wayj);
-							console.log(wayj.wayID+' is prev to '+wayi.wayID);
 						} else {
 							wayi.next.push(wayj);
-							console.log(wayj.wayID+' is next to '+wayi.wayID);
 						};
 					};
 					//Checking last node
