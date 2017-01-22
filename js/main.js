@@ -78,12 +78,18 @@ $(document).ready(function() {
 		if (way[options.wayID] && way[options.wayID].prev[0]) {
 			way[options.wayID].prev[0].sidebar();
 			way[options.wayID].prev[0].zoom();
+		} else if (node[options.nodeID] && node[options.nodeID].prev[0]) {
+			node[options.nodeID].prev[0].sidebar();
+			node[options.nodeID].prev[0].zoom();
 		};
 	});
 	Mousetrap.bind('j', function(e) {
 		if (way[options.wayID] && way[options.wayID].next[0]) {
 			way[options.wayID].next[0].sidebar();
 			way[options.wayID].next[0].zoom();
+		} else if (node[options.nodeID] && node[options.nodeID].next[0]) {
+			node[options.nodeID].next[0].sidebar();
+			node[options.nodeID].next[0].zoom();
 		};
 	});
 });
