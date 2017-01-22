@@ -39,7 +39,8 @@ way = [];
 function Way(element) {
 	this.type = 'way';
 	this.wayID = element.id;
-	this.nodes = element.nodes;
+	this.nodes = element.nodes;		// nodeIDs of nodes that make this way
+	this.exitNodes = [];	// array of exit nodes connected to this way
 	this.tags = element.tags;
 	this.prev = [];		// array of ways that are before this way
 	this.next = [];		// array of ways that are after this way
@@ -73,10 +74,13 @@ function Way(element) {
 
 function Exit() {
 	this.subtype = 'exit';
-	this.linkWays = [];
+	this.linkWays = [];			// motorway_link ways connected to this exit
 	this.ref = undefined;
 	this.name = undefined;
 	this.exit_to = undefined;
+	this.parentWays = [];		// motorway ways connected to this exit
+	this.prev = [];		// previous exit
+	this.next = [];		// next exit
 	this.hasDestination = function () {
 		// Returns true if the motorway_link way of this exit has destination
 
@@ -188,6 +192,55 @@ Freeway.prototype.loadFreewayData = function(opt) {
 					};
 				};
 			};
+			// Get parentWays of each exit & exitNodes of each way
+			for (var i = 0; i < fwy.waysIDs.length; i++) {
+				var wayi = way[fwy.waysIDs[i]];
+				for (var j = 0; j < wayi.nodes.length; j++) {
+					var nodej = wayi.nodes[j];
+					if (node[nodej] && node[nodej].subtype=='exit') {
+						node[nodej].parentWays.push(wayi);
+						if (wayi.tags.oneway!='-1') {
+							wayi.exitNodes.push(node[nodej]);
+						} else {
+							wayi.exitNodes.unshift(node[nodej]);
+						};
+						
+					};
+				};
+			};
+			// Get prev/next exit of each exit
+			for (var i = 0; i < fwy.exits.length; i++) {
+				var exiti = fwy.exits[i];
+				// look for the next exit node
+				var wayj = exiti.parentWays[0];
+				while (exiti.next.length==0 && wayj) {
+					if (wayj.exitNodes.length>0) { 
+						var k = wayj.exitNodes.indexOf(exiti);
+						if (k<0) {
+							exiti.next.push(wayj.exitNodes[0]);
+						} else if (k<length-1) {
+							exiti.next.push(wayj.exitNodes[k+1]);
+						};
+					};
+					wayj=wayj.next[0];
+					if (wayj==exiti.parentWays[0]) { break; };
+				};
+				// look for the previous exit node
+				var wayj = exiti.parentWays[0];
+				while (exiti.prev.length==0 && wayj) {
+					if (wayj.exitNodes.length>0) { 
+						var k = wayj.exitNodes.indexOf(exiti);
+						if (k<0) {
+							exiti.prev.push(wayj.exitNodes[wayj.exitNodes.length-1]);
+						} else if (k>0) {
+							exiti.prev.push(wayj.exitNodes[k-1]);
+						};
+					};
+					wayj=wayj.prev[0];
+					if (wayj==exiti.parentWays[0]) { break; };
+				};
+			};
+
 			if (opt && opt.zoom) { fwy.zoom() };
 			fwy.loaded++;
 			console.timeEnd('loadFreewayData');

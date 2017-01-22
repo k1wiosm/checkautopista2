@@ -175,7 +175,7 @@ function htmlInfo(element) {
 			html += htmlGenericInfo(element.linkWays[i]);
 		};
 	};
-	if (element.type=='way') {
+	if (element.type=='way' || element.subtype=='exit') {
 		html += htmlPrevNext(element);
 	};
 	html += '<div id="timestamp"><p>' + fw[options.relID].timestamp + 
@@ -430,24 +430,25 @@ function htmlTagsTable (element) {
 }
 
 function htmlPrevNext (element) {
+	var type = element.type;
 	var html = '<div id="prevnext"><div id="prev">';
 	if (element.prev.length>0) {
 		html += '<p><i class="fa fa-arrow-left"></i></p>';
 		for (var i = 0; i < element.prev.length; i++) {
+			var id = element.prev[i].wayID||element.prev[i].nodeID;
 			html += '<p><a href="javascript:;" '+
-				'onClick="way['+element.prev[i].wayID+'].zoom();'+
-				'way['+element.prev[i].wayID+'].sidebar();">'+
-				element.prev[i].wayID +'</a></p>';
+				'onClick="'+type+'['+id+'].zoom();'+
+				''+type+'['+id+'].sidebar();">'+id+'</a></p>';
 		};
 	};
 	html+='</div><div id="next">'
 	if (element.next.length>0) {
 		html += '<p><i class="fa fa-arrow-right"></i></p>';
 		for (var i = 0; i < element.next.length; i++) {
+			var id = element.next[i].wayID||element.next[i].nodeID;
 			html += '<p><a href="javascript:;" '+
-				'onClick="way['+element.next[i].wayID+'].zoom();'+
-				'way['+element.next[i].wayID+'].sidebar();">'+
-				element.next[i].wayID +'</a></p>';
+				'onClick="'+type+'['+id+'].zoom();'+
+				''+type+'['+id+'].sidebar();">'+id+'</a></p>';
 		};
 	};
 	html += '</div></div>';
