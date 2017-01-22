@@ -175,7 +175,7 @@ Way.prototype.getLength = function () {
 }
 
 Way.prototype.zoom = function () {
-	map.fitBounds(this.polyline.getBounds());
+	map.fitBounds(this.polyline.getBounds(),{paddingTopLeft: [410,0], maxZoom: 15});
 }
 
 Way.prototype.sidebar = function () {
@@ -186,7 +186,7 @@ Way.prototype.sidebar = function () {
 }
 
 Node.prototype.zoom = function () {
-	map.setView(this.marker.getLatLng(),18);
+	map.setView(this.marker.getLatLng(),16,{paddingTopLeft: [410,0]});
 }
 
 Node.prototype.sidebar = function () {
