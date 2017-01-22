@@ -73,6 +73,19 @@ $(document).ready(function() {
 	$('div#searchInMap button.download,div#searchInMap select').prop('disabled', $('div#searchInMap select >').length == 0);
 	$('div#searchByID button.download').prop('disabled', $('div#searchByID input').val().length == 0);
 	$('div#searchByProp button.download,div#searchByProp select').prop('disabled', $('div#searchByProp select >').length == 0);
+
+	Mousetrap.bind('k', function(e) {
+		if (way[options.wayID] && way[options.wayID].prev[0]) {
+			way[options.wayID].prev[0].sidebar();
+			way[options.wayID].prev[0].zoom();
+		};
+	});
+	Mousetrap.bind('j', function(e) {
+		if (way[options.wayID] && way[options.wayID].next[0]) {
+			way[options.wayID].next[0].sidebar();
+			way[options.wayID].next[0].zoom();
+		};
+	});
 });
 
 function updatePermalink (relID, lat, lon, z) {

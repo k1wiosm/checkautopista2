@@ -178,7 +178,9 @@ Way.prototype.zoom = function () {
 	map.fitBounds(this.polyline.getBounds(),{paddingTopLeft: [410,0], maxZoom: 15});
 }
 
+
 Way.prototype.sidebar = function () {
+	options.wayID=this.wayID;
 	ga('send','event','Info','click','w'+this.wayID);
 	$('li#info').toggleClass('disabled', false);
 	$('div#info div#tags').html(htmlInfo(this));
