@@ -211,22 +211,27 @@ Freeway.prototype.loadFreewayData = function(opt) {
 			// Get prev/next exit of each exit
 			for (var i = 0; i < fwy.exits.length; i++) {
 				var exiti = fwy.exits[i];
+				var timeout;
 				// look for the next exit node
 				var wayj = exiti.parentWays[0];
+				timeout = 0;
 				while (exiti.next.length==0 && wayj) {
 					if (wayj.exitNodes.length>0) { 
 						var k = wayj.exitNodes.indexOf(exiti);
 						if (k<0) {
 							exiti.next.push(wayj.exitNodes[0]);
-						} else if (k<length-1) {
+						} else if (k<wayj.exitNodes.length-1) {
 							exiti.next.push(wayj.exitNodes[k+1]);
 						};
 					};
 					wayj=wayj.next[0];
 					if (wayj==exiti.parentWays[0]) { break; };
+					timeout++;
+					if (timeout>1000) { break; }
 				};
 				// look for the previous exit node
 				var wayj = exiti.parentWays[0];
+				timeout = 0;
 				while (exiti.prev.length==0 && wayj) {
 					if (wayj.exitNodes.length>0) { 
 						var k = wayj.exitNodes.indexOf(exiti);
@@ -238,6 +243,8 @@ Freeway.prototype.loadFreewayData = function(opt) {
 					};
 					wayj=wayj.prev[0];
 					if (wayj==exiti.parentWays[0]) { break; };
+					timeout++;
+					if (timeout>1000) { break; };
 				};
 			};
 
