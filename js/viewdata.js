@@ -144,7 +144,7 @@ Freeway.prototype.addToSidebar = function () {
 	$('div#road h3').html('Relation : ' + this.relID + htmlButtons('relation',this.relID));
 	$('div#road div.tags').html(htmlTagsTable(this));
 	// Stats
-	$('div#stats h2').html(this.name+' ('+(this.ref||'').replace('-','&#8209;')+')<br/>');
+	$('div#stats h2').html(this.tags.name+' ('+(this.tags.ref||'').replace('-','&#8209;')+')<br/>');
 	$('div#stats tr#toll td#data').html();
 	$('div#stats tr#exDest td#data').html(this.analysis.exDest);
 	$('div#stats tr#exExitTo td#data').html(this.analysis.exExitTo);

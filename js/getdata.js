@@ -1,9 +1,7 @@
 fw = [];
-function Freeway(relID, name) {
+function Freeway(relID) {
 	this.type = 'relation'
 	this.relID = relID;
-	this.name = name;
-	this.ref = undefined;
 	this.tags = undefined;
 	this.bounds = undefined;
 	this.country = undefined;
@@ -120,8 +118,6 @@ Freeway.prototype.loadFreewayData = function(opt) {
 				// Get info from relation
 				if (response.elements[i].type=='relation'){
 					fwy.tags = response.elements[i].tags;
-					fwy.name = response.elements[i].tags.name;
-					fwy.ref = response.elements[i].tags.ref;
 					fwy.bounds = response.elements[i].bounds;
 					for (var j = 0; j < response.elements[i].members.length; j++) {
 						if (response.elements[i].members[j].type=='way') {

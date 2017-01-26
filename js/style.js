@@ -369,9 +369,9 @@ function htmlMotorwayPanel (element) {
 	if (element.tags.symbol) {
 		html += '<div class="symbol"><img src="'+element.tags.symbol+'"/></div>';
 	} else {
-		html += '<div class="ref'+(element.tags.network=='e-road'?' greenE':'')+'">' + (element.ref || '') +'</div>';
+		html += '<div class="ref'+(element.tags.network=='e-road'?' greenE':'')+'">' + (element.tags.ref || '') +'</div>';
 	}
-	html += 				'<div class="name">'+element.name+'</div>'+
+	html += 				'<div class="name">'+element.tags.name+'</div>'+
 						'</div>'+
 					'</div>'+
 				'</div>';
