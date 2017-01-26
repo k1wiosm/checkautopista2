@@ -1,12 +1,14 @@
 # CheckAutopista2
 
-Live demo: http://k1wiosm.github.io/checkautopista2/
+Try it out here: http://k1wiosm.github.io/checkautopista2/
 
 _For the original CheckAutopista see: http://github.com/k1wiosm/checkautopista_
 
 ![](https://raw.githubusercontent.com/k1wiosm/checkautopista2/master/img/example.png)
 
-CheckAutopista is a quality assurance tool for motorways in OpenStreetMap. This tools can check any motorway in the world. CheckAutopista only works with motorways gathered in a relation tagged as ```type=route``` and ```route=road```. Also the motorway ways need to tagged as ```highway=motorway``` or ```highway=motorway_link```.
+CheckAutopista is a quality assurance tool for motorways in OpenStreetMap. With CheckAutopista you cand easily find tagging errors or missing data in any motorway from around the world. 
+
+CheckAutopista only works with motorways gathered in a relation tagged as ```type=route``` and ```route=road```. Also the motorway ways need to tagged as ```highway=motorway``` or ```highway=motorway_link```.
 
 ##How to use
 
@@ -53,6 +55,7 @@ You can choose a motorway from the map and it shows:
 * [Leaflet.VectorGrid](http://github.com/IvanSanchez/Leaflet.VectorGrid)
 * [fetch](https://github.com/github/fetch)
 * [purl](http://github.com/allmarkedup/jQuery-URL-Parser)
+* [mousetrap](https://github.com/ccampbell/mousetrap)
 * [js-cookie](https://github.com/js-cookie/js-cookie)
 * [jQuery](http://jquery.com)
 * [jQuery UI](http://jqueryui.com/)
