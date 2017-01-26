@@ -26,7 +26,9 @@ Freeway.prototype.getAnalysis = function () {
 		if (this.exits[i].tags.name!=undefined) { exName++; };
 		if (this.exits[i].tags.exit_to!=undefined) { exExitTo++; };
 		if (this.exits[i].hasDestination()) { exDest++; };
-		if (this.exits[i].tags.name!=undefined || this.exits[i].tags.exit_to!=undefined || this.exits[i].hasDestination()) { exDir++; };
+		if (this.exits[i].tags.name!=undefined || 
+			this.exits[i].tags.exit_to!=undefined || 
+			this.exits[i].hasDestination()) { exDir++; };
 	};
 	this.analysis.exTotal = this.exits.length;
 	this.analysis.exRef = exRef;
@@ -47,11 +49,12 @@ Freeway.prototype.getAnalysis = function () {
 	var wNoMaxspeed = 0;
 	var wNone = 0;
 	for (var i = 0; i < this.waysIDs.length; i++) {
-		if(way[this.waysIDs[i]].tags==undefined||way[this.waysIDs[i]].tags.lanes==undefined&&way[this.waysIDs[i]].tags.maxspeed==undefined) { 
-			wNone += way[this.waysIDs[i]].getLength(); }
-		else if (way[this.waysIDs[i]].tags.lanes==undefined) { wNoLanes += way[this.waysIDs[i]].getLength(); }
-		else if (way[this.waysIDs[i]].tags.maxspeed==undefined) { wNoMaxspeed += way[this.waysIDs[i]].getLength(); }
-		else { wAll += way[this.waysIDs[i]].getLength(); };
+		if(way[this.waysIDs[i]].tags==undefined || 
+			way[this.waysIDs[i]].tags.lanes==undefined && 
+			way[this.waysIDs[i]].tags.maxspeed==undefined) { wNone += way[this.waysIDs[i]].getLength(); 
+		} else if (way[this.waysIDs[i]].tags.lanes==undefined) { wNoLanes += way[this.waysIDs[i]].getLength(); 
+		} else if (way[this.waysIDs[i]].tags.maxspeed==undefined) { wNoMaxspeed += way[this.waysIDs[i]].getLength(); 
+		} else { wAll += way[this.waysIDs[i]].getLength(); };
 	};
 	this.analysis.wAll = wAll;
 	this.analysis.wNoLanes = wNoLanes;
@@ -70,7 +73,9 @@ Freeway.prototype.addToMap = function() {
 	for (var i = 0; i < this.waysIDs.length; i++) {
 		var latlngs = [];
 		for (var j = 0; j < way[this.waysIDs[i]].nodes.length; j++) {
-			latlngs.push({lat:node[way[this.waysIDs[i]].nodes[j]].lat, lng:node[way[this.waysIDs[i]].nodes[j]].lon});
+			latlngs.push({
+				lat:node[way[this.waysIDs[i]].nodes[j]].lat, 
+				lng:node[way[this.waysIDs[i]].nodes[j]].lon});
 		};
 		var polyline = L.polyline(latlngs, styleWay(way[this.waysIDs[i]].tags));
 		polyline.element = way[this.waysIDs[i]];
@@ -82,14 +87,17 @@ Freeway.prototype.addToMap = function() {
 	for (var i = 0; i < this.areasWay.length; i++) {
 		var latlngs = [];
 		for (var j = 0; j < way[this.areasWay[i].wayID].nodes.length; j++) {
-			latlngs.push({lat:node[way[this.areasWay[i].wayID].nodes[j]].lat, lng:node[way[this.areasWay[i].wayID].nodes[j]].lon});
+			latlngs.push({
+				lat:node[way[this.areasWay[i].wayID].nodes[j]].lat, 
+				lng:node[way[this.areasWay[i].wayID].nodes[j]].lon});
 		};
 		var polygon = L.polygon(latlngs, styleWay(way[this.areasWay[i].wayID].tags));
 		polygon.element = way[this.areasWay[i].wayID];
 		polygon.type = 'polygon';
 		way[this.areasWay[i].wayID].polygon = polygon;
 		mapDataLayer.addLayer(polygon);
-		var marker = L.circleMarker({lat:this.areasWay[i].center.lat, lng:this.areasWay[i].center.lon}, styleNode(this.areasWay[i]));
+		var marker = L.circleMarker({lat:this.areasWay[i].center.lat, lng:this.areasWay[i].center.lon}, 
+			styleNode(this.areasWay[i]));
 		marker.element = way[this.areasWay[i].wayID];
 		marker.type = 'marker';
 		way[this.areasWay[i].wayID].marker = marker;
@@ -251,15 +259,20 @@ function mapChange(group, action) {
 		};
 	} else if (group=='exExitTo') {
 		for (var i = 0; i < fw[id].exits.length; i++) {
-			if (!fw[id].exits[i].hasDestination()&&fw[id].exits[i].tags.exit_to!==undefined) { map[action](fw[id].exits[i].marker); };
+			if (!fw[id].exits[i].hasDestination() && 
+				fw[id].exits[i].tags.exit_to!==undefined) { map[action](fw[id].exits[i].marker); };
 		};
 	} else if (group=='exName') {
 		for (var i = 0; i < fw[id].exits.length; i++) {
-			if (!fw[id].exits[i].hasDestination()&&fw[id].exits[i].tags.exit_to==undefined&&fw[id].exits[i].tags.name!==undefined) { map[action](fw[id].exits[i].marker); };
+			if (!fw[id].exits[i].hasDestination() && 
+				fw[id].exits[i].tags.exit_to==undefined && 
+				fw[id].exits[i].tags.name!==undefined) { map[action](fw[id].exits[i].marker); };
 		};
 	} else if (group=='exNone') {
 		for (var i = 0; i < fw[id].exits.length; i++) {
-			if (!fw[id].exits[i].hasDestination()&&fw[id].exits[i].tags.exit_to==undefined&&fw[id].exits[i].tags.name==undefined) { map[action](fw[id].exits[i].marker); };
+			if (!fw[id].exits[i].hasDestination() && 
+				fw[id].exits[i].tags.exit_to==undefined && 
+				fw[id].exits[i].tags.name==undefined) { map[action](fw[id].exits[i].marker); };
 		};
 	} else if (group=='exUnmarked') {
 		for (var i = 0; i < fw[id].unmarked.length; i++) {
@@ -271,39 +284,49 @@ function mapChange(group, action) {
 		};
 	} else if (group=='exNoRefYes') {
 		for (var i = 0; i < fw[id].exits.length; i++) {
-			if (fw[id].exits[i].tags.ref==undefined && fw[id].exits[i].tags.noref=='yes') { map[action](fw[id].exits[i].marker); };
+			if (fw[id].exits[i].tags.ref==undefined && 
+				fw[id].exits[i].tags.noref=='yes') { map[action](fw[id].exits[i].marker); };
 		};
 	} else if (group=='exNoRef') {
 		for (var i = 0; i < fw[id].exits.length; i++) {
-			if (fw[id].exits[i].tags.ref==undefined && fw[id].exits[i].tags.noref==undefined) { map[action](fw[id].exits[i].marker); };
+			if (fw[id].exits[i].tags.ref==undefined && 
+				fw[id].exits[i].tags.noref==undefined) { map[action](fw[id].exits[i].marker); };
 		};
 	} else if (group=='areas') {
 		for (var i = 0; i < fw[id].areasNode.length; i++) {
-			if (fw[id].areasNode[i].tags.highway=='services'||fw[id].areasNode[i].tags.highway=='rest_area') { map[action](fw[id].areasNode[i].marker); };
+			if (fw[id].areasNode[i].tags.highway=='services' || 
+				fw[id].areasNode[i].tags.highway=='rest_area') { map[action](fw[id].areasNode[i].marker); };
 		};
 		for (var i = 0; i < fw[id].areasWay.length; i++) {
-			if (fw[id].areasWay[i].tags.highway=='services'||fw[id].areasWay[i].tags.highway=='rest_area') { map[action](fw[id].areasWay[i].marker); };
-			if (fw[id].areasWay[i].tags.highway=='services'||fw[id].areasWay[i].tags.highway=='rest_area') { map[action](fw[id].areasWay[i].polygon); };
+			if (fw[id].areasWay[i].tags.highway=='services' || 
+				fw[id].areasWay[i].tags.highway=='rest_area') { 
+					map[action](fw[id].areasWay[i].marker);
+					map[action](fw[id].areasWay[i].polygon); 
+			};
 		};
 	} else if (group=='wAll') {
 		for (var i = 0; i < fw[id].waysIDs.length; i++) {
 			if (way[fw[id].waysIDs[i]].tags==undefined) { continue; };
-			if (way[fw[id].waysIDs[i]].tags.lanes!==undefined&&way[fw[id].waysIDs[i]].tags.maxspeed!==undefined) { map[action](way[fw[id].waysIDs[i]].polyline); };
+			if (way[fw[id].waysIDs[i]].tags.lanes!==undefined && 
+				way[fw[id].waysIDs[i]].tags.maxspeed!==undefined) { map[action](way[fw[id].waysIDs[i]].polyline); };
 		};
 	} else if (group=='wNoLanes') {
 		for (var i = 0; i < fw[id].waysIDs.length; i++) {
 			if (way[fw[id].waysIDs[i]].tags==undefined) { continue; };
-			if (way[fw[id].waysIDs[i]].tags.lanes==undefined&&way[fw[id].waysIDs[i]].tags.maxspeed!==undefined) { map[action](way[fw[id].waysIDs[i]].polyline); };
+			if (way[fw[id].waysIDs[i]].tags.lanes==undefined && 
+				way[fw[id].waysIDs[i]].tags.maxspeed!==undefined) { map[action](way[fw[id].waysIDs[i]].polyline); };
 		};
 	} else if (group=='wNoMaxspeed') {
 		for (var i = 0; i < fw[id].waysIDs.length; i++) {
 			if (way[fw[id].waysIDs[i]].tags==undefined) { continue; };
-			if (way[fw[id].waysIDs[i]].tags.lanes!==undefined&&way[fw[id].waysIDs[i]].tags.maxspeed==undefined) { map[action](way[fw[id].waysIDs[i]].polyline); };
+			if (way[fw[id].waysIDs[i]].tags.lanes!==undefined && 
+				way[fw[id].waysIDs[i]].tags.maxspeed==undefined) { map[action](way[fw[id].waysIDs[i]].polyline); };
 		};
 	} else if (group=='wNone') {
 		for (var i = 0; i < fw[id].waysIDs.length; i++) {
 			if (way[fw[id].waysIDs[i]].tags==undefined) { map[action](way[fw[id].waysIDs[i]].polyline); continue; };
-			if (way[fw[id].waysIDs[i]].tags.lanes==undefined&&way[fw[id].waysIDs[i]].tags.maxspeed==undefined) { map[action](way[fw[id].waysIDs[i]].polyline); };
+			if (way[fw[id].waysIDs[i]].tags.lanes==undefined && 
+				way[fw[id].waysIDs[i]].tags.maxspeed==undefined) { map[action](way[fw[id].waysIDs[i]].polyline); };
 		};
 	};
 }
