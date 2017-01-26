@@ -2,7 +2,7 @@
 
 Try it out here: http://k1wiosm.github.io/checkautopista2/
 
-_For the original CheckAutopista see: http://github.com/k1wiosm/checkautopista_
+_For the old CheckAutopista see: http://github.com/k1wiosm/checkautopista_
 
 ![](https://raw.githubusercontent.com/k1wiosm/checkautopista2/master/img/example.png)
 
@@ -36,6 +36,8 @@ You can choose a motorway from the map and it shows:
   * name
 * Tollbooths
 * Service and Rest Areas
+
+![](https://raw.githubusercontent.com/k1wiosm/checkautopista2/master/img/example1.png)
 
 ##Examples
 
