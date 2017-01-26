@@ -75,9 +75,6 @@ function Way(element) {
 function Exit() {
 	this.subtype = 'exit';
 	this.linkWays = [];			// motorway_link ways connected to this exit
-	this.ref = undefined;
-	this.name = undefined;
-	this.exit_to = undefined;
 	this.parentWays = [];		// motorway ways connected to this exit
 	this.prev = [];		// previous exit
 	this.next = [];		// next exit
@@ -141,9 +138,6 @@ Freeway.prototype.loadFreewayData = function(opt) {
 							ex.lat = response.elements[i].lat;
 							ex.lon = response.elements[i].lon;
 							ex.tags = response.elements[i].tags;
-							ex.ref=response.elements[i].tags.ref;
-							ex.name=response.elements[i].tags.name;
-							ex.exit_to=response.elements[i].tags.exit_to;
 							node[ex.nodeID] = ex;
 							fwy.exits.push(ex);
 						// Get info from toll_booths

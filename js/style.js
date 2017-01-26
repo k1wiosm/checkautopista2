@@ -122,11 +122,11 @@ function styleNode(node) {
 	} else if (node.tags.highway=='motorway_junction') {
 		//Outer style
 		if (node.hasDestination()) { var color = {color: colorExDest};
-		} else if (node.exit_to!=undefined) { var color = {color: colorExExitTo};
-		} else if (node.name!=undefined) { var color = {color: colorExName};
+		} else if (node.tags.exit_to!=undefined) { var color = {color: colorExExitTo};
+		} else if (node.tags.name!=undefined) { var color = {color: colorExName};
 		} else { var color = {color: colorExNone}; };
 		//Inner style
-		if (node.ref!=undefined) { var fill = {fillColor: colorExRef};
+		if (node.tags.ref!=undefined) { var fill = {fillColor: colorExRef};
 		} else if (node.tags.noref=='yes') { var fill = {fillColor: colorExNoRefYes};
 		} else { var fill = {fillColor: colorExNoRef}; };
 	} else if (node.tags.highway=='services'||node.tags.highway=='rest_area') {

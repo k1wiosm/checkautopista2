@@ -21,12 +21,12 @@ Freeway.prototype.getAnalysis = function () {
 	var exDest = 0;
 	var exDir = 0;
 	for (var i = 0; i < this.exits.length; i++) {
-		if (this.exits[i].ref!=undefined) { exRef++;
+		if (this.exits[i].tags.ref!=undefined) { exRef++;
 		} else if (this.exits[i].tags.noref=='yes') { exNoRefYes++; };
-		if (this.exits[i].name!=undefined) { exName++; };
-		if (this.exits[i].exit_to!=undefined) { exExitTo++; };
+		if (this.exits[i].tags.name!=undefined) { exName++; };
+		if (this.exits[i].tags.exit_to!=undefined) { exExitTo++; };
 		if (this.exits[i].hasDestination()) { exDest++; };
-		if (this.exits[i].name!=undefined || this.exits[i].exit_to!=undefined || this.exits[i].hasDestination()) { exDir++; };
+		if (this.exits[i].tags.name!=undefined || this.exits[i].tags.exit_to!=undefined || this.exits[i].hasDestination()) { exDir++; };
 	};
 	this.analysis.exTotal = this.exits.length;
 	this.analysis.exRef = exRef;
@@ -251,15 +251,15 @@ function mapChange(group, action) {
 		};
 	} else if (group=='exExitTo') {
 		for (var i = 0; i < fw[id].exits.length; i++) {
-			if (!fw[id].exits[i].hasDestination()&&fw[id].exits[i].exit_to!==undefined) { map[action](fw[id].exits[i].marker); };
+			if (!fw[id].exits[i].hasDestination()&&fw[id].exits[i].tags.exit_to!==undefined) { map[action](fw[id].exits[i].marker); };
 		};
 	} else if (group=='exName') {
 		for (var i = 0; i < fw[id].exits.length; i++) {
-			if (!fw[id].exits[i].hasDestination()&&fw[id].exits[i].exit_to==undefined&&fw[id].exits[i].name!==undefined) { map[action](fw[id].exits[i].marker); };
+			if (!fw[id].exits[i].hasDestination()&&fw[id].exits[i].tags.exit_to==undefined&&fw[id].exits[i].tags.name!==undefined) { map[action](fw[id].exits[i].marker); };
 		};
 	} else if (group=='exNone') {
 		for (var i = 0; i < fw[id].exits.length; i++) {
-			if (!fw[id].exits[i].hasDestination()&&fw[id].exits[i].exit_to==undefined&&fw[id].exits[i].name==undefined) { map[action](fw[id].exits[i].marker); };
+			if (!fw[id].exits[i].hasDestination()&&fw[id].exits[i].tags.exit_to==undefined&&fw[id].exits[i].tags.name==undefined) { map[action](fw[id].exits[i].marker); };
 		};
 	} else if (group=='exUnmarked') {
 		for (var i = 0; i < fw[id].unmarked.length; i++) {
@@ -267,15 +267,15 @@ function mapChange(group, action) {
 		};
 	} else if (group=='exRef') {
 		for (var i = 0; i < fw[id].exits.length; i++) {
-			if (fw[id].exits[i].ref!==undefined) { map[action](fw[id].exits[i].marker); };
+			if (fw[id].exits[i].tags.ref!==undefined) { map[action](fw[id].exits[i].marker); };
 		};
 	} else if (group=='exNoRefYes') {
 		for (var i = 0; i < fw[id].exits.length; i++) {
-			if (fw[id].exits[i].ref==undefined && fw[id].exits[i].tags.noref=='yes') { map[action](fw[id].exits[i].marker); };
+			if (fw[id].exits[i].tags.ref==undefined && fw[id].exits[i].tags.noref=='yes') { map[action](fw[id].exits[i].marker); };
 		};
 	} else if (group=='exNoRef') {
 		for (var i = 0; i < fw[id].exits.length; i++) {
-			if (fw[id].exits[i].ref==undefined && fw[id].exits[i].tags.noref==undefined) { map[action](fw[id].exits[i].marker); };
+			if (fw[id].exits[i].tags.ref==undefined && fw[id].exits[i].tags.noref==undefined) { map[action](fw[id].exits[i].marker); };
 		};
 	} else if (group=='areas') {
 		for (var i = 0; i < fw[id].areasNode.length; i++) {
