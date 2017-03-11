@@ -166,7 +166,7 @@ Freeway.prototype.addToSidebar = function () {
 
 Freeway.prototype.zoom = function () {
 	if (this.bounds) {
-		map.fitBounds(
+		map.flyToBounds(
 			L.latLngBounds(L.latLng(this.bounds.minlat,this.bounds.minlon), 
 			L.latLng(this.bounds.maxlat,this.bounds.maxlon)),
 			$(window).width() >= 768 ? {paddingTopLeft: [410,0]} : {}
@@ -183,7 +183,7 @@ Way.prototype.getLength = function () {
 }
 
 Way.prototype.zoom = function () {
-	map.fitBounds(this.polyline.getBounds(),{paddingTopLeft: [410,0], maxZoom: 15});
+	map.flyToBounds(this.polyline.getBounds(),{paddingTopLeft: [410,0], maxZoom: 15});
 }
 
 
@@ -197,7 +197,7 @@ Way.prototype.sidebar = function () {
 }
 
 Node.prototype.zoom = function () {
-	map.setView(this.marker.getLatLng(),15,{paddingTopLeft: [410,0]});
+	map.flyTo(this.marker.getLatLng(),15,{paddingTopLeft: [410,0]});
 }
 
 Node.prototype.sidebar = function () {
