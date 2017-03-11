@@ -20,19 +20,10 @@ tileOSM=L.tileLayer(
 		attribution: '<a href="http://openstreetmap.org" title="OpenStreetMap">OSM</a>',
 		maxZoom: 18});
 
-tileMapillary=L.vectorGrid.protobuf(
-	'https://d2munx5tg0hw47.cloudfront.net/tiles/{z}/{x}/{y}.mapbox', {
-		rendererFactory: L.canvas.tile,
-		maxZoom: 18,
-		vectorTileLayerStyles: {
-			'mapillary-sequences': {
-				weight: 15,
-				color: '#00b96f',
-				opacity: 0.3,
-				fill: true
-			},
-		}
-	});
+tileMapillary=L.tileLayer('https://d6a1v2w10ny40.cloudfront.net/v0.1/{z}/{x}/{y}.png', {
+		id: 'mapillary.sequences',
+		maxZoom: 17,
+		opacity: 0.5});
 
 tile30USCities=L.tileLayer(
 	'https://api.mapbox.com/styles/v1/planemad/cijwpzx4m00ofcakw1m0f1ir1/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoicGxhbmVtYWQiLCJhIjoiemdYSVVLRSJ9.g3lbg_eN0kztmsfIPxa9MQ', {
@@ -44,8 +35,8 @@ var sidebar = L.control.sidebar('sidebar').addTo(map);
 
 updateLegend();
 
-if (options.id!==undefined) { 
-	if (options.lat==undefined&&options.lon==undefined&&options.z==undefined) { loadFreeway(options.id, {zoom: true}); 
+if (options.id!==undefined) {
+	if (options.lat==undefined&&options.lon==undefined&&options.z==undefined) { loadFreeway(options.id, {zoom: true});
 	} else { loadFreeway(options.id); };
 };
 
@@ -59,7 +50,7 @@ $(document).ready(function() {
 	});
 	$('div#searchByProp input').keyup(function() {
 		// Disable search when input is empty
-		$('div#searchByProp button.search').prop('disabled', $('div#searchByProp input#name').val().length + $('div#searchByProp input#ref').val().length + 
+		$('div#searchByProp button.search').prop('disabled', $('div#searchByProp input#name').val().length + $('div#searchByProp input#ref').val().length +
 			$('div#searchByProp input#network').val().length + $('div#searchByProp input#operator').val().length == 0);
 	});
 
