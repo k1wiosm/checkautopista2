@@ -130,7 +130,6 @@ Freeway.prototype.addToSidebar = function () {
 	if (this.loaded==4) {
 		$('li#stats i').attr('class', 'fa fa-bar-chart');
 		console.log('Done');
-		ga('send','event','Cargar','click',this.relID);
 	};
 	// Assign click event to map features
 	mapDataLayer.eachLayer( function (layer) {
@@ -190,7 +189,6 @@ Way.prototype.zoom = function () {
 Way.prototype.sidebar = function () {
 	options.nodeID=undefined;
 	options.wayID=this.wayID;
-	ga('send','event','Info','click','w'+this.wayID);
 	$('li#info').toggleClass('disabled', false);
 	$('div#info div#tags').html(htmlInfo(this));
 	sidebar.open('info');
@@ -203,7 +201,6 @@ Node.prototype.zoom = function () {
 Node.prototype.sidebar = function () {
 	options.nodeID=this.nodeID;
 	options.wayID=undefined;
-	ga('send','event','Info','click','n'+this.nodeID);
 	$('li#info').toggleClass('disabled', false);
 	$('div#info div#tags').html(htmlInfo(this));
 	sidebar.open('info');

@@ -395,7 +395,6 @@ function loadFreeway (relID, opt) {
 	fw[relID].relID = relID;
 	fw[relID].loadFreewayData(opt);
 	updatePermalink(relID);
-	ga('send', 'pageview', document.URL.split('/')[document.URL.split('/').length-2]+'/'+document.URL.split('/')[document.URL.split('/').length-1]);
 	return fw[relID];
 }
 
