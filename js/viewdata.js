@@ -8,7 +8,8 @@ function Analysis() {
 	this.exDest = undefined;
 	this.exDir = undefined;
 	this.exUnmarked = undefined;
-	this.tolls = undefined;
+	this.tollBooths = undefined;
+	this.tollGantrys = undefined;
 	this.areas = undefined;
 }
 
@@ -39,7 +40,8 @@ Freeway.prototype.getAnalysis = function () {
 	this.analysis.exDest = exDest;
 	this.analysis.exDir = exDir;
 	this.analysis.exUnmarked = this.unmarked.length;
-	this.analysis.tolls = this.tolls.length;
+	this.analysis.tollBooths = this.tollBooths.length;
+	this.analysis.tollGantrys = this.tollGantrys.length;
 	this.analysis.areas = this.areasNode.length+this.areasWay.length;
 	// Show
 	this.addToMap();
@@ -104,7 +106,7 @@ Freeway.prototype.addToMap = function() {
 		mapDataLayer.addLayer(marker);
 	};
 	// Nodes
-	var nodes = this.exits.concat(this.tolls).concat(this.areasNode).concat(this.unmarked);
+	var nodes = this.exits.concat(this.tollBooths).concat(this.tollGantrys).concat(this.areasNode).concat(this.unmarked);
 	for (var i = 0; i < nodes.length; i++) { node[nodes[i].nodeID].marker=undefined };
 	nodes.sort(function (a,b) {return a.lat < b.lat ? +1  : -1 ;});
 	for (var i = 0; i < nodes.length; i++) {
@@ -153,7 +155,8 @@ Freeway.prototype.addToSidebar = function () {
 	$('div#stats tr#exRef td#data').html(this.analysis.exRef);
 	$('div#stats tr#exNoRefYes td#data').html(this.analysis.exNoRefYes);
 	$('div#stats tr#exNoRef td#data').html(this.analysis.exNoRef);
-	$('div#stats tr#tolls td#data').html(this.analysis.tolls);
+	$('div#stats tr#tollBooths td#data').html(this.analysis.tollBooths);
+	$('div#stats tr#tollGantrys td#data').html(this.analysis.tollGantrys);
 	$('div#stats tr#areas td#data').html(this.analysis.areas);
 	$('div#stats tr#wAll td#data').html(Math.round(10000*this.analysis.wAll/this.analysis.wTotal)/100+' %');
 	$('div#stats tr#wNoLanes td#data').html(Math.round(10000*this.analysis.wNoLanes/this.analysis.wTotal)/100+' %');
@@ -228,7 +231,8 @@ function updateVisibility(clicked) {
 	mapChange('exRef','removeLayer');
 	mapChange('exNoRefYes','removeLayer');
 	mapChange('exNoRef','removeLayer');
-	if ($('#tolls .chk')[0].checked) { mapChange('tolls','addLayer'); } else { mapChange('tolls','removeLayer'); };
+	if ($('#tollBooths .chk')[0].checked) { mapChange('tollBooths','addLayer'); } else { mapChange('tollBooths','removeLayer'); };
+	if ($('#tollGantrys .chk')[0].checked) { mapChange('tollGantrys','addLayer'); } else { mapChange('tollGantrys','removeLayer'); };
 	if ($('#exDest .chk')[0].checked) { mapChange('exDest','addLayer'); };
 	if ($('#exExitTo .chk')[0].checked) { mapChange('exExitTo','addLayer'); };
 	if ($('#exName .chk')[0].checked) { mapChange('exName','addLayer'); };
@@ -246,9 +250,13 @@ function updateVisibility(clicked) {
 
 function mapChange(group, action) {
 	var id = options.relID;
-	if (group=='tolls') {
-		for (var i = 0; i < fw[id].tolls.length; i++) {
-			map[action](fw[id].tolls[i].marker);
+	if (group=='tollBooths') {
+		for (var i = 0; i < fw[id].tollBooths.length; i++) {
+			map[action](fw[id].tollBooths[i].marker);
+		}
+    } else if (group=='tollGantrys') {
+		for (var i = 0; i < fw[id].tollGantrys.length; i++) {
+			map[action](fw[id].tollGantrys[i].marker);
 		}
 	} else if (group=='exDest') {
 		for (var i = 0; i < fw[id].exits.length; i++) {

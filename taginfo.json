@@ -31,6 +31,7 @@
 			{ "key": "destination:int_ref", "object_types": ["way"] },
 			{ "key": "destination:symbol", "object_types": ["way"] },
 			{ "key": "barrier", "value": "toll_booth", "object_types": ["node"] },
+			{ "key": "highway", "value": "toll_gantry", "object_types": ["node"] },
 			{ "key": "highway", "value": "services", "object_types": ["node","way"] },
 			{ "key": "highway", "value": "rest_area", "object_types": ["node","way"] },
 			{ "key": "maxspeed", "object_types": ["way"] },
