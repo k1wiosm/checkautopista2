@@ -6,7 +6,8 @@ function Freeway(relID) {
 	this.bounds = undefined;
 	this.country = undefined;
 	this.exits = [];
-	this.tolls = [];
+	this.tollBooths = [];
+	this.tollGantrys = [];
 	this.areasNode = [];
 	this.areasWay = [];
 	this.unmarked = [];
@@ -139,7 +140,11 @@ Freeway.prototype.loadFreewayData = function(opt) {
 						// Get info from toll_booths
 						} else if (response.elements[i].tags.barrier=='toll_booth') {
 							node[response.elements[i].id] = new Node(response.elements[i]);
-							fwy.tolls.push(node[response.elements[i].id]);
+							fwy.tollBooths.push(node[response.elements[i].id]);
+						// Get info from toll_gantrys
+						} else if (response.elements[i].tags.highway=='toll_gantry') {
+							node[response.elements[i].id] = new Node(response.elements[i]);
+							fwy.tollGantrys.push(node[response.elements[i].id]);
 						} else {
 							fwy.otherNodesIDs.push(response.elements[i].id);
 							node[response.elements[i].id] = new Node(response.elements[i]);
