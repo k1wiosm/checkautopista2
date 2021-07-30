@@ -112,7 +112,7 @@ function updatePermalink (relID, lat, lon, z) {
 	if (options.lat) { url += '&lat='+options.lat; };
 	if (options.lon) { url += '&lon='+options.lon; };
 	if (options.z) { url += '&z='+options.z; };
-	if (options.view!=='tdenxuaALMX') { url += '&view='+options.view; };
+	if (options.view!=='tgdenxuaALMX') { url += '&view='+options.view; };
 	url=url.replace('&','?');
 	window.history.replaceState('', '', url);
 }

@@ -5,7 +5,7 @@ var options = {
 	lon: $.url().param('lon'),
 	z: $.url().param('z') || $.url().param('zoom'),
 	id: ($.url().param('id') ? Number($.url().param('id')) : undefined),
-	view: $.url().param('view') || 'tdenxuaALMX',
+	view: $.url().param('view') || 'tgdenxuaALMX',
 	tiles: ['tileCA2']
 }
 
