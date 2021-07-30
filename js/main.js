@@ -92,7 +92,8 @@ function updatePermalink (relID, lat, lon, z) {
 	options.relID = relID || options.relID;
 	url = '';
 	options.view = '';
-	if ($('#tolls .chk')[0].checked) { options.view += 't'; };
+	if ($('#tollBooths .chk')[0].checked) { options.view += 't'; };
+	if ($('#tollGantrys .chk')[0].checked) { options.view += 'g'; };
 	if ($('#exDest .chk')[0].checked) { options.view += 'd'; };
 	if ($('#exExitTo .chk')[0].checked) { options.view += 'e'; };
 	if ($('#exName .chk')[0].checked) { options.view += 'n'; };
@@ -117,7 +118,8 @@ function updatePermalink (relID, lat, lon, z) {
 }
 
 function updateLegend () {
-	if (options.view.indexOf('t')==-1) { $('#tolls .chk').prop('checked', false); } else { $('#tolls .chk').prop('checked', true); };
+	if (options.view.indexOf('t')==-1) { $('#tollBooths .chk').prop('checked', false); } else { $('#tollBooths .chk').prop('checked', true); };
+	if (options.view.indexOf('g')==-1) { $('#tollGantrys .chk').prop('checked', false); } else { $('#tollGantrys .chk').prop('checked', true); };
 	if (options.view.indexOf('d')==-1) { $('#exDest .chk').prop('checked', false); } else { $('#exDest .chk').prop('checked', true); };
 	if (options.view.indexOf('e')==-1) { $('#exExitTo .chk').prop('checked', false); } else { $('#exExitTo .chk').prop('checked', true); };
 	if (options.view.indexOf('n')==-1) { $('#exName .chk').prop('checked', false); } else { $('#exName .chk').prop('checked', true); };

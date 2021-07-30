@@ -11,8 +11,10 @@ var options = {
 
 loadFromCookies();
 
-colorToll = 'blue';
-bgColorToll = '#8888FF';
+colorTollBooth = 'blue';
+bgColorTollBooth = '#8888FF';
+colorTollGantry = 'dodgerblue';
+bgColorTollGantry = '#8EC9FF';
 colorExDest = 'green';
 colorExExitTo = 'orange';
 colorExName = '#1FFFFF';
@@ -32,8 +34,10 @@ wColorConstruction = 'black';
 wColorProposed = 'grey';
 
 $('document').ready(function () {
-	$('table.stats tr#tolls td div#circle').css('border-color', colorToll);
-	$('table.stats tr#tolls td div#circle').css('background', bgColorToll);
+	$('table.stats tr#tollBooths td div#circle').css('border-color', colorTollBooth);
+	$('table.stats tr#tollBooths td div#circle').css('background', bgColorTollBooth);
+	$('table.stats tr#tollGantrys td div#circle').css('border-color', colorTollGantry);
+	$('table.stats tr#tollGantrys td div#circle').css('background', bgColorTollGantry);
 	$('table.stats tr#exDest td div#circle').css('border-color', colorExDest);
 	$('table.stats tr#exExitTo td div#circle').css('border-color', colorExExitTo);
 	$('table.stats tr#exName td div#circle').css('border-color', colorExName);
@@ -133,8 +137,11 @@ function styleNode(node) {
 		var color = {color: colorAreas};
 		var fill = {fillColor: bgColorAreas};
 	} else if (node.tags.barrier=='toll_booth') {
-		var color = {color: colorToll};
-		var fill = {fillColor: bgColorToll};
+		var color = {color: colorTollBooth};
+		var fill = {fillColor: bgColorTollBooth};
+	} else if (node.tags.highway=='toll_gantry') {
+		var color = {color: colorTollGantry};
+		var fill = {fillColor: bgColorTollGantry};
 	} else {
 		var color = {color: colorExUnmarked};
 		var fill = {fillColor: bgColorExUnmarked};
