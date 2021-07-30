@@ -11,7 +11,7 @@ if (options.lat==undefined && options.lon==undefined && options.z==undefined && 
 }
 
 tileCA2=L.tileLayer(
-	'https://api.tiles.mapbox.com/v4/k1wi.7e678c5d/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiazF3aSIsImEiOiJaX0JKRUNzIn0.yL_KftGNvh631-_yDzotcQ', {
+	'https://api.mapbox.com/styles/v1/k1wi/cih9ejmy1000a8vm3vxw2aq6p/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiazF3aSIsImEiOiJaX0JKRUNzIn0.yL_KftGNvh631-_yDzotcQ', {
 		attribution: '<a href="http://openstreetmap.org" title="OpenStreetMap">OSM</a> | <a href="http://mapbox.com" title="Tiles by Mapbox">Mapbox</a> ',
 		maxZoom: 18});
 
