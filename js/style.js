@@ -168,12 +168,18 @@ function htmlInfo(element) {
 	// Returns html code showing info of a way or node 
 	// including a junction panel if it is an exit node
 
+	// Get country
+	var country = fw[options.relID].country;
+
 	var html = '';
 	if (element.subtype=='exit') {
 		for (var i in element.linkWays) {
 			html += htmlJunctionPanel(element, element.linkWays[i]);
-			html += htmlMaxspeed(element.linkWays[i]);
+			html += htmlMaxspeedAdvisoryMaxspeed(element.linkWays[i], country);
 		};
+	};
+	if (element.type=='way') {
+		html += htmlMaxspeedAdvisoryMaxspeed(element, country);
 	};
 	if (element.type=='node' || element.type=='way') {
 		html += htmlGenericInfo(element);
@@ -386,8 +392,51 @@ function htmlMotorwayPanel (element) {
 	return html;
 }
 
-function htmlMaxspeed (wayElement) {
-	// Returns html code of a maxspeed sign like the ones in the real world
+function htmlMaxspeedAdvisoryMaxspeed (wayElement, country) {
+	// Returns html code of maxspeed and advisory maxspeed signs
+
+	var html = 	'<div class="panelWrapper">' +
+					htmlMaxspeed(wayElement, country) +
+			   		htmlAdvisoryMaxspeed(wayElement, country) + 
+		   		'</div>';
+
+	return html;
+}
+
+function htmlMaxspeed (wayElement, country) {
+	// Returns html code of a maxspeed sign
+
+	// Get maxspeed
+	if (wayElement && wayElement.tags['maxspeed']) {
+		var maxspeed = wayElement.tags['maxspeed'].replace(' mph','');;
+	};
+
+	if (!maxspeed) {
+		return '';
+	};
+
+	// Prepare html sign
+	if (country == 'US') {
+		var html = 	'<div class="panel maxspeed usStyle">' +
+						'<div class="subPanel speed">'+
+							'<p class="title">SPEED LIMIT</p>'+
+							'<p class="speed">'+maxspeed+'</p>'+
+							'<p class="mph">MPH</p>'+
+						'</div>'+
+					'</div>';
+	} else {
+		var html = 	'<div class="panel maxspeed euStyle">' +
+						'<div class="subPanel speed">'+
+							'<p class="speed">'+maxspeed+'</p>'+
+						'</div>'+
+					'</div>';
+	};
+
+	return html;
+}
+
+function htmlAdvisoryMaxspeed (wayElement, country) {
+	// Returns html code of an advisory maxspeed sign
 
 	// Get maxspeed:advisory
 	if (wayElement && wayElement.tags['maxspeed:advisory']) {
@@ -398,26 +447,19 @@ function htmlMaxspeed (wayElement) {
 		return '';
 	};
 
-	// Get country
-	var country = fw[options.relID].country;
-
 	// Prepare html sign
 	if (country == 'US') {
-		var html = 	'<div class="panelWrapper">'+
-						'<div class="panel advisoryMaxspeed usStyle">' +
-							'<div class="subPanel title">EXIT</div>' +
-							'<div class="subPanel speed">'+
-								'<p class="speed">'+max_adv+'</p>'+
-								'<p class="mph">MPH</p>'+
-							'</div>'+
+		var html = 	'<div class="panel advisoryMaxspeed usStyle">' +
+						'<div class="subPanel title">EXIT</div>' +
+						'<div class="subPanel speed">'+
+							'<p class="speed">'+max_adv+'</p>'+
+							'<p class="mph">MPH</p>'+
 						'</div>'+
 					'</div>';
 	} else {
-		var html = 	'<div class="panelWrapper">'+
-						'<div class="panel advisoryMaxspeed euStyle">' +
-							'<div class="subPanel speed">'+
-								'<p class="speed">'+max_adv+'</p>'+
-							'</div>'+
+		var html = 	'<div class="panel advisoryMaxspeed euStyle">' +
+						'<div class="subPanel speed">'+
+							'<p class="speed">'+max_adv+'</p>'+
 						'</div>'+
 					'</div>';
 	};

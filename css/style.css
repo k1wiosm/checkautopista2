@@ -324,8 +324,67 @@ div.intRefText {
 
 /* Maxspeed panel */
 
+div.panel.maxspeed {
+	display: inline-block;
+	background-color: #f9f9f9;
+	vertical-align: middle;
+}
+
+div.panel.maxspeed .subPanel {
+	min-width: 60px;
+	margin: 2px;
+	padding: 5px;
+	font-family: TrafficTypSpaD;
+	text-align: center;
+	color: black;
+}
+
+div.panel.maxspeed.euStyle {
+	border-radius: 50%;
+}
+
+div.panel.maxspeed.euStyle .subPanel {
+	border-radius: 50%;
+	border: red 5px solid;
+	height: 60px;
+	width: 60px;
+}
+
+div.panel.maxspeed.usStyle .subPanel {
+	border-radius: 10px;
+	border: black 3px solid;
+	width: 60px;
+}
+
+div.panel.maxspeed .subPanel.speed  p {
+	font-family: inherit;
+	margin: 0px;
+}
+
+div.panel.maxspeed.euStyle .subPanel.speed  p.speed {
+	font-size: 35px;
+	margin-top: 10px;
+	margin-left: -5px;
+	margin-right: -5px;
+}
+
+div.panel.maxspeed.usStyle .subPanel.speed  p.title {
+	font-size: 18px;
+}
+
+div.panel.maxspeed.usStyle .subPanel.speed  p.speed {
+	font-size: 30px;
+}
+
+div.panel.maxspeed.usStyle .subPanel.speed  p.mph {
+	font-size: 15px;
+}
+
+/* Advisory maxspeed panel */
+
 div.panel.advisoryMaxspeed {
 	display: inline-block;
+	vertical-align: middle;
 }
 
 div.panel.advisoryMaxspeed .subPanel {
@@ -356,6 +415,7 @@ div.panel.advisoryMaxspeed.euStyle .subPanel {
 	border: white 3px solid;
 	color: white;
 	height: 60px;
+	width: 60px;
 }
 
 div.panel.advisoryMaxspeed.usStyle .subPanel.title {
@@ -380,8 +440,8 @@ div.panel.advisoryMaxspeed .subPanel.speed  p.speed {
 }
 
 div.panel.advisoryMaxspeed.euStyle .subPanel.speed  p.speed {
-	font-size: 40px;
-	margin-top: 5px;
+	font-size: 35px;
+	margin-top: 10px;
 }
 
 div.panel.advisoryMaxspeed .subPanel.speed  p.mph {
