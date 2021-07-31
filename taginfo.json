@@ -1,7 +1,7 @@
 {
 	"data_format": 1,
 	"data_url": "http://k1wiosm.github.io/checkautopista2/taginfo.json",
-	"data_updated": "20160729T122300Z",
+	"data_updated": "20210731T184100Z",
 	"project": {
 		"name": "CheckAutopista2",
 		"description": "QA tool for motorways in OSM.",
@@ -35,7 +35,8 @@
 			{ "key": "highway", "value": "services", "object_types": ["node","way"] },
 			{ "key": "highway", "value": "rest_area", "object_types": ["node","way"] },
 			{ "key": "maxspeed", "object_types": ["way"] },
+			{ "key": "maxspeed:advisory", "object_types": ["way"]},
 			{ "key": "lanes", "object_types": ["way"] },
-			{ "key": "symbol", "object_types": ["relation"], "description": "Image of motorway shield." }
+			{ "key": "symbol", "object_types": ["relation"], "description": "Image of motorway shield" }
 		]
 }
