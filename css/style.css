@@ -418,18 +418,6 @@ div.panel.advisoryMaxspeed.euStyle .subPanel {
 	width: 60px;
 }
 
-div.panel.advisoryMaxspeed.usStyle .subPanel.title {
-	border-bottom-left-radius: 0px;
-	border-bottom-right-radius: 0px;
-	margin-bottom: -2px;
-}
-
-div.panel.advisoryMaxspeed.usStyle .subPanel.speed {
-	border-top-left-radius: 0px;
-	border-top-right-radius: 0px;
-	margin-top: 0px;
-}
-
 div.panel.advisoryMaxspeed .subPanel.speed  p {
 	font-family: inherit;
 	margin: 0px;

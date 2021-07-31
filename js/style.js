@@ -450,7 +450,6 @@ function htmlAdvisoryMaxspeed (wayElement, country) {
 	// Prepare html sign
 	if (country == 'US') {
 		var html = 	'<div class="panel advisoryMaxspeed usStyle">' +
-						'<div class="subPanel title">EXIT</div>' +
 						'<div class="subPanel speed">'+
 							'<p class="speed">'+max_adv+'</p>'+
 							'<p class="mph">MPH</p>'+
