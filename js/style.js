@@ -164,17 +164,14 @@ function styleWay(tags) {
 	return $.extend(style,{smoothFactor:2, opacity:0.7, weight: 6});
 }
 
-function htmlInfo(element) {
+function htmlInfo(element, country) {
 	// Returns html code showing info of a way or node 
 	// including a junction panel if it is an exit node
-
-	// Get country
-	var country = fw[options.relID].country;
 
 	var html = '';
 	if (element.subtype=='exit') {
 		for (var i in element.linkWays) {
-			html += htmlJunctionPanel(element, element.linkWays[i]);
+			html += htmlJunctionPanel(element, element.linkWays[i], country);
 			html += htmlMaxspeedAdvisoryMaxspeed(element.linkWays[i], country);
 		};
 	};
@@ -197,7 +194,7 @@ function htmlInfo(element) {
 	return html;
 }
 
-function htmlJunctionPanel (nodeElement, wayElement) {
+function htmlJunctionPanel (nodeElement, wayElement, country) {
 	// Returns html code of a junction panel like the ones in the real world
 
 	// Get ref
@@ -232,11 +229,9 @@ function htmlJunctionPanel (nodeElement, wayElement) {
 	if (wayElement && wayElement.tags['destination:symbol']!=undefined) {
 		var destSymbolArray = wayElement.tags['destination:symbol'].split(/;/g);
 		for (var i = 0; i < destSymbolArray.length; i++) {
-			dest_symbol += '<div class="symbol">'+htmlSymbol(destSymbolArray[i])+'</div> ';
+			dest_symbol += '<div class="symbol">'+htmlSymbol(destSymbolArray[i], country)+'</div> ';
 		};
 	};
-	// Get country
-	var country = fw[options.relID].country;
 
 	// Prepare html panel
 	if (country == 'US') {
@@ -262,7 +257,7 @@ function htmlJunctionPanel (nodeElement, wayElement) {
 	return html;
 }
 
-function htmlSymbol (symbol) {
+function htmlSymbol (symbol, country) {
 	// Returns html code of a given destination:symbol
 
 	symbolsList = {
@@ -351,11 +346,7 @@ function htmlSymbol (symbol) {
 		},
 	};
 
-	if (fw[options.relID].country == 'US') {
-		var country = 'us';
-	} else {
-		var country = 'eu';
-	};
+    country = country.toLowerCase();
 
 	symbol = symbol.replace(/\s+/g, '');
 	if (symbolsList[symbol]) {
@@ -369,10 +360,10 @@ function htmlSymbol (symbol) {
 	}
 }
 
-function htmlMotorwayPanel (element) {
+function htmlMotorwayPanel (element, country) {
 	// Returns html code of a panel with the ref and name of the motorway
 
-	if (fw[options.relID].country == 'US') {
+	if (country == 'US') {
 		var color = 'usStyle';
 	} else {
 		var color = 'euStyle';

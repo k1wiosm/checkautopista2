@@ -141,7 +141,8 @@ Freeway.prototype.addToSidebar = function () {
 	});
 	// Road
 	$('div.panel.road').remove();
-	$('div.sidebar-pane#road').prepend(htmlMotorwayPanel(this));
+	var country = fw[options.relID].country;
+	$('div.sidebar-pane#road').prepend(htmlMotorwayPanel(this, country));
 	$('div#road h3').html('Relation : ' + this.relID + htmlButtons('relation',this.relID));
 	$('div#road div.tags').html(htmlTagsTable(this));
 	// Stats
@@ -193,7 +194,8 @@ Way.prototype.sidebar = function () {
 	options.nodeID=undefined;
 	options.wayID=this.wayID;
 	$('li#info').toggleClass('disabled', false);
-	$('div#info div#tags').html(htmlInfo(this));
+	var country = fw[options.relID].country;
+	$('div#info div#tags').html(htmlInfo(this, country));
 	sidebar.open('info');
 }
 
@@ -205,7 +207,8 @@ Node.prototype.sidebar = function () {
 	options.nodeID=this.nodeID;
 	options.wayID=undefined;
 	$('li#info').toggleClass('disabled', false);
-	$('div#info div#tags').html(htmlInfo(this));
+	var country = fw[options.relID].country;
+	$('div#info div#tags').html(htmlInfo(this, country));
 	sidebar.open('info');
 }
 
