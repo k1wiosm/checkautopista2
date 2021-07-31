@@ -177,6 +177,7 @@ function htmlInfo(element, country) {
 	};
 	if (element.type=='way') {
 		html += htmlMaxspeedAdvisoryMaxspeed(element, country);
+		html += htmlLanes(element);
 	};
 	if (element.type=='node' || element.type=='way') {
 		html += htmlGenericInfo(element);
@@ -456,6 +457,30 @@ function htmlAdvisoryMaxspeed (wayElement, country) {
 
 	return html;
 }
+
+function htmlLanes (wayElement) {
+	// Returns html code of road with lanes
+
+	// Get lanes
+	if (wayElement && wayElement.tags['lanes']) {
+		var lanes = wayElement.tags['lanes'];
+	};
+
+	var html = 	'<div class="road">';
+
+	for (var i = 0; i < lanes; i++) {
+		html +=	'<div class="lane">' +
+    				'<div class="arrow">' + 
+      					'<div class="arrow-head"></div>' +
+      					'<div class="arrow-line"></div>' + 
+    				'</div>' + 
+  				'</div>';
+	}
+
+	html += '</div>';
+
+	return html;
+};
 
 function htmlGenericInfo (element) {
 	// Returns html code showing generic info of a way or node

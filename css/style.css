@@ -436,6 +436,46 @@ div.panel.advisoryMaxspeed.usStyle .subPanel.speed  p.mph {
 	font-size: 15px;
 }
 
+/* Road */
+
+div.road {
+  background: black;
+  height: 125px;
+  display: flex;
+  padding: 5px;
+}
+
+div.lane {
+  flex-grow: 1;
+  border-right: 5px dashed white;
+  height: 100%;
+  display: flex;
+}
+
+div.lane:first-child {
+  border-left: 5px dashed white;
+}
+
+div.arrow {
+  margin: auto;
+  height: 60%;
+}
+
+div.arrow-head {
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 20px solid white;
+}
+
+div.arrow-line {
+  background: white;
+  height: 70%;
+  width: 30%;
+  margin: auto;
+}
+
 /* ABOUT */
 
 img.example {
