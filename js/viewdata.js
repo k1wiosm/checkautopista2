@@ -125,9 +125,9 @@ Freeway.prototype.addToMap = function() {
 Freeway.prototype.addToSidebar = function () {
 	// Open sidebar if fully loaded
 	if (this.loaded==2) {
-		$('li#road i').attr('class', 'fa fa-road');
+		$('li#route i').attr('class', 'fa fa-road');
 		$('li#stats').toggleClass('disabled', false);
-		sidebar.open('road');
+		sidebar.open('route');
 	}
 	if (this.loaded==4) {
 		$('li#stats i').attr('class', 'fa fa-bar-chart');
@@ -139,12 +139,12 @@ Freeway.prototype.addToSidebar = function () {
 			this.element.sidebar();
 		});
 	});
-	// Road
-	$('div.panel.road').remove();
+	// Route
+	$('div.panel.route').remove();
 	var country = fw[options.relID].country;
-	$('div.sidebar-pane#road').prepend(htmlMotorwayPanel(this, country));
-	$('div#road h3').html('Relation : ' + this.relID + htmlButtons('relation',this.relID));
-	$('div#road div.tags').html(htmlTagsTable(this));
+	$('div.sidebar-pane#route').prepend(htmlMotorwayPanel(this, country));
+	$('div#route h3').html('Relation : ' + this.relID + htmlButtons('relation',this.relID));
+	$('div#route div.tags').html(htmlTagsTable(this));
 	// Stats
 	$('div#stats h2').html(this.tags.name+' ('+(this.tags.ref||'').replace('-','&#8209;')+')<br/>');
 	$('div#stats tr#toll td#data').html();

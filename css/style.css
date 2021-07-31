@@ -205,30 +205,30 @@ div.subPanel {
 	font-size: 20px;
 }
 
-/* Road Panel */
+/* Route Panel */
 
-div.subPanel.road {
+div.subPanel.route {
 	text-align: center;
 	font-size: 30px;
 }
 
-div.subPanel.road .ref {
+div.subPanel.route .ref {
 	display: inline-block;
 	border: 2px white solid;
 	padding: 0px 5px;
 	margin: 5px;
 }
 
-div.subPanel.road .symbol {
+div.subPanel.route .symbol {
 	padding: 5px 0px 0px 0px;
 }
 
-div.subPanel.road .symbol img {
+div.subPanel.route .symbol img {
 	margin: 5px;
 	width: 50px;
 }
 
-div.subPanel.road .name {
+div.subPanel.route .name {
 	display: inline-block;
 }
 

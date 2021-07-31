@@ -369,8 +369,8 @@ function htmlMotorwayPanel (element, country) {
 		var color = 'euStyle';
 	};
 	var html =	'<div class="panelWrapper">'+
-					'<div class="panel '+color+' road">'+
-						'<div class="subPanel road">';
+					'<div class="panel '+color+' route">'+
+						'<div class="subPanel route">';
 	if (element.tags.symbol) {
 		html += '<div class="symbol"><img src="'+element.tags.symbol+'"/></div>';
 	} else {

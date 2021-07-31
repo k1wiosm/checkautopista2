@@ -107,8 +107,8 @@ Freeway.prototype.loadFreewayData = function(opt) {
 			};
 			if(response.elements.length==0) {
 				console.log('ERROR: Incorrect relation ID'); 
-				$('li#road').toggleClass('disabled', true);
-				$('li#road i').attr('class', 'fa fa-road');
+				$('li#route').toggleClass('disabled', true);
+				$('li#route i').attr('class', 'fa fa-road');
 				$('li#stats').toggleClass('disabled', true);
 				$('li#stats i').attr('class', 'fa fa-bar-chart');
 				$('li#info').toggleClass('disabled', true);
@@ -394,7 +394,7 @@ Freeway.prototype.loadAreas = function(opt) {
 function loadFreeway (relID, opt) {
 	killRequests();
 	console.log('\nLoading freeway [relID='+relID+']');
-	$('li#road i').attr('class', 'fa fa-spinner fa-spin'); $('li#road').toggleClass('disabled', false);
+	$('li#route i').attr('class', 'fa fa-spinner fa-spin'); $('li#route').toggleClass('disabled', false);
 	$('li#stats i').attr('class', 'fa fa-spinner fa-spin');
 	fw[relID] = new Freeway();
 	fw[relID].relID = relID;
@@ -517,6 +517,6 @@ function killRequests() {
 	if (typeof rq3[options.relID] !== 'undefined') {rq3[options.relID].abort(); };
 	if (typeof rq4[options.relID] !== 'undefined') {rq4[options.relID].abort(); };
 	$('li#search i').attr('class', 'fa fa-search');
-	$('li#road i').attr('class', 'fa fa-road');
+	$('li#route i').attr('class', 'fa fa-road');
 	$('li#stats i').attr('class', 'fa fa-bar-chart');
 }
