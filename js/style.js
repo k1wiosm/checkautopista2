@@ -172,11 +172,11 @@ function htmlInfo(element, country) {
 	if (element.subtype=='exit') {
 		for (var i in element.linkWays) {
 			html += htmlJunctionPanel(element, element.linkWays[i], country);
-			html += htmlMaxspeedAdvisoryMaxspeed(element.linkWays[i], country);
+			html += htmlSpeeds(element.linkWays[i], country);
 		};
 	};
 	if (element.type=='way') {
-		html += htmlMaxspeedAdvisoryMaxspeed(element, country);
+		html += htmlSpeeds(element, country);
 		html += htmlLanes(element);
 	};
 	if (element.type=='node' || element.type=='way') {
@@ -384,12 +384,13 @@ function htmlMotorwayPanel (element, country) {
 	return html;
 }
 
-function htmlMaxspeedAdvisoryMaxspeed (wayElement, country) {
-	// Returns html code of maxspeed and advisory maxspeed signs
+function htmlSpeeds (wayElement, country) {
+	// Returns html code of all speed signs
 
 	var html = 	'<div class="panelWrapper">' +
 					htmlMaxspeed(wayElement, country) +
 			   		htmlAdvisoryMaxspeed(wayElement, country) + 
+			   		htmlMinspeed(wayElement, country) +
 		   		'</div>';
 
 	return html;
@@ -420,6 +421,38 @@ function htmlMaxspeed (wayElement, country) {
 		var html = 	'<div class="panel maxspeed euStyle">' +
 						'<div class="subPanel speed">'+
 							'<p class="speed">'+maxspeed+'</p>'+
+						'</div>'+
+					'</div>';
+	};
+
+	return html;
+}
+
+function htmlMinspeed (wayElement, country) {
+	// Returns html code of a minspeed sign
+
+	// Get maxspeed
+	if (wayElement && wayElement.tags['minspeed']) {
+		var minspeed = wayElement.tags['minspeed'].replace(' mph','');;
+	};
+
+	if (!minspeed) {
+		return '';
+	};
+
+	// Prepare html sign
+	if (country == 'US') {
+		var html = 	'<div class="panel minspeed usStyle">' +
+						'<div class="subPanel speed">'+
+							'<p class="title">MIN SPEED</p>'+
+							'<p class="speed">'+minspeed+'</p>'+
+							'<p class="mph">MPH</p>'+
+						'</div>'+
+					'</div>';
+	} else {
+		var html = 	'<div class="panel minspeed euStyle">' +
+						'<div class="subPanel speed">'+
+							'<p class="speed">'+minspeed+'</p>'+
 						'</div>'+
 					'</div>';
 	};

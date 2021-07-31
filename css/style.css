@@ -328,6 +328,7 @@ div.panel.maxspeed {
 	display: inline-block;
 	background-color: #f9f9f9;
 	vertical-align: middle;
+	margin: 5px;
 }
 
 div.panel.maxspeed .subPanel {
@@ -380,11 +381,76 @@ div.panel.maxspeed.usStyle .subPanel.speed  p.mph {
 	font-size: 15px;
 }
 
+/* Minspeed panel */
+
+div.panel.minspeed {
+	display: inline-block;
+	vertical-align: middle;
+	margin: 5px;
+}
+
+div.panel.minspeed .subPanel {
+	min-width: 60px;
+	margin: 2px;
+	padding: 5px;
+	font-family: TrafficTypSpaD;
+	text-align: center;
+}
+
+div.panel.minspeed.euStyle {
+	border-radius: 50%;
+	background-color: #19408b;
+}
+
+div.panel.minspeed.usStyle {
+	background-color: #f9f9f9;
+}
+
+div.panel.minspeed.euStyle .subPanel {
+	border-radius: 50%;
+	border: white 3px solid;
+	height: 60px;
+	width: 60px;
+	color: white;
+}
+
+div.panel.minspeed.usStyle .subPanel {
+	border-radius: 10px;
+	border: black 3px solid;
+	width: 60px;
+	color: black;
+}
+
+div.panel.minspeed .subPanel.speed  p {
+	font-family: inherit;
+	margin: 0px;
+}
+
+div.panel.minspeed.euStyle .subPanel.speed  p.speed {
+	font-size: 35px;
+	margin-top: 10px;
+	margin-left: -5px;
+	margin-right: -5px;
+}
+
+div.panel.minspeed.usStyle .subPanel.speed  p.title {
+	font-size: 18px;
+}
+
+div.panel.minspeed.usStyle .subPanel.speed  p.speed {
+	font-size: 30px;
+}
+
+div.panel.minspeed.usStyle .subPanel.speed  p.mph {
+	font-size: 15px;
+}
+
 /* Advisory maxspeed panel */
 
 div.panel.advisoryMaxspeed {
 	display: inline-block;
 	vertical-align: middle;
+	margin: 5px;
 }
 
 div.panel.advisoryMaxspeed .subPanel {
