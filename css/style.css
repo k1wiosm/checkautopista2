@@ -423,16 +423,16 @@ div.panel.advisoryMaxspeed .subPanel.speed  p {
 	margin: 0px;
 }
 
-div.panel.advisoryMaxspeed .subPanel.speed  p.speed {
-	font-size: 30px;
-}
-
 div.panel.advisoryMaxspeed.euStyle .subPanel.speed  p.speed {
 	font-size: 35px;
 	margin-top: 10px;
 }
 
-div.panel.advisoryMaxspeed .subPanel.speed  p.mph {
+div.panel.advisoryMaxspeed.usStyle .subPanel.speed  p.speed {
+	font-size: 30px;
+}
+
+div.panel.advisoryMaxspeed.usStyle .subPanel.speed  p.mph {
 	font-size: 15px;
 }
 
