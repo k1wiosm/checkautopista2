@@ -499,6 +499,10 @@ function htmlLanes (wayElement) {
 		var lanes = wayElement.tags['lanes'];
 	};
 
+	if (!lanes) {
+		return '';
+	};
+
 	var html = 	'<div class="road">';
 
 	for (var i = 0; i < lanes; i++) {
