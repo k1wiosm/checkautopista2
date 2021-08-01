@@ -347,7 +347,11 @@ function htmlSymbol (symbol, country) {
 		},
 	};
 
-    country = country.toLowerCase();
+	if (country == 'US') {
+		country = 'us';
+	} else {
+		country = 'eu';
+	}
 
 	symbol = symbol.replace(/\s+/g, '');
 	if (symbolsList[symbol]) {
