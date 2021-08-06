@@ -177,7 +177,7 @@ function htmlInfo(element, country) {
 	};
 	if (element.type=='way') {
 		html += htmlSpeeds(element, country);
-		html += htmlLanes(element);
+		html += htmlLanes(element, country);
 	};
 	if (element.type=='node' || element.type=='way') {
 		html += htmlGenericInfo(element);
@@ -400,93 +400,120 @@ function htmlSpeeds (wayElement, country) {
 }
 
 function htmlMaxspeed (wayElement, country) {
-	// Returns html code of a maxspeed sign
+	// Returns html code of a maxspeed sign, given a wayElement
 
 	// Get maxspeed
 	if (wayElement && wayElement.tags['maxspeed']) {
-		var maxspeed = wayElement.tags['maxspeed'].replace(' mph','');;
-	};
+		var maxspeed = wayElement.tags['maxspeed'];
+	}
 
-	if (!maxspeed) {
+	return htmlMaxspeedValue(maxspeed, country);
+}
+
+function htmlMaxspeedValue (speed, country) {
+	// Returns html code of a maxspeed sign, given a maxspeed value
+
+	if (!speed || speed == 'none') {
 		return '';
-	};
+	}
+
+	// Remove mph
+	speed = speed.replace(' mph','');
 
 	// Prepare html sign
 	if (country == 'US') {
 		var html = 	'<div class="panel maxspeed usStyle">' +
 						'<div class="subPanel speed">'+
 							'<p class="title">SPEED LIMIT</p>'+
-							'<p class="speed">'+maxspeed+'</p>'+
+							'<p class="speed">'+speed+'</p>'+
 							'<p class="mph">MPH</p>'+
 						'</div>'+
 					'</div>';
 	} else {
 		var html = 	'<div class="panel maxspeed euStyle">' +
 						'<div class="subPanel speed">'+
-							'<p class="speed">'+maxspeed+'</p>'+
+							'<p class="speed">'+speed+'</p>'+
 						'</div>'+
 					'</div>';
-	};
+	}
 
 	return html;
 }
 
 function htmlMinspeed (wayElement, country) {
-	// Returns html code of a minspeed sign
+	// Returns html code of a minspeed sign, given a wayElement
 
 	// Get maxspeed
 	if (wayElement && wayElement.tags['minspeed']) {
-		var minspeed = wayElement.tags['minspeed'].replace(' mph','');;
-	};
+		var minspeed = wayElement.tags['minspeed'];
+	}
 
-	if (!minspeed) {
+	return htmlMinspeedValue(minspeed, country);
+}
+
+function htmlMinspeedValue (speed, country) {
+	// Returns html code of a minspeed sign, given a minspeed value
+
+	if (!speed || speed == 'none') {
 		return '';
-	};
+	}
+
+	// Remove mph
+	speed = speed.replace(' mph','');
 
 	// Prepare html sign
 	if (country == 'US') {
 		var html = 	'<div class="panel minspeed usStyle">' +
 						'<div class="subPanel speed">'+
 							'<p class="title">MIN SPEED</p>'+
-							'<p class="speed">'+minspeed+'</p>'+
+							'<p class="speed">'+speed+'</p>'+
 							'<p class="mph">MPH</p>'+
 						'</div>'+
 					'</div>';
 	} else {
 		var html = 	'<div class="panel minspeed euStyle">' +
 						'<div class="subPanel speed">'+
-							'<p class="speed">'+minspeed+'</p>'+
+							'<p class="speed">'+speed+'</p>'+
 						'</div>'+
 					'</div>';
-	};
+	}
 
 	return html;
 }
 
 function htmlAdvisoryMaxspeed (wayElement, country) {
-	// Returns html code of an advisory maxspeed sign
+	// Returns html code of an advisory maxspeed , given a wayElement
 
 	// Get maxspeed:advisory
 	if (wayElement && wayElement.tags['maxspeed:advisory']) {
-		var max_adv = wayElement.tags['maxspeed:advisory'].replace(' mph','');;
-	};
+		var advisoryMaxspeed = wayElement.tags['maxspeed:advisory'].replace(' mph','');;
+	}
 
-	if (!max_adv) {
+	return htmlAdvisoryMaxspeedValue (advisoryMaxspeed, country);
+}
+
+function htmlAdvisoryMaxspeedValue (speed, country) {
+	// Returns html code of an advisory maxspeed sign, give an advisory maxspeed value
+
+	if (!speed || speed == 'none') {
 		return '';
-	};
+	}
+
+	// Remove mph
+	speed = speed.replace(' mph','');
 
 	// Prepare html sign
 	if (country == 'US') {
 		var html = 	'<div class="panel advisoryMaxspeed usStyle">' +
 						'<div class="subPanel speed">'+
-							'<p class="speed">'+max_adv+'</p>'+
+							'<p class="speed">'+speed+'</p>'+
 							'<p class="mph">MPH</p>'+
 						'</div>'+
 					'</div>';
 	} else {
 		var html = 	'<div class="panel advisoryMaxspeed euStyle">' +
 						'<div class="subPanel speed">'+
-							'<p class="speed">'+max_adv+'</p>'+
+							'<p class="speed">'+speed+'</p>'+
 						'</div>'+
 					'</div>';
 	};
@@ -494,7 +521,7 @@ function htmlAdvisoryMaxspeed (wayElement, country) {
 	return html;
 }
 
-function htmlLanes (wayElement) {
+function htmlLanes (wayElement, country) {
 	// Returns html code of road with lanes
 
 	// Get lanes
@@ -506,11 +533,33 @@ function htmlLanes (wayElement) {
 		return '';
 	};
 
+	// Get lanes maxspeed
+	if (wayElement && wayElement.tags['maxspeed:lanes']) {
+		var maxspeedLanes = wayElement.tags['maxspeed:lanes'];
+		maxspeedLanes = maxspeedLanes.split(/\|/g);
+	}
+
+	// Get lanes minspeed
+	if (wayElement && wayElement.tags['minspeed:lanes']) {
+		var minspeedLanes = wayElement.tags['minspeed:lanes'];
+		minspeedLanes = minspeedLanes.split(/\|/g);
+	}
+
 	var html = 	'<div class="road">';
 
 	for (var i = 0; i < lanes; i++) {
-		html +=	'<div class="lane">' +
-    				'<div class="arrow">' + 
+		html +=	'<div class="lane">';
+		if (maxspeedLanes && maxspeedLanes[i] && maxspeedLanes[i] != 'none') {
+			html += '<div class="scaled">' + 
+    					htmlMaxspeedValue(maxspeedLanes[i], country) +
+					'</div>';
+		}
+		if (minspeedLanes && minspeedLanes[i] && minspeedLanes[i] != 'none') {
+			html += '<div class="scaled">' +
+    					htmlMinspeedValue(minspeedLanes[i], country) +
+					'</div>';
+		}
+		html +=		'<div class="arrow">' + 
       					'<div class="arrow-head"></div>' +
       					'<div class="arrow-line"></div>' + 
     				'</div>' + 
