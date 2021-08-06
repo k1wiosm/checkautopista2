@@ -156,8 +156,8 @@ function styleWay(tags) {
 	} else if (tags.highway=='construction') { var style = {color: wColorConstruction};
 	} else if (tags.highway=='proposed') { var style = {color: wColorProposed};
 	} else if (tags.highway=='services' || tags.highway=='rest_area') { var style = {color: colorAreas, fillColor: bgColorAreas};
-	} else if (!tags.maxspeed && !tags.lanes) { var style = {color: wColorNone};
-	} else if (!tags.maxspeed) { var style = {color: wColorNoMaxspeed};
+	} else if (!tags.maxspeed && !tags['maxspeed:lanes'] && !tags.lanes) { var style = {color: wColorNone};
+	} else if (!tags.maxspeed && !tags['maxspeed:lanes']) { var style = {color: wColorNoMaxspeed};
 	} else if (!tags.lanes) { var style = {color: wColorNoLanes};
 	} else { var style = {color: wColorAll};
 	};

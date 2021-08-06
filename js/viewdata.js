@@ -53,9 +53,11 @@ Freeway.prototype.getAnalysis = function () {
 	for (var i = 0; i < this.waysIDs.length; i++) {
 		if(way[this.waysIDs[i]].tags==undefined || 
 			way[this.waysIDs[i]].tags.lanes==undefined && 
-			way[this.waysIDs[i]].tags.maxspeed==undefined) { wNone += way[this.waysIDs[i]].getLength(); 
+			way[this.waysIDs[i]].tags.maxspeed==undefined &&
+			way[this.waysIDs[i]].tags['maxspeed:lanes']==undefined) { wNone += way[this.waysIDs[i]].getLength(); 
 		} else if (way[this.waysIDs[i]].tags.lanes==undefined) { wNoLanes += way[this.waysIDs[i]].getLength(); 
-		} else if (way[this.waysIDs[i]].tags.maxspeed==undefined) { wNoMaxspeed += way[this.waysIDs[i]].getLength(); 
+		} else if (way[this.waysIDs[i]].tags.maxspeed==undefined &&
+			       way[this.waysIDs[i]].tags['maxspeed:lanes']==undefined) { wNoMaxspeed += way[this.waysIDs[i]].getLength(); 
 		} else { wAll += way[this.waysIDs[i]].getLength(); };
 	};
 	this.analysis.wAll = wAll;
@@ -316,25 +318,29 @@ function mapChange(group, action) {
 		for (var i = 0; i < fw[id].waysIDs.length; i++) {
 			if (way[fw[id].waysIDs[i]].tags==undefined) { continue; };
 			if (way[fw[id].waysIDs[i]].tags.lanes!==undefined && 
-				way[fw[id].waysIDs[i]].tags.maxspeed!==undefined) { map[action](way[fw[id].waysIDs[i]].polyline); };
+				(way[fw[id].waysIDs[i]].tags.maxspeed!==undefined ||
+				 way[fw[id].waysIDs[i]].tags['maxspeed:lanes']!==undefined)) { map[action](way[fw[id].waysIDs[i]].polyline); };
 		};
 	} else if (group=='wNoLanes') {
 		for (var i = 0; i < fw[id].waysIDs.length; i++) {
 			if (way[fw[id].waysIDs[i]].tags==undefined) { continue; };
 			if (way[fw[id].waysIDs[i]].tags.lanes==undefined && 
-				way[fw[id].waysIDs[i]].tags.maxspeed!==undefined) { map[action](way[fw[id].waysIDs[i]].polyline); };
+				(way[fw[id].waysIDs[i]].tags.maxspeed!==undefined ||
+				 way[fw[id].waysIDs[i]].tags['maxspeed:lanes']!==undefined)) { map[action](way[fw[id].waysIDs[i]].polyline); };
 		};
 	} else if (group=='wNoMaxspeed') {
 		for (var i = 0; i < fw[id].waysIDs.length; i++) {
 			if (way[fw[id].waysIDs[i]].tags==undefined) { continue; };
 			if (way[fw[id].waysIDs[i]].tags.lanes!==undefined && 
-				way[fw[id].waysIDs[i]].tags.maxspeed==undefined) { map[action](way[fw[id].waysIDs[i]].polyline); };
+				way[fw[id].waysIDs[i]].tags.maxspeed==undefined &&
+				way[fw[id].waysIDs[i]].tags['maxspeed:lanes']==undefined) { map[action](way[fw[id].waysIDs[i]].polyline); };
 		};
 	} else if (group=='wNone') {
 		for (var i = 0; i < fw[id].waysIDs.length; i++) {
 			if (way[fw[id].waysIDs[i]].tags==undefined) { map[action](way[fw[id].waysIDs[i]].polyline); continue; };
 			if (way[fw[id].waysIDs[i]].tags.lanes==undefined && 
-				way[fw[id].waysIDs[i]].tags.maxspeed==undefined) { map[action](way[fw[id].waysIDs[i]].polyline); };
+				way[fw[id].waysIDs[i]].tags.maxspeed==undefined &&
+				way[fw[id].waysIDs[i]].tags['maxspeed:lanes']==undefined) { map[action](way[fw[id].waysIDs[i]].polyline); };
 		};
 	};
 }
