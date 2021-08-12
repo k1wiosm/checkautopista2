@@ -545,25 +545,102 @@ function htmlLanes (wayElement, country) {
 		minspeedLanes = minspeedLanes.split(/\|/g);
 	}
 
+	// Get turn lanes
+	if (wayElement && wayElement.tags["turn:lanes"]) {
+		var turnLanes = wayElement.tags["turn:lanes"];
+		turnLanes = turnLanes.split(/\|/g);
+	}
+
 	var html = 	'<div class="road">';
 
 	for (var i = 0; i < lanes; i++) {
+
 		html +=	'<div class="lane">';
+
+		// Calculate sizes
+		if (lanes > 5) {
+			var size = 'supersmall';
+		} else {
+			var size = 'small';
+		}
+
+		// Maxspeed
 		if (maxspeedLanes && maxspeedLanes[i] && maxspeedLanes[i] != 'none') {
-			html += '<div class="scaled">' + 
-    					htmlMaxspeedValue(maxspeedLanes[i], country) +
+			html += '<div class="speedsign ' + size + '">' + 
+						htmlMaxspeedValue(maxspeedLanes[i], country) +
 					'</div>';
 		}
+
+		// Minspeed
 		if (minspeedLanes && minspeedLanes[i] && minspeedLanes[i] != 'none') {
-			html += '<div class="scaled">' +
-    					htmlMinspeedValue(minspeedLanes[i], country) +
+			html += '<div class="speedsign ' + size + '">' +
+						htmlMinspeedValue(minspeedLanes[i], country) +
 					'</div>';
 		}
-		html +=		'<div class="arrow">' + 
-      					'<div class="arrow-head"></div>' +
-      					'<div class="arrow-line"></div>' + 
-    				'</div>' + 
-  				'</div>';
+
+		// Turn lanes
+		if (turnLanes && turnLanes[i] && turnLanes[i] != 'none') {
+
+			var turnLane = turnLanes[i];
+			turnLane = turnLane.split(/;/g);
+
+			html += '<div class="spacer"></div>';
+
+			html +=	'<div class="arrow ' + size + '">' +
+						'<div class="arrow-line-base"></div>';
+
+			if (turnLane && turnLane.indexOf('through') != -1) {
+				html += '<div class="arrow-through">' +
+							'<div class="arrow-head"></div>' +
+							'<div class="arrow-line"></div>' +
+						'</div>';
+			}
+
+			if (turnLane && (turnLane.indexOf('slight_left') != -1 ||
+							 turnLane.indexOf('merge_to_left') != -1)) {
+				html += '<div class="arrow-slight-left">' +
+							'<div class="arrow-head"></div>' +
+							'<div class="arrow-line"></div>' +
+						'</div>';
+			}
+
+			if (turnLane && (turnLane.indexOf('slight_right') != -1 ||
+							 turnLane.indexOf('merge_to_right') != -1)) {
+				html += '<div class="arrow-slight-right">' +
+							'<div class="arrow-head"></div>' +
+							'<div class="arrow-line"></div>' +
+						'</div>';
+			}
+
+			if ((	(turnLane && turnLane.indexOf('left') != -1) ||
+				 	(turnLane && turnLane.indexOf('right') != -1)) &&
+				(	(turnLane && turnLane.indexOf('slight_left') != -1) ||
+					(turnLane && turnLane.indexOf('merge_to_left') != -1) ||
+					(turnLane && turnLane.indexOf('slight_right') != -1) ||
+					(turnLane && turnLane.indexOf('merge_to_right') != -1))) {
+					var offset = 'offset';
+				} else {
+					var offset = '';
+				}
+
+			if (turnLane && turnLane.indexOf('left') != -1) {
+				html += '<div class="arrow-left ' + offset + '">' + 
+							'<div class="arrow-head"></div>' +
+							'<div class="arrow-line"></div>' +
+						'</div>';
+			}
+
+			if (turnLane && turnLane.indexOf('right') != -1) {
+				html += '<div class="arrow-right ' + offset + '">' + 
+							'<div class="arrow-head"></div>' +
+							'<div class="arrow-line"></div>' + 
+						'</div>';
+			}
+
+			html += '</div>';
+		}
+
+		html += '</div>';
 	}
 
 	html += '</div>';
