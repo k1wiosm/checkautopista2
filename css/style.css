@@ -196,8 +196,6 @@ div.usStyle {
 div.subPanel {
 	border: white 3px solid;
 	border-radius: 10px;
-	width: calc(100% - 20px);
-	min-width: 150px;
 	margin: 2px;
 	padding: 5px;
 	color: white;
@@ -320,6 +318,21 @@ div.refText {
 
 div.intRefText {
 	background-color: green;
+}
+
+/* Lanes panel */
+
+div.panel.lanes {
+	margin-bottom: 5px;
+}
+
+div.panel.lanes .lanesHolder {
+	display: flex;
+}
+
+div.panel.lanes .lanesHolder .subPanel {
+	display: flex;
+	justify-content: center;
 }
 
 /* Maxspeed panel */

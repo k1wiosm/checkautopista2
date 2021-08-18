@@ -201,6 +201,11 @@ Way.prototype.sidebar = function () {
 	sidebar.open('info');
 }
 
+Way.prototype.sidebarDestinationLanes = function (lane) {
+	var country = fw[options.relID].country;
+	$('div#info div#destination-lanes').html(htmlDestinationLanes(this, lane, country));
+}
+
 Node.prototype.zoom = function () {
 	map.flyTo(this.marker.getLatLng(),15,{paddingTopLeft: [410,0]});
 }

@@ -176,8 +176,9 @@ function htmlInfo(element, country) {
 		};
 	};
 	if (element.type=='way') {
-		html += htmlSpeeds(element, country);
+		html += htmlDestinationLanes(element, null, country);
 		html += htmlLanes(element, country);
+		html += htmlSpeeds(element, country);
 	};
 	if (element.type=='node' || element.type=='way') {
 		html += htmlGenericInfo(element);
@@ -651,6 +652,206 @@ function htmlLanes (wayElement, country) {
 
 	return html;
 };
+
+function htmlDestinationLanes (wayElement, selectedLane, country) {
+	// Returns html code of destination panel of lanes
+
+	// Get lanes
+	if (wayElement && wayElement.tags['lanes']) {
+		var lanes = wayElement.tags['lanes'];
+	};
+
+	if (!lanes) {
+		return '';
+	};
+
+	// Get destination of lanes
+	if (wayElement && wayElement.tags["destination:lanes"]) {
+		var destinationLanes = wayElement.tags["destination:lanes"];
+		destinationLanes = destinationLanes.split(/\|/);
+	} else {
+		destinationLanes = [];
+	}
+
+	// Get destination:street of lanes
+	if (wayElement && wayElement.tags["destination:street:lanes"]) {
+		var destinationStreetLanes = wayElement.tags["destination:street:lanes"];
+		destinationStreetLanes = destinationStreetLanes.split(/\|/);
+	} else {
+		destinationStreetLanes = [];
+	}
+
+	// Get destination:ref of lanes
+	if (wayElement && wayElement.tags["destination:ref:lanes"]) {
+		var destinationRefLanes = wayElement.tags["destination:ref:lanes"];
+		destinationRefLanes = destinationRefLanes.split(/\|/);
+	} else {
+		destinationRefLanes = [];
+	}
+
+	// Get destination:int_ref of lanes
+	if (wayElement && wayElement.tags["destination:int_ref:lanes"]) {
+		var destinationIntRefLanes = wayElement.tags["destination:int_ref:lanes"];
+		destinationIntRefLanes = destinationIntRefLanes.split(/\|/);
+	} else {
+		destinationIntRefLanes = [];
+	}
+
+	// Get destination:symbol of lanes
+	if (wayElement && wayElement.tags["destination:symbol:lanes"]) {
+		var destinationSymbolLanes = wayElement.tags["destination:symbol:lanes"];
+		destinationSymbolLanes = destinationSymbolLanes.split(/\|/);
+	} else {
+		destinationSymbolLanes = [];
+	}
+
+	if (!destinationLanes.length && 
+		!destinationStreetLanes.length && 
+		!destinationRefLanes.length &&
+		!destinationIntRefLanes.length &&
+		!destinationSymbolLanes.length) {
+		return '';
+	}
+
+	if (country == 'US') {
+		var countryStyle = 'usStyle';
+	} else {
+		var countryStyle = 'euStyle';
+	}
+
+	html = '<div id="destination-lanes">' + 
+				'<div class="panel lanes ' + countryStyle + '">';
+
+	if (selectedLane != null) {
+
+		// Get destination of selected lane
+		if (destinationLanes && destinationLanes[selectedLane]) {
+			var destination = destinationLanes[selectedLane].split(/;/);
+		} else {
+			var destination = [];
+		}
+
+		// Get destination:street of selected lane
+		if (destinationStreetLanes && destinationStreetLanes[selectedLane]) {
+			var destinationStreet = destinationStreetLanes[selectedLane].split(/;/);
+		} else {
+			var destinationStreet = [];
+		}
+
+		// Get destination:ref of selected lane
+		if (destinationRefLanes && destinationRefLanes[selectedLane]) {
+			var destinationRef = destinationRefLanes[selectedLane].split(/;/);
+		} else {
+			var destinationRef = [];
+		}
+
+		// Get destination:int_ref of selected lane
+		if (destinationIntRefLanes && destinationIntRefLanes[selectedLane]) {
+			var destinationIntRef = destinationIntRefLanes[selectedLane].split(/;/);
+		} else {
+			var destinationIntRef = [];
+		}
+
+		// Get destination:symbol of selected lane
+		if (destinationSymbolLanes && destinationSymbolLanes[selectedLane]) {
+			var destinationSymbol = destinationSymbolLanes[selectedLane].split(/;/);
+		} else {
+			var destinationSymbol = [];
+		}
+
+		html += 	'<div class="subPanel destinationPanel">' +
+						'<table><tr>'+
+							'<td class="destinationCell">';
+
+		// Add destination
+		for (var i = 0; i < destination.length; i++) {
+			html += 			destination[i] + '</br>';
+		}
+
+		// Add destination:street
+		for (var i = 0; i < destinationStreet.length; i++) {
+			html += 			destinationStreet[i] + '</br>';
+		}
+
+		html += 			'</td>' +
+							'<td class="refCell">';
+
+		// Add destination:ref
+		for (var i = 0; i < destinationRef.length; i++) {
+			html += 			'<div class="refText">' + destinationRef[i] + '</div> ';
+		}
+
+		// Add destination:int_ref
+		for (var i = 0; i < destinationIntRef.length; i++) {
+			html += 			'<div class="intRefText">' + destinationIntRef[i] + '</div> ';
+		}
+
+		html += 			'</td>' +
+						'</tr></table>' + 
+						'<div class="symbolsHolder">';
+
+		// Add destination:symbol
+		for (var i = 0; i < destinationSymbol.length; i++) {
+			html += 		htmlSymbol(destinationSymbol[i], country);
+		}
+
+		html +=			'</div>' +
+					'</div>';
+	}
+
+	html += 		'<div class="lanesHolder">';
+
+	for (var i = 0; i < lanes; i++) {
+
+		if (i == selectedLane) {
+			var opacity = '1';
+			var link = null;
+		} else {
+			var opacity = '0.7';
+			var link = i;
+		}
+
+		var span = 1;
+		for (var j = 1; j + i < lanes; j++) {
+			if (destinationLanes[i + j] == destinationLanes[i] &&
+				destinationStreetLanes[i + j] == destinationStreetLanes[i] &&
+				destinationRefLanes[i + j] == destinationRefLanes[i] &&
+				destinationIntRefLanes[i + j] == destinationIntRefLanes[i] &&
+				destinationSymbolLanes[i + j] == destinationSymbolLanes[i]) {
+				var span = j + 1;
+			} else {
+				break;
+			}
+		}
+
+		if (destinationLanes[i] == destinationLanes[i - 1] &&
+			destinationStreetLanes[i] == destinationStreetLanes[i - 1] &&
+			destinationRefLanes[i] == destinationRefLanes[i - 1] &&
+			destinationIntRefLanes[i] == destinationIntRefLanes[i - 1] &&
+			destinationSymbolLanes[i] == destinationSymbolLanes[i - 1]) {
+			continue;
+		}
+
+		html +=			'<div style="flex-basis: 0; flex-grow: ' + span + '; opacity: ' + opacity + ';">';
+		if (destinationLanes[i] && destinationLanes[i] != 'none' ||
+			destinationStreetLanes[i] && destinationStreetLanes[i] != 'none' || 
+			destinationRefLanes[i] && destinationRefLanes[i] != 'none' ||
+			destinationIntRefLanes[i] && destinationIntRefLanes[i] != 'none' ||
+			destinationSymbolLanes[i] && destinationSymbolLanes[i] != 'none') {
+			html +=			'<div class="subPanel" onClick="way[' + wayElement.wayID + '].sidebarDestinationLanes(' + link + ');">' +
+								'<i class="fa fa-ellipsis-h"></i>' +
+							'</div>';
+		}
+		html +=			'</div>';
+	}
+
+	html += 		'</div>' +
+				'</div>' +
+			'</div>';
+
+	return html;
+
+}
 
 function htmlGenericInfo (element) {
 	// Returns html code showing generic info of a way or node
