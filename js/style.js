@@ -230,7 +230,7 @@ function htmlJunctionPanel (nodeElement, wayElement, country) {
 	if (wayElement && wayElement.tags['destination:symbol']!=undefined) {
 		var destSymbolArray = wayElement.tags['destination:symbol'].split(/;/g);
 		for (var i = 0; i < destSymbolArray.length; i++) {
-			dest_symbol += '<div class="symbol">'+htmlSymbol(destSymbolArray[i], country)+'</div> ';
+			dest_symbol += htmlSymbol(destSymbolArray[i], country);
 		};
 	};
 
@@ -346,6 +346,10 @@ function htmlSymbol (symbol, country) {
 		},
 	};
 
+	if (!symbol || symbol == 'none') {
+		return '';
+	}
+
 	if (country == 'US') {
 		country = 'us';
 	} else {
@@ -358,9 +362,9 @@ function htmlSymbol (symbol, country) {
 	};
 
 	if (img) {
-		return '<img src='+img+'></img>';
+		return '<div class="symbol"><img src=' + img + '></img></div> ';
 	} else {
-		return '<div class="unknownSymbol '+country+'Style">¿?</div>';
+		return '<div class="symbol"><div class="unknownSymbol ' + country + 'Style">¿?</div></div> ';
 	}
 }
 
