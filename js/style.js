@@ -268,7 +268,7 @@ function htmlSymbol (symbol, country) {
 			'us': 'https://upload.wikimedia.org/wikipedia/commons/6/60/MUTCD_RS-071.svg',
 		},
 		'airport': {
-			'eu': 'https://upload.wikimedia.org/wikipedia/commons/5/51/Italian_traffic_signs_-_icona_aeroporto.svg',
+			'eu': 'https://upload.wikimedia.org/wikipedia/commons/a/af/Italian_traffic_signs_-_simbolo_aeroporto_%28figura_II_116%29.svg',
 			'us': 'https://upload.wikimedia.org/wikipedia/commons/b/bf/MUTCD_I-5.svg',
 		},
 		'camp_site': {
@@ -276,7 +276,7 @@ function htmlSymbol (symbol, country) {
 			'us': 'https://upload.wikimedia.org/wikipedia/commons/4/45/MUTCD_D9-3.svg',
 		},
 		'centre': {
-			'eu': 'https://upload.wikimedia.org/wikipedia/commons/2/2a/Italian_traffic_signs_-_icona_centro.svg',
+			'eu': 'https://upload.wikimedia.org/wikipedia/commons/3/34/Italian_traffic_signs_-_simbolo_centro_%28figura_II_100%29.svg',
 		},
 		'ferry': {
 			'eu': 'https://upload.wikimedia.org/wikipedia/commons/9/92/Ferry.png',
@@ -304,14 +304,14 @@ function htmlSymbol (symbol, country) {
 			'us': 'https://upload.wikimedia.org/wikipedia/commons/6/6c/MUTCD_D9-11b.svg',
 		},
 		'hospital': {
-			'eu': 'https://upload.wikimedia.org/wikipedia/commons/8/8f/Italian_traffic_signs_-_icona_ospedale.svg',
+			'eu': 'https://upload.wikimedia.org/wikipedia/commons/f/f0/Italian_traffic_signs_-_simbolo_ospedale_%28figura_II_104%29.svg',
 			'us': 'https://upload.wikimedia.org/wikipedia/commons/f/fd/MUTCD_D9-2.svg',
 		},
 		'industrial': {
-			'eu': 'https://upload.wikimedia.org/wikipedia/commons/4/4e/RWB_Industriegebiet.svg',
+			'eu': 'https://upload.wikimedia.org/wikipedia/commons/0/0f/RWB-RWBA-Symbol_Industriegebiet%2C_Gewerbegebiet.svg',
 		},
 		'info': {
-			'eu': 'https://upload.wikimedia.org/wikipedia/commons/7/7e/Italian_traffic_signs_-_icona_informazioni.svg',
+			'eu': 'https://upload.wikimedia.org/wikipedia/commons/f/f5/Italian_traffic_signs_-_icona_informazioni_%28figura_II_108%29.svg',
 			'us': 'https://upload.wikimedia.org/wikipedia/commons/a/a4/MUTCD_D9-10.svg',
 		},
 		'lodging': {
